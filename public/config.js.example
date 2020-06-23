@@ -1,0 +1,25 @@
+window.env = {
+    authentication: {
+        manager: {
+            authority: "https://eid-systest-web01.dmz.local/idporten-oidc-provider",
+            client_id: "oidc_idporten_brukerprofil_oidc",
+            redirect_uri: "http://localhost:3000/login/response",
+            silent_redirect_uri: "http://localhost:3000/login/response",
+            post_logout_redirect_uri: "http://localhost:3000/logout/response",
+            response_type: "code",
+            scope: "openid profile idporten:authorizations.admin idporten:user.log.all.read",
+            acr_values: "Level3",
+            ui_locales: "nb",
+            loadUserInfo: false,
+            revokeAccessTokenOnSignout: true
+        }
+    },
+    authorizations: {
+        endpoint: "https://eid-systest-web01.dmz.local/authorizations",
+        health: "https://eid-systest-web01.dmz.local/authorizations/health"
+    },
+    eventlog: {
+        endpoint: "https://eid-systest-web01.dmz.local/eventlog-api/logg/idporten/all",
+        health: "https://eid-systest-web01.dmz.local/eventlog-api/health"
+    }
+};
