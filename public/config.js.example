@@ -14,12 +14,8 @@ window.env = {
             revokeAccessTokenOnSignout: true
         }
     },
-    authorizations: {
-        endpoint: "https://eid-systest-web01.dmz.local/authorizations",
-        health: "https://eid-systest-web01.dmz.local/authorizations/health"
-    },
-    eventlog: {
-        endpoint: "https://eid-systest-web01.dmz.local/eventlog-api/logg/idporten/all",
-        health: "https://eid-systest-web01.dmz.local/eventlog-api/health"
+    kontaktinfo: {
+        endpoint: "https://eid-systest-web01.dmz.local/kontaktinfo-oauth2-server",
+        health: "https://eid-systest-web01.dmz.local/kontaktinfo-oauth2-server/health"
     }
 };

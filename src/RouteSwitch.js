@@ -7,8 +7,7 @@ import LogoutResponse from "./pages/auth/LogoutResponse";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import Health from "./components/Health";
-import Consent from "./pages/Consent";
-import EventLog from "./pages/EventLog";
+import Kontaktinfo from "./pages/Kontaktinfo";
 import Home from "./pages/Home";
 import DefaultLayout from "./DefaultLayout";
 
@@ -22,8 +21,7 @@ class RouteSwitch extends React.Component {
                 <DefaultLayout exact path="/logout" component={Logout} />
                 <DefaultLayout exact path="/logout/response" component={LogoutResponse} />
                 <PrivateRoute exact path="/" component={Home} />
-                <PrivateRoute exact path="/consent" component={Consent} />
-                <PrivateRoute exact path="/event" component={EventLog} />
+                <PrivateRoute exact path="/kontaktinfo" component={Kontaktinfo} />
                 <DefaultLayout component={NotFound} />
             </Switch>
         );
