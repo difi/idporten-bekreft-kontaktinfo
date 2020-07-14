@@ -1,0 +1,76 @@
+# ===================================================================
+# Standard Spring Boot properties
+# ===================================================================
+project:
+  version: @project.version@
+
+server:
+  port: 8080
+  tomcat:
+    accesslog:
+      directory: /var/log/idporten-bekreft-kontaktinfo/
+      enabled: true
+      rotate: false
+      pattern: "%h\u0009%l\u0009%u\u0009%t\u0009\u0022%r\u0022\u0009%s\u0009%b\u0009%D\u0009%{no.difi.correlationId}i"
+    remote-ip-header: X-Forwarded-For
+  servlet:
+    session:
+      cookie:
+        secure: false
+        http-only: true
+
+# Spring boot actuator endpoint
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "health, info, version"
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+  info:
+    git:
+      mode: full
+  health:
+    mail:
+      enabled: false
+    diskspace:
+      enabled: false
+    metrics:
+      enabled: false
+
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  http:
+    encoding:
+      force: true
+
+  # Spring Security - OAuth 2 provider
+  security:
+    oauth2:
+      client:
+        provider:
+          idporten:
+            issuer-uri: https://eid-atest-web01.dmz.local/idporten-oidc-provider/
+            user-name-attribute: pid
+
+        registration:
+          idporten:
+            client-id: oidc_kim_tester_ting
+            client-secret: 6777029b-8b1a-485d-8dc4-2c3c5682e650
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile
+            provider: idporten
+            client-authentication-method: post
+
+# ===================================================================
+# Application specific properties
+# ===================================================================
+digdir:
+

@@ -1,0 +1,18 @@
+---
+classes:
+  - idporten_bekreft_kontaktinfo
+  - filebeat
+
+idporten_bekreft_kontaktinfo::component_version: 'DEV-SNAPSHOT'
+idporten_bekreft_kontaktinfo::idporten_oidc_provider_url: 'https://eid-atest-web01.dmz.local/idporten-oidc-provider'
+
+filebeat::inputs:
+  access:
+    paths:
+      - '/var/log/nginx/idporten-bekreft-kontaktinfo.access.log'
+    fields_under_root: true
+    fields:
+      application: idporten-bekreft-kontaktinfo
+      environment: ondemand
+      log_env : "${LOG_ENV:unset}"
+      log_type: 'access'

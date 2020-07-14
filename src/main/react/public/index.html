@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- uncomment next line when debugging CSP locally. Online evaluator at https://csp-evaluator.withgoogle.com/ -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; default-src 'self'; connect-src 'self' eid-systest-minid-web01.dmz.local; script-src 'self' 'nonce-$request_id' ajax.googleapis.com 'unsafe-inline' 'strict-dynamic'; style-src 'self' 'unsafe-inline' 'nonce-$request_id' fonts.googleapis.com; font-src  fonts.gstatic.com ; img-src 'self' data: ;  frame-ancestors 'none'; child-src 'self'; frame-src 'self'; require-trusted-types-for 'script'"> -->
+
+  <!-- nginx injects 'content="$request_id"' into tag below. Picked up by JSS when injecting styles - https://github.com/cssinjs/jss/blob/master/docs/csp.md -->
+  <meta property="csp-nonce">
+
+  <!-- preload scripts and fonts -->
+<!--  <link rel="preload" href="%PUBLIC_URL%/idporten-bekreft-kontaktinfo/config.js" as="script">-->
+  <link rel="preload" href="%PUBLIC_URL%/idporten-bekreft-kontaktinfo/locales/nb-NO/translation.json" as="fetch" crossorigin>
+
+  <% for (let index in htmlWebpackPlugin.files.js) { %>
+  <%   if(!htmlWebpackPlugin.files.js[index].includes('runtime')) { %>
+  <link rel="preload" href="<%= htmlWebpackPlugin.files.js[index] %>" as="script">
+  <%   } %>
+  <% } %>
+
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="//fonts.googleapis.com" crossorigin>
+
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
+
+  <link rel="dns-prefetch" href="//ajax.googleapis.com">
+  <link rel="preconnect" href="//ajax.googleapis.com" crossorigin>
+
+  <script type="text/javascript">
+    WebFontConfig = {
+      google: {families: ['Open Sans: 300,400,600,700:latin-ext&display=swap']}
+    };
+    (function () {
+      let wf = document.createElement('script');
+      wf.src = ('http:' === document.location.protocol ? 'http' : 'https') +
+              '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      let s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })(); </script>
+
+
+
+  <meta charset="utf-8"/>
+  <link rel="icon" href="%PUBLIC_URL%/idporten-bekreft-kontaktinfo/static/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#000000"/>
+  <meta name="description" content="Bekreft kontaktinformasjon"/>
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/idporten-bekreft-kontaktinfo/eid-logo.gif"/>
+  <link rel="manifest" href="%PUBLIC_URL%/idporten-bekreft-kontaktinfo/manifest.json"/>
+
+  <title>Bekreft Kontaktinformasjon</title>
+
+  <style>
+    body {
+      letter-spacing: .1px;
+      background-color: #f7f8fa;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.87);
+    }
+  </style>
+</head>
+<body>
+<noscript>Bekreft kontaktinformasjon</noscript>
+<!--<script src="%PUBLIC_URL%/config.js"></script>-->
+<div id="root"></div>
+</body>
+</html>
