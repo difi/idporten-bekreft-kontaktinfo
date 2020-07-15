@@ -5,8 +5,6 @@ import {API_BASE_URL} from "../index";
 
 export default class UIStore {
     @observable loadingCount = 0;
-    @observable showPinLetterWarning = false;
-    @observable features = new Features();
 
     constructor(mainStore) {
         this.mainStore = mainStore;

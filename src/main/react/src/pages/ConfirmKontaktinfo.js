@@ -9,6 +9,7 @@ import ContentInfoBox from "../common/ContentInfoBox";
 import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
+import SynchedInput from "../common/SynchedInput";
 
 const styles = (theme) => ({
     root: {
@@ -43,11 +44,15 @@ class ConfirmKontaktinfo extends Component {
 
     render() {
         const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+
         console.log("url: " + this.gotoUrl);
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
+                    <SynchedInput disabled={true} id="email" source={current.email} path="email" textKey="field.email" />
+                    <SynchedInput disabled={true} id="mobile" source={current.mobile} path="mobile" textKey="field.mobile" />
                     <DigdirButtons>
                         <DigdirButton textKey="button.confirm" component="a" href={kontaktinfoStore.gotoUrl} />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}

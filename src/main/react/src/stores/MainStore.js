@@ -1,9 +1,9 @@
 import KontaktinfoStore from "./KontaktinfoStore";
-// import UIStore from "./UIStore";
+import UIStore from "./UIStore";
 
 export default class MainStore {
     constructor() {
         this.kontaktinfoStore = new KontaktinfoStore(this);
-        // this.uiStore = new UIStore(this);
+        this.uiStore = new UIStore(this);
     }
 }

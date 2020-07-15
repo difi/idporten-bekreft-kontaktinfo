@@ -1,19 +1,17 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 // import ConsentCard from "../components/ConsentCard";
 import {inject, observer} from "mobx-react";
-import {Link} from "react-router-dom";
-import repeat from "lodash/repeat";
 
 import autobind from "autobind-decorator";
 // import consentStore from "../stores/ConsentStore";
 // import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {isEmpty} from "lodash";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import DigdirButtons from "../common/DigdirButtons";
 import ContentInfoBox from "../common/ContentInfoBox";
 import ContentBox from "../common/ContentBox";
 import SynchedInput from "../common/SynchedInput";
+
 // import ErrorBox from "../components/ErrorBox";
 
 @inject("kontaktinfoStore")
@@ -35,7 +33,6 @@ class ManglendeEpost extends Component {
         const {t, kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        console.log("url: " + this.gotoUrl);
         return (
             <div>
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
@@ -44,7 +41,7 @@ class ManglendeEpost extends Component {
                     <SynchedInput id="email" source={current.email} path="email" required textKey="field.email" autoFocus={true} onChangeCallback={this.compareMobile()} />
                     <SynchedInput id="emailRepeat" source={current.emailrepeat} path="emailrepeat" required textKey="field.emailrepeat" autoFocus={true} onChangeCallback={this.compareMobile()} />
                     <DigdirButtons>
-                        <DigdirButton textKey="button.skip" component="a" href={kontaktinfoStore.gotoUrl} />
+                        <DigdirButton textKey="button.skip"  />
                         <DigdirButton disabled={this.nextDisabled} textKey="button.next" component="a" href={kontaktinfoStore.gotoUrl} />
                     </DigdirButtons>
                 </DigdirForm>

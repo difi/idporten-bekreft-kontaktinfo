@@ -16,15 +16,8 @@ class RouteSwitch extends React.Component {
     render() {
         return (
             <Switch>
-                {/*<Route exact path="/health" component={Health} />*/}
-                {/*<DefaultLayout exact path="/login/response" component={LoginResponse} />*/}
-                {/*<DefaultLayout exact path="/login" component={Login} />*/}
-                {/*<DefaultLayout exact patfh="/logout" component={Logout} />*/}
-                {/*<DefaultLayout exact path="/logout/response" component={LogoutResponse} />*/}
-                {/*<PrivateRoute exact path="/" component={Home} />*/}
+                <PrivateRoute path={"/manglendeEpost"} component={ManglendeEpost} />
                 <PrivateRoute path={["/", "/kontaktinfo"]} component={Kontaktinfo} />
-                <PrivateRoute path={["/manglendeEpost"]} component={ManglendeEpost} />
-                {/*<PrivateRoute exact path="/manglendeEpost" component={ManglendeEpost} />*/}
                 {/*<DefaultLayout component={NotFound} />*/}
             </Switch>
         );
