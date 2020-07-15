@@ -10,6 +10,7 @@ import PrivateRoute from "./PrivateRoute";
 import Kontaktinfo from "./pages/ConfirmKontaktinfo";
 // import Home from "./pages/Home";
 import DefaultLayout from "./DefaultLayout";
+import ManglendeEpost from "./pages/ManglendeEpost";
 
 class RouteSwitch extends React.Component {
     render() {
@@ -18,10 +19,11 @@ class RouteSwitch extends React.Component {
                 {/*<Route exact path="/health" component={Health} />*/}
                 {/*<DefaultLayout exact path="/login/response" component={LoginResponse} />*/}
                 {/*<DefaultLayout exact path="/login" component={Login} />*/}
-                {/*<DefaultLayout exact path="/logout" component={Logout} />*/}
+                {/*<DefaultLayout exact patfh="/logout" component={Logout} />*/}
                 {/*<DefaultLayout exact path="/logout/response" component={LogoutResponse} />*/}
                 {/*<PrivateRoute exact path="/" component={Home} />*/}
-                <PrivateRoute path={["/","/kontaktinfo"]} component={Kontaktinfo} />
+                <PrivateRoute path={["/", "/kontaktinfo"]} component={Kontaktinfo} />
+                <PrivateRoute path={["/manglendeEpost"]} component={ManglendeEpost} />
                 {/*<PrivateRoute exact path="/manglendeEpost" component={ManglendeEpost} />*/}
                 {/*<DefaultLayout component={NotFound} />*/}
             </Switch>

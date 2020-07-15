@@ -8,6 +8,8 @@ export default class KontaktinfoStore {
     @observable gotoUrl = "";
     @observable code = "";
 
+    @observable current = new Kontaktinfo();
+
     constructor(mainStore) {
         this.mainStore = mainStore;
     }
@@ -55,8 +57,10 @@ export default class KontaktinfoStore {
 
 class Kontaktinfo {
 
-    @observable epost = "";
-    @observable mobilnr = "";
+    @observable email = "";
+    @observable emailrepeat = "";
+    @observable mobile = "";
+    @observable mobilerepeat = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
@@ -68,8 +72,8 @@ class Kontaktinfo {
         }
 
         let kontaktinformasjon = data.kontaktinformasjon || {};
-        this.epost = kontaktinformasjon.epostadresse || "";
-        this.mobilnr = kontaktinformasjon.mobiltelefonnummer || "";
+        this.email = kontaktinformasjon.epostadresse || "";
+        this.mobile = kontaktinformasjon.mobiltelefonnummer || "";
 
         let digitalPost = data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";

@@ -11,6 +11,9 @@ import {isEmpty} from "lodash";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import DigdirButtons from "../common/DigdirButtons";
+import ContentInfoBox from "../common/ContentInfoBox";
+import ContentBox from "../common/ContentBox";
+import SynchedInput from "../common/SynchedInput";
 // import ErrorBox from "../components/ErrorBox";
 
 @inject("kontaktinfoStore")
@@ -21,48 +24,33 @@ class ManglendeEpost extends Component {
     //     this.props.kontaktinfoStore.getKontaktinfo();
     // }
 
+    @autobind
+    compareMobile(e) {
+        const email = this.props.kontaktinfoStore.current.email;
+        const emailrepeat = this.props.kontaktinfoStore.current.emailrepeat;
+        this.nextDisabled = !(email.length > 0 && email === emailrepeat);
+    }
+
     render() {
-        const {kontaktinfoStore} = this.props;
+        const {t, kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
 
+        console.log("url: " + this.gotoUrl);
         return (
-            <main>
-                <div className="site-container">
-                    {!isEmpty(kontaktinfoStore.error)
-                        ?
-                        <div/>// <ErrorBox/>
-                        :
-                        <Fragment>
-                            <div className="site-container-header">
-                                <h1>Kontaktinformasjon</h1>
-                            </div>
-
-                            <div>
-                                <fieldset>
-                                    <div class={"notification with-Icon"}>
-                                        <p>
-                                            Du har ikke registert epostadresse.
-                                        </p>
-                                    </div>
-                                    <p>
-                                        Du bør benytte din private e-postadresse, for å sikre at ingen andre får tilgang til din personlige ID.
-                                    </p>
-                                    <div>
-                                        <label>E-post:</label>
-                                        <input autoFocus name="idporten.input.CONTAKTINFO_EMAIL" type="tel" id="idporten.input.CONTACTINFO_EMAIL"/>
-                                    </div>
-                                    <div>
-                                        <label>E-post:</label>
-                                        <input autoFocus name="idporten.input.CONTAKTINFO_EMAIL" type="tel" id="idporten.input.CONTACTINFO_EMAIL"/>
-                                    </div>
-
-                                </fieldset>
-                            </div>
-
-                        </Fragment>
-                    }
-                </div>
-            </main>
-        )}
+            <div>
+                <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
+                <ContentBox textKey="info.manglendeEpostLabel"  />
+                <DigdirForm id="registrerEpost" >
+                    <SynchedInput id="email" source={current.email} path="email" required textKey="field.email" autoFocus={true} onChangeCallback={this.compareMobile()} />
+                    <SynchedInput id="emailRepeat" source={current.emailrepeat} path="emailrepeat" required textKey="field.emailrepeat" autoFocus={true} onChangeCallback={this.compareMobile()} />
+                    <DigdirButtons>
+                        <DigdirButton textKey="button.skip" component="a" href={kontaktinfoStore.gotoUrl} />
+                        <DigdirButton disabled={this.nextDisabled} textKey="button.next" component="a" href={kontaktinfoStore.gotoUrl} />
+                    </DigdirButtons>
+                </DigdirForm>
+            </div>
+        );
+    }
 }
 
 export default ManglendeEpost;
