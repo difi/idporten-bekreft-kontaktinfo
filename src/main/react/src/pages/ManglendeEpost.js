@@ -30,7 +30,7 @@ class ManglendeEpost extends Component {
     }
 
     render() {
-        const {t, kontaktinfoStore} = this.props;
+        const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
         return (
