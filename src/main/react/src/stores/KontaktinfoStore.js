@@ -1,5 +1,5 @@
 import {action, observable} from 'mobx';
-import {AxiosInstance as axios} from "axios";
+import axios from "axios";
 import {API_BASE_URL} from "../index";
 
 
@@ -34,6 +34,9 @@ export default class KontaktinfoStore {
     fetchKontaktinfo(code) {
         return axios.get(API_BASE_URL + "/kontaktinfo")
             .then((response) => this.handleResponse(response))
+            .finally(() => {
+                //do nothing
+            });
     }
 
     // getAuthStub(resolve) {
@@ -43,7 +46,7 @@ export default class KontaktinfoStore {
 
     @action.bound
     handleResponse(response) {
-        this.kontaktinfo = new Kontaktinfo(response);
+        this.current = new Kontaktinfo(response);
     }
 
     @action.bound

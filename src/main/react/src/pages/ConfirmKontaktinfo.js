@@ -36,6 +36,7 @@ class ConfirmKontaktinfo extends Component {
         kontaktinfoStore.setGotoUrl(gotoParam);
         kontaktinfoStore.setCode(code);
         kontaktinfoStore.fetchKontaktinfo(code);
+        console.log(kontaktinfoStore.current);
     }
 
     @autobind

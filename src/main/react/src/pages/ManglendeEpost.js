@@ -36,7 +36,7 @@ class ManglendeEpost extends Component {
         return (
             <div>
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
-                <ContentBox textKey="info.manglendeEpostLabel"  />
+                {/*<ContentBox textKey="info.manglendeEpostLabel"  />*/}
                 <DigdirForm id="registrerEpost" >
                     <SynchedInput id="email" source={current.email} path="email" required textKey="field.email" autoFocus={true} onChangeCallback={this.compareMobile()} />
                     <SynchedInput id="emailRepeat" source={current.emailrepeat} path="emailrepeat" required textKey="field.emailrepeat" autoFocus={true} onChangeCallback={this.compareMobile()} />

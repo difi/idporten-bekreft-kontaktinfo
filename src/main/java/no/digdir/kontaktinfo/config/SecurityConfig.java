@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import java.util.concurrent.TimeUnit;
@@ -19,6 +21,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @RequiredArgsConstructor
+@EnableWebMvc
 @Import(SecurityProblemSupport.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -95,6 +98,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        ;
 //
 //    }
+
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
 
     public void configure(HttpSecurity http) throws Exception {
         http.csrf()

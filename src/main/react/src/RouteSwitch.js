@@ -16,8 +16,8 @@ class RouteSwitch extends React.Component {
     render() {
         return (
             <Switch>
-                <PrivateRoute path={["/", "/manglendeEpost"]} component={ManglendeEpost} />
-                {/*<PrivateRoute path={["/", "/kontaktinfo"]} component={Kontaktinfo} />*/}
+                <PrivateRoute path={"/manglendeEpost"} component={ManglendeEpost} />
+                <PrivateRoute path={["/", "/kontaktinfo"]} component={Kontaktinfo} />
                 {/*<DefaultLayout component={NotFound} />*/}
             </Switch>
         );
