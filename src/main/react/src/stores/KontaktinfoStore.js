@@ -1,4 +1,6 @@
 import {action, observable} from 'mobx';
+import axios from "axios";
+import {API_BASE_URL} from "../index";
 
 
 export default class KontaktinfoStore {
@@ -28,6 +30,15 @@ export default class KontaktinfoStore {
     getKontaktinfo() {
     }
 
+    @action.bound
+    fetchKontaktinfo(code) {
+        return axios.get(API_BASE_URL + "/kontaktinfo")
+            .then((response) => this.handleResponse(response))
+            .finally(() => {
+                //do nothing
+            });
+    }
+
     // getAuthStub(resolve) {
     //     const stub ={ data: require("../test/stubs/get-authorizations")};
     //     return resolve(stub);
@@ -35,7 +46,7 @@ export default class KontaktinfoStore {
 
     @action.bound
     handleResponse(response) {
-        this.kontaktinfo = new Kontaktinfo(response);
+        this.current = new Kontaktinfo(response);
     }
 
     @action.bound
@@ -57,10 +68,10 @@ export default class KontaktinfoStore {
 
 class Kontaktinfo {
 
-    @observable email = "";
-    @observable emailrepeat = "";
-    @observable mobile = "";
-    @observable mobilerepeat = "";
+    @observable epostadresse = "";
+    @observable epostadresseGjentatt = "";
+    @observable mobiltelefonnummer = "";
+    @observable mobiltelefonnummerGjentatt = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
@@ -71,11 +82,11 @@ class Kontaktinfo {
             return;
         }
 
-        let kontaktinformasjon = data.kontaktinformasjon || {};
-        this.email = kontaktinformasjon.epostadresse || "";
-        this.mobile = kontaktinformasjon.mobiltelefonnummer || "";
+        let kontaktinformasjon = data.data.kontaktinformasjon || {};
+        this.epostadresse = kontaktinformasjon.epostadresse || "";
+        this.mobiltelefonnummer = kontaktinformasjon.mobiltelefonnummer || "";
 
-        let digitalPost = data.digital_post || {};
+        let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
         this.digitalPostkasseLeverandoer = digitalPost.postkasseleverandoeradresse || "";
 
