@@ -29,10 +29,13 @@ const styles = (theme) => ({
 class ConfirmKontaktinfo extends Component {
 
     componentDidMount() {
+        const {kontaktinfoStore} = this.props;
+
         const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
         const code = new URLSearchParams(this.props.location.search).get("code");
-        this.props.kontaktinfoStore.setGotoUrl(gotoParam);
-        this.props.kontaktinfoStore.setCode(code);
+        kontaktinfoStore.setGotoUrl(gotoParam);
+        kontaktinfoStore.setCode(code);
+        kontaktinfoStore.fetchKontaktinfo(code);
     }
 
     @autobind

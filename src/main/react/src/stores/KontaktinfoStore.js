@@ -1,4 +1,6 @@
 import {action, observable} from 'mobx';
+import {AxiosInstance as axios} from "axios";
+import {API_BASE_URL} from "../index";
 
 
 export default class KontaktinfoStore {
@@ -26,6 +28,12 @@ export default class KontaktinfoStore {
 
     @action.bound
     getKontaktinfo() {
+    }
+
+    @action.bound
+    fetchKontaktinfo(code) {
+        return axios.get(API_BASE_URL + "/kontaktinfo")
+            .then((response) => this.handleResponse(response))
     }
 
     // getAuthStub(resolve) {
@@ -71,11 +79,11 @@ class Kontaktinfo {
             return;
         }
 
-        let kontaktinformasjon = data.kontaktinformasjon || {};
+        let kontaktinformasjon = data.kontaktinfo || {};
         this.email = kontaktinformasjon.epostadresse || "";
         this.mobile = kontaktinformasjon.mobiltelefonnummer || "";
 
-        let digitalPost = data.digital_post || {};
+        let digitalPost = data.digitalPost || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
         this.digitalPostkasseLeverandoer = digitalPost.postkasseleverandoeradresse || "";
 
