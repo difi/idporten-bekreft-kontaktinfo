@@ -68,10 +68,10 @@ export default class KontaktinfoStore {
 
 class Kontaktinfo {
 
-    @observable email = "";
-    @observable emailrepeat = "";
-    @observable mobile = "";
-    @observable mobilerepeat = "";
+    @observable epostadresse = "";
+    @observable epostadresseGjentatt = "";
+    @observable mobiltelefonnummer = "";
+    @observable mobiltelefonnummerGjentatt = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
@@ -82,11 +82,11 @@ class Kontaktinfo {
             return;
         }
 
-        let kontaktinformasjon = data.kontaktinfo || {};
-        this.email = kontaktinformasjon.epostadresse || "";
-        this.mobile = kontaktinformasjon.mobiltelefonnummer || "";
+        let kontaktinformasjon = data.data.kontaktinformasjon || {};
+        this.epostadresse = kontaktinformasjon.epostadresse || "";
+        this.mobiltelefonnummer = kontaktinformasjon.mobiltelefonnummer || "";
 
-        let digitalPost = data.digitalPost || {};
+        let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
         this.digitalPostkasseLeverandoer = digitalPost.postkasseleverandoeradresse || "";
 

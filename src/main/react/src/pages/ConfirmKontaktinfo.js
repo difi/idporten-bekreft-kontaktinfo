@@ -55,8 +55,8 @@ class ConfirmKontaktinfo extends Component {
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
-                    <SynchedInput disabled={true} id="email" source={current.email} path="email" textKey="field.email" />
-                    <SynchedInput disabled={true} id="mobile" source={current.mobile} path="mobile" textKey="field.mobile" />
+                    <SynchedInput disabled={true} id="email" source={current.epostadresse} path="email" textKey="field.email" />
+                    <SynchedInput disabled={true} id="mobile" source={current.mobiltelefonnummer} path="mobile" textKey="field.mobile" />
                     <DigdirButtons>
                         <DigdirButton textKey="button.confirm" component="a" href={kontaktinfoStore.gotoUrl} />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
