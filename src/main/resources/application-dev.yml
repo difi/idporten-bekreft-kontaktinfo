@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: INFO
+    no.digdir: DEBUG
+    sun.rmi: WARN
+    jdk.event: WARN
