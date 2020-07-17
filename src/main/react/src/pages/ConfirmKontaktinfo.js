@@ -29,6 +29,7 @@ const styles = (theme) => ({
 class ConfirmKontaktinfo extends Component {
 
     componentDidMount() {
+        console.log("Getting anywhere");
         const {kontaktinfoStore} = this.props;
 
         const gotoParam = new URLSearchParams(this.props.location.search).get("goto");

@@ -13,6 +13,11 @@ import DefaultLayout from "./DefaultLayout";
 import ManglendeEpost from "./pages/ManglendeEpost";
 
 class RouteSwitch extends React.Component {
+
+    componentDidMount() {
+        console.log("Compoinent");
+    }
+
     render() {
         return (
             <Switch>
