@@ -18,6 +18,7 @@ server:
       cookie:
         secure: false
         http-only: true
+#    context-path: /idporten-bekreft-kontaktinfo
 
 # Spring boot actuator endpoint
 management:
@@ -56,7 +57,7 @@ spring:
       client:
         provider:
           idporten:
-            issuer-uri: https://eid-systest-web01.dmz.local/idporten-oidc-provider/
+            issuer-uri: https://oidc.difi.no/idporten-oidc-provider/
             user-name-attribute: pid
 
         registration:
