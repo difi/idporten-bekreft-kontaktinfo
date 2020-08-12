@@ -8,11 +8,10 @@ class idporten_bekreft_kontaktinfo::params {
   $log_root                                        = '/var/log/'
   $log_level                                       = 'WARN'
   $application                                 = 'idporten-bekreft-kontaktinfo'
-  $app_root                                    = "${install_dir}/${application}"
-  $service_name                                = "${application}"
-
-  $group_id                                    = 'no.digdir'
+  $service_name                                = 'idporten-bekreft-kontaktinfo'
   $artifact_id                                 = 'idporten-bekreft-kontaktinfo'
+  $group_id                                    = 'no.digdir'
+
   $oidc_provider_url            = hiera('idporten_bekreft_kontaktinfo::idporten_oidc_provider_url')
 
   $server_port                                 = 8080

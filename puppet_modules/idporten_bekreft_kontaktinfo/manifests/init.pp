@@ -3,7 +3,6 @@ class idporten_bekreft_kontaktinfo (
   String $install_dir                                  = $idporten_bekreft_kontaktinfo::params::install_dir,
   String $application                                  = $idporten_bekreft_kontaktinfo::params::application,
   String $log_root                                     = $idporten_bekreft_kontaktinfo::params::log_root,
-  String $app_root                                     = $idporten_bekreft_kontaktinfo::params::app_root,
   String $app_context_path                             = $idporten_bekreft_kontaktinfo::params::app_context_path,
   String $group_id                                     = $idporten_bekreft_kontaktinfo::params::group_id,
   String $artifact_id                                  = $idporten_bekreft_kontaktinfo::params::artifact_id,
