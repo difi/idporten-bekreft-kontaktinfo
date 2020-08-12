@@ -12,6 +12,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>no.digdir</groupId>
     <artifactId>idporten-bekreft-kontaktinfo</artifactId>
     <name>ID-porten bekreft kontaktinfo</name>
     <version>DEV-SNAPSHOT</version>

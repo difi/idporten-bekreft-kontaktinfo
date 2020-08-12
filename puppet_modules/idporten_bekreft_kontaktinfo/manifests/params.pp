@@ -11,7 +11,7 @@ class idporten_bekreft_kontaktinfo::params {
   $app_root                                    = "${install_dir}/${application}"
   $service_name                                = "${application}"
 
-  $group_id                                    = 'no.difi'
+  $group_id                                    = 'no.digdir'
   $artifact_id                                 = 'idporten-bekreft-kontaktinfo'
   $oidc_provider_url            = hiera('idporten_bekreft_kontaktinfo::idporten_oidc_provider_url')
 
