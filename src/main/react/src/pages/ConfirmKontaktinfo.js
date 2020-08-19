@@ -34,10 +34,11 @@ class ConfirmKontaktinfo extends Component {
 
         const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
         const code = new URLSearchParams(this.props.location.search).get("code");
+        const fnr = new URLSearchParams(this.props.location.search).get("fnr");
         kontaktinfoStore.setGotoUrl(gotoParam);
         kontaktinfoStore.setCode(code);
-        //Her skal vi kalle idporten
-        kontaktinfoStore.fetchKontaktinfo(code);
+        kontaktinfoStore.fetchKontaktinfo(fnr);
+
         console.log(kontaktinfoStore.current);
     }
 

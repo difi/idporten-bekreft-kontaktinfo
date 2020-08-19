@@ -2,24 +2,33 @@ package no.digdir.kontaktinfo.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import no.difi.kontaktregister.dto.UserDetailResource;
+import no.difi.kontaktregister.dto.UserResource;
+import no.idporten.domain.user.PersonNumber;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Getter
 @Setter
-//@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonResource {
 
-    @JsonProperty(value = "personidentifikator", required = true)
-    private String personIdentifier;
+    @JsonProperty(value = "personIdentifikator", required = true)
+    private String personIdentifikator;
 
-    @JsonProperty(value = "reservasjon", required = true)
+    @JsonProperty(value = "lastUpdated")
+    private Date lastUpdated;
+
+    @JsonProperty(value = "reservasjon")
     private String reserved;
 
-    @JsonProperty(value = "status", required = true)
+    @JsonProperty(value = "status")
     private String status;
 
     @JsonProperty(value = "varslingsstatus")
@@ -40,5 +49,70 @@ public class PersonResource {
     @JsonProperty(value = "spraak_oppdatert")
     private String languageUpdated;
 
+    @JsonProperty(value = "showDpiInfo")
+    private boolean showDpiInfo;
+
+    @JsonProperty(value = "shouldUpdateKontaktinfo")
+    private Boolean shouldUpdateKontaktinfo;
+
+    public static PersonResource fromUserDetailResource(UserDetailResource userDetailResource, Integer tipDaysUser) {
+        final UserResource userResource = userDetailResource.getUser();
+        KontaktinfoResource kontaktinfo = KontaktinfoResource.builder()
+        .email(userResource.getEmail())
+        .emailUpdated(userResource.getEmail())
+                .mobile(userResource.getMobile())
+                .mobileUpdated(userResource.getMobile())
+                .build();
+        boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);
+
+        PersonResource personResource = PersonResource.builder()
+                .personIdentifikator(userResource.getSsn())
+                .kontaktinfo(kontaktinfo)
+                .showDpiInfo(showDpiInfo)
+                .lastUpdated(userResource.getLastUpdated())
+                .shouldUpdateKontaktinfo(shouldUpdateKontaktinfo(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
+                .build();
+
+        return personResource;
+    }
+
+    public static boolean shouldUpdateKontaktinfo(Date lastUpdated, Integer tipDaysUser) {
+        LocalDate lastUpdatedDate = lastUpdated.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
+    }
+
+    public static PersonResource fromPersonIdentifier(String personIdentifikator) {
+        return PersonResource.builder()
+                .personIdentifikator(personIdentifikator)
+                .build();
+    }
+
+    private static boolean showDpiInfo(UserDetailResource userDetailResource, UserResource userResource) {
+        //  Må finne en fornuftig featureswitch her
+        //        if (spTurnOffDpiInfo) {
+//            return false;
+//        }
+
+        if (userResource.isReserved()) {
+            return false;
+        }
+        if (userDetailResource.getActivePostbox() != null && userDetailResource.getActivePostbox().isActive()) {
+            return false;
+        }
+
+        if(userResource.getEmail() == null || userResource.getEmail().trim().equals("")){
+            return false;
+        }
+
+        final PersonNumber personNumber = new PersonNumber(userResource.getSsn());
+        if(personNumber.isDnummer()){
+            return true;
+        }
+        if (personNumber.isYoungerThan18()) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

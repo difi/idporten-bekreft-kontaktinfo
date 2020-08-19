@@ -31,13 +31,18 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    fetchKontaktinfo(code) {
-        return axios.get(API_BASE_URL + "/kontaktinfo")
+    fetchKontaktinfo(fnr) {
+        console.log("fetchKontaktinfo: " + fnr);
+        return axios.get(API_BASE_URL + "/kontaktinfo?" + fnr)
             .then((response) => this.handleResponse(response))
             .finally(() => {
                 //do nothing
             });
     }
+
+    //TODO:
+    //axios.get(api/kontaktinfo/fnr)
+
 
     // getAuthStub(resolve) {
     //     const stub ={ data: require("../test/stubs/get-authorizations")};
@@ -76,6 +81,7 @@ class Kontaktinfo {
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
     @observable reservasjon = "";
+    @observable shouldUpdateKontaktinfo = false;
 
     constructor(data) {
         if(typeof data === "undefined") {
@@ -92,6 +98,7 @@ class Kontaktinfo {
 
         this.spraak = data.spraak || "";
         this.reservasjon = data.reservasjon || "";
+        this.shouldUpdateKontaktinfo = data.shouldUpdateKontaktinfo;
     }
 
 }

@@ -7,6 +7,10 @@ class idporten_bekreft_kontaktinfo (
   String $group_id                                     = $idporten_bekreft_kontaktinfo::params::group_id,
   String $artifact_id                                  = $idporten_bekreft_kontaktinfo::params::artifact_id,
   Integer $server_port                                 = $idporten_bekreft_kontaktinfo::params::server_port,
+  String $krr_backend_url                              = $idporten_bekreft_kontaktinfo::params::krr_backend_url,
+  Integer $krr_backend_read_timeout                    = $idporten_bekreft_kontaktinfo::params::krr_backend_read_timeout,
+  Integer $krr_backend_connect_timeout                 = $idporten_bekreft_kontaktinfo::params::krr_backend_connect_timeout,
+  Integer $krr_tip_days_user                           = $idporten_bekreft_kontaktinfo::params::krr_tip_days_user
 
 ) inherits idporten_bekreft_kontaktinfo::params {
 
