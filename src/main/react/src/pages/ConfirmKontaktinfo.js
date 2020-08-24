@@ -90,7 +90,7 @@ class ConfirmKontaktinfo extends Component {
                     <SynchedInput disabled={true} id="mobile" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
                     {/*<DigdirIconButton>onClick={this.handleEditMobilnr()}</DigdirIconButton>*/}
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" component="a" href={kontaktinfoStore.gotoUrl} />
+                        <DigdirButton textKey="button.confirm" action={kontaktinfoStore.gotoUrl} />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
                     </DigdirButtons>
                 </DigdirForm>
