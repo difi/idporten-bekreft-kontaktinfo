@@ -27,17 +27,13 @@ const styles = (theme) => ({
 
 @inject("kontaktinfoStore")
 @observer
-class ConfirmKontaktinfo extends Component {
+class EditMobilnr extends Component {
 
     componentDidMount() {
-        console.log("componentDidMount");
+        console.log("Edit email");
         const {kontaktinfoStore} = this.props;
 
-        const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
-        const code = new URLSearchParams(this.props.location.search).get("code");
         const fnr = new URLSearchParams(this.props.location.search).get("fnr");
-        kontaktinfoStore.setGotoUrl(gotoParam);
-        kontaktinfoStore.setCode(code);
         kontaktinfoStore.fetchKontaktinfo(fnr);
 
         console.log(kontaktinfoStore.current);
@@ -46,32 +42,16 @@ class ConfirmKontaktinfo extends Component {
     @autobind
     handleSubmit(e) {
         const {kontaktinfoStore} = this.props;
-        console.log("handlesubmit1: " + e);
+        console.log("handlesubmit edit Email: " + e);
         window.location = this.props.kontaktinfoStore.gotoUrl;
     }
 
     @autobind
-    handleCancel(e) {
-
-    }
-
-    @autobind
-    handleEditMobilnr(e) {
-        console.log("rediger tlf");
-        // this.props.history.push({
-        //     pathname: '/editMobile',
-        //     state: {previousScreen: 3}
-        // });
-    }
-
-
-    @autobind
-    handleEditEpost(e) {
-        console.log("rediger epost");
-        // this.props.history.push({
-        //     pathname: '/editEmail',
-        //     state: {previousScreen: 3}
-        // });
+    handleCommit(e) {
+        this.props.history.push({
+            pathname: '/kontaktinfo',
+            state: {previousScreen: 3}
+        });
     }
 
     render() {
@@ -82,14 +62,11 @@ class ConfirmKontaktinfo extends Component {
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
-                    <SynchedInput disabled={true} id="email" source={current.epost} path="epost" textKey="field.epost" />
-                    <DigdirIconButton>onClick={this.handleEditEpost()}</DigdirIconButton>
-                    {/*<DigdirIconButton></DigdirIconButton>*/}
-                    <SynchedInput disabled={true} id="mobile" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
-                    {/*<DigdirIconButton>onClick={this.handleEditMobilnr()}</DigdirIconButton>*/}
+                <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
+                    <SynchedInput disabled={true} id="mobilnr" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
+                    <SynchedInput disabled={true} id="mobilnrBekreftet" source={current.mobilnrBekreftet} path="mobilnrBekreftet" textKey="field.mobilnrBekreftet" />
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" component="a" href={kontaktinfoStore.gotoUrl} />
+                        <DigdirButton textKey="button.confirm" />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
                     </DigdirButtons>
                 </DigdirForm>
@@ -99,5 +76,5 @@ class ConfirmKontaktinfo extends Component {
 }
 
 const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(ConfirmKontaktinfo);
+export default compose(withStyles(styles), withTranslation())(EditMobilnr);
 

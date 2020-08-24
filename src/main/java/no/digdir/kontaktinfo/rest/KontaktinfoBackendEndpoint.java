@@ -10,6 +10,7 @@ import no.digdir.kontaktinfo.domain.PersonResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -32,12 +33,13 @@ public class KontaktinfoBackendEndpoint {
     private KrrConfigProvider krrConfigProvider;
 
     @GetMapping("/kontaktinfo/{fnr}")
-    public PersonResource getKontaktinfo(String fnr) {
+    public PersonResource getKontaktinfo(@PathVariable String fnr) {
         //TODO: kall idporten for å få fødselsnummer til code
         //TODO: Kall kontaktinfo-backend for å få kontaktinfo for fødselsnummer
 //        return createKontaktinfoStub();
-        log.info("kontaktinfo: " + fnr);
-        return getKontaktinfoForFnr(fnr);
+        log.info("kommet til kontaktinfo: " + fnr);
+        PersonResource kontaktinfoForFnr = getKontaktinfoForFnr(fnr);
+        return kontaktinfoForFnr;
     }
 
     private PersonResource getKontaktinfoForFnr(String fnr) {

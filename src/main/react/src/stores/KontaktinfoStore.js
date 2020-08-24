@@ -32,7 +32,7 @@ export default class KontaktinfoStore {
 
     @action.bound
     fetchKontaktinfo(fnr) {
-        console.log("fetchKontaktinfo: " + fnr);
+        console.log("fetchKontaktinfo: " + (API_BASE_URL + "/kontaktinfo?" + fnr));
         return axios.get(API_BASE_URL + "/kontaktinfo?" + fnr)
             .then((response) => this.handleResponse(response))
             .finally(() => {
@@ -73,10 +73,10 @@ export default class KontaktinfoStore {
 
 class Kontaktinfo {
 
-    @observable epostadresse = "";
-    @observable epostadresseGjentatt = "";
-    @observable mobiltelefonnummer = "";
-    @observable mobiltelefonnummerGjentatt = "";
+    @observable epost = "";
+    @observable epostBekreftet = "";
+    @observable mobilnr = "";
+    @observable mobilnrBekreftet = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
@@ -89,8 +89,8 @@ class Kontaktinfo {
         }
 
         let kontaktinformasjon = data.data.kontaktinformasjon || {};
-        this.epostadresse = kontaktinformasjon.epostadresse || "";
-        this.mobiltelefonnummer = kontaktinformasjon.mobiltelefonnummer || "";
+        this.epost = kontaktinformasjon.epost || "";
+        this.mobilnr = kontaktinformasjon.mobilnr || "";
 
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
