@@ -61,6 +61,11 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
+    handleReturnToIdporten() {
+        axios.post(this.gotoUrl);
+    }
+
+    @action.bound
     configGoto(goto_url) {
         window.sessionStorage.clear();
         sessionStorage.setItem("goto_url", goto_url);

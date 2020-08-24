@@ -47,7 +47,8 @@ class ConfirmKontaktinfo extends Component {
     handleSubmit(e) {
         const {kontaktinfoStore} = this.props;
         console.log("handlesubmit1: " + e);
-        window.location = this.props.kontaktinfoStore.gotoUrl;
+        // window.location = this.props.kontaktinfoStore.gotoUrl;
+        kontaktinfoStore.handleReturnToIdporten()
     }
 
     @autobind

@@ -9,10 +9,7 @@ import no.digdir.kontaktinfo.domain.KontaktinfoResource;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -42,6 +39,11 @@ public class KontaktinfoBackendEndpoint {
         return kontaktinfoForFnr;
     }
 
+    @PostMapping("/test")
+    public String testPost() {
+        return "Denne fungerer ";
+    }
+
     private PersonResource getKontaktinfoForFnr(String fnr) {
         log.info("fnr: " + fnr);
         String fnrForTest = fnr == null ? "23079421936" : fnr;
@@ -69,7 +71,6 @@ public class KontaktinfoBackendEndpoint {
                 .digitalPost(digitalPost)
                 .build();
     }
-
 
     protected HttpEntity<Object> createHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
