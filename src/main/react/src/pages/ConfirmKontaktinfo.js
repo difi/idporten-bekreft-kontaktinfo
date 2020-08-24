@@ -11,6 +11,9 @@ import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import DigdirIconButton from "../common/DigdirIconButton";
+import { Edit } from '@material-ui/icons';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = (theme) => ({
     root: {
@@ -84,8 +87,22 @@ class ConfirmKontaktinfo extends Component {
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
-                    <SynchedInput disabled={true} id="email" source={current.epost} path="epost" textKey="field.epost" />
-                    <DigdirIconButton>onClick={this.handleEditEpost()}</DigdirIconButton>
+                    <SynchedInput
+                        disabled={true}
+                        id="email"
+                        source={current.epost}
+                        path="epost"
+                        textKey="field.epost"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={e => {console.log("You clicked edit! :)")}}><Edit/></IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+
+                    {/*<DigdirIconButton>onClick={this.handleEditEpost()}</DigdirIconButton>*/}
                     {/*<DigdirIconButton></DigdirIconButton>*/}
                     <SynchedInput disabled={true} id="mobile" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
                     {/*<DigdirIconButton>onClick={this.handleEditMobilnr()}</DigdirIconButton>*/}
