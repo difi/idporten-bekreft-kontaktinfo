@@ -11,15 +11,19 @@ import {SnackbarProvider} from "notistack";
 import MainStore from "./stores/MainStore";
 
 import './i18n';
+import * as axios from "axios";
 
 const stores = {
     kontaktinfoStore
 };
 
 // api url
-export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : "";
-export const API_BASE_URL = SERVER_API_URL + "/api";
+// export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : "";
+export const SERVER_API_URL = "http://localhost:8080";
+export const API_BASE_URL = SERVER_API_URL + "/idporten-bekreft-kontaktinfo/api";
 
+// default options for axios
+axios.defaults.withCredentials = true;
 // Only import dev tools if we are outside production build, else just use Fragment
 // const DevTools = (process.env.NODE_ENV === 'development') ? require('mobx-react-devtools').default : Fragment;
 

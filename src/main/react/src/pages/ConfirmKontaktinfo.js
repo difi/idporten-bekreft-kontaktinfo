@@ -10,6 +10,10 @@ import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
+import DigdirIconButton from "../common/DigdirIconButton";
+import { Edit } from '@material-ui/icons';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = (theme) => ({
     root: {
@@ -29,15 +33,16 @@ const styles = (theme) => ({
 class ConfirmKontaktinfo extends Component {
 
     componentDidMount() {
-        console.log("Getting anywhere");
+        console.log("componentDidMount");
         const {kontaktinfoStore} = this.props;
 
         const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
         const code = new URLSearchParams(this.props.location.search).get("code");
+        const fnr = new URLSearchParams(this.props.location.search).get("fnr");
         kontaktinfoStore.setGotoUrl(gotoParam);
         kontaktinfoStore.setCode(code);
-        //Her skal vi kalle idporten
-        kontaktinfoStore.fetchKontaktinfo(code);
+        kontaktinfoStore.fetchKontaktinfo(fnr);
+
         console.log(kontaktinfoStore.current);
     }
 
@@ -45,7 +50,32 @@ class ConfirmKontaktinfo extends Component {
     handleSubmit(e) {
         const {kontaktinfoStore} = this.props;
         console.log("handlesubmit1: " + e);
-        window.location = this.props.kontaktinfoStore.gotoUrl;
+        // window.location = this.props.kontaktinfoStore.gotoUrl;
+        kontaktinfoStore.handleReturnToIdporten()
+    }
+
+    @autobind
+    handleCancel(e) {
+
+    }
+
+    @autobind
+    handleEditMobilnr(e) {
+        console.log("rediger tlf");
+        // this.props.history.push({
+        //     pathname: '/editMobile',
+        //     state: {previousScreen: 3}
+        // });
+    }
+
+
+    @autobind
+    handleEditEpost(e) {
+        console.log("rediger epost");
+        // this.props.history.push({
+        //     pathname: '/editEmail',
+        //     state: {previousScreen: 3}
+        // });
     }
 
     render() {
@@ -56,12 +86,27 @@ class ConfirmKontaktinfo extends Component {
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
-                    <SynchedInput disabled={true} id="email" source={current.epostadresse} path="email" textKey="field.email" />
-                    <SynchedInput disabled={true} id="mobile" source={current.mobiltelefonnummer} path="mobile" textKey="field.mobile" />
+                {/*<DigdirForm id="bekreftKontaktinfo" action={kontaktinfoStore.gotoUrl} onSubmitCallback={this.handleSubmit}>*/}
+                <DigdirForm id="bekreftKontaktinfo" action={kontaktinfoStore.gotoUrl} >
+                    <SynchedInput
+                        disabled={true}
+                        id="email"
+                        source={current.epost}
+                        path="epost"
+                        textKey="field.epost"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={e => {console.log("You clicked edit! :)")}}><Edit/></IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+
+                    <SynchedInput disabled={true} id="mobile" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
+                    {/*<DigdirIconButton>onClick={this.handleEditMobilnr()}</DigdirIconButton>*/}
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" component="a" href={kontaktinfoStore.gotoUrl} />
-                        {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
+                        <DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />
                     </DigdirButtons>
                 </DigdirForm>
             </div>

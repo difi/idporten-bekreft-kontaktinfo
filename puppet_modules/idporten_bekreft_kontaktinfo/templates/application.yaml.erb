@@ -20,5 +20,10 @@ spring:
 # ===================================================================
 # Application specific properties
 # ===================================================================
-#digdir:
+krr:
+  url: <%= @krr_backend_url %>
+  timeout:
+    read: <%= @krr_backend_read_timeout %>
+    connect: <%= @krr_backend_connect_timeout %>
+  tip_days_user: <%= @krr_tip_days_user %>
 

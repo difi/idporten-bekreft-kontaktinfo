@@ -1,6 +1,21 @@
 version: '3.5'
 
 services:
+  idporten-bekreft-kontaktinfo:
+    image: ${REGISTRY}/idporten-bekreft-kontaktinfo:${VERSION}
+    ports:
+      - 8080
+    extra_hosts:
+      - "eid-elk-app01.dmz.local:10.243.220.21"
+    configs:
+      - log_config
+    networks:
+      atest:
+    dns: 8.8.8.8
+    deploy:
+      placement:
+        constraints:
+          - node.labels.atest == true
   desktop:
     image: consol/centos-xfce-vnc
     networks:

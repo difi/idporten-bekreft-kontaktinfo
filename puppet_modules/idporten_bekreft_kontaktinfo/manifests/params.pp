@@ -11,6 +11,10 @@ class idporten_bekreft_kontaktinfo::params {
   $service_name                                = 'idporten-bekreft-kontaktinfo'
   $artifact_id                                 = 'idporten-bekreft-kontaktinfo'
   $group_id                                    = 'no.digdir'
+  $krr_backend_url                             = hiera('kontaktinfo_backend::url')
+  $krr_backend_read_timeout       = 10000
+  $krr_backend_connect_timeout    = 10000
+  $krr_tip_days_user              = 90
 
   $oidc_provider_url            = hiera('idporten_bekreft_kontaktinfo::idporten_oidc_provider_url')
 

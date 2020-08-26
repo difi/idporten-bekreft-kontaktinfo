@@ -18,6 +18,7 @@ server:
       cookie:
         secure: false
         http-only: true
+    context-path: /idporten-bekreft-kontaktinfo
 
 # Spring boot actuator endpoint
 management:
@@ -72,5 +73,13 @@ spring:
 # ===================================================================
 # Application specific properties
 # ===================================================================
-digdir:
+krr:
+  url: 'http://eid-systest-admin01.dmz.local:10002/kontaktinfo-backend'
+  timeout:
+    read: 10000
+    connect: 10000
+  tip_days_user: 5
+
+
+
 

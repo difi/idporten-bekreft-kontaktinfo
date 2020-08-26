@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf().disable();
         http
             .sessionManagement().sessionFixation().migrateSession()
         .and()
@@ -50,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
             .authorizeRequests()
             .anyRequest().permitAll()
-//            .antMatchers("/health", "/info", "/version").permitAll()
+//            .antM/atchers("/health", "/info", "/versi/on").permitAll()
         ;
 
     }
