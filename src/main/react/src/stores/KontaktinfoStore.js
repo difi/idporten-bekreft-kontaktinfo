@@ -62,7 +62,7 @@ export default class KontaktinfoStore {
 
     @action.bound
     handleReturnToIdporten() {
-        axios.post(this.gotoUrl);
+        // axios.post(this.gotoUrl);
     }
 
     @action.bound

@@ -86,7 +86,8 @@ class ConfirmKontaktinfo extends Component {
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
+                {/*<DigdirForm id="bekreftKontaktinfo" action={kontaktinfoStore.gotoUrl} onSubmitCallback={this.handleSubmit}>*/}
+                <DigdirForm id="bekreftKontaktinfo" action={kontaktinfoStore.gotoUrl} >
                     <SynchedInput
                         disabled={true}
                         id="email"
@@ -102,13 +103,10 @@ class ConfirmKontaktinfo extends Component {
                         }}
                     />
 
-                    {/*<DigdirIconButton>onClick={this.handleEditEpost()}</DigdirIconButton>*/}
-                    {/*<DigdirIconButton></DigdirIconButton>*/}
                     <SynchedInput disabled={true} id="mobile" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
                     {/*<DigdirIconButton>onClick={this.handleEditMobilnr()}</DigdirIconButton>*/}
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" action={kontaktinfoStore.gotoUrl} />
-                        {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
+                        <DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />
                     </DigdirButtons>
                 </DigdirForm>
             </div>
