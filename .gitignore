@@ -13,6 +13,7 @@ target/
 /docker/idporten-bekreft-kontaktinfo/puppet_hiera/*/
 /docker/idporten-bekreft-kontaktinfo/puppet_modules/*/
 /docker/idporten-bekreft-kontaktinfo/jar/*.jar
+/docker/log_config
 
 ### IntelliJ IDEA ###
 .idea
