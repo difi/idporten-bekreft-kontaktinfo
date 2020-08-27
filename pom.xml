@@ -36,6 +36,8 @@
         <yarn.version>v1.22.4</yarn.version>
         <spring-security-test.version>5.3.1.RELEASE</spring-security-test.version>
         <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+        <eid.common.version>2020-06-29-1322-841ed34</eid.common.version>
+        <idporten.common.version>2020-05-28-1255-7f7fe4c</idporten.common.version>
     </properties>
 
     <dependencyManagement>
@@ -80,6 +82,22 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+
+        <!-- ********************************************** -->
+        <!-- * Digitaliseringsdirektoratet dependencies   * -->
+        <!-- ********************************************** -->
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>kontaktinfo-lib-common</artifactId>
+            <version>${eid.common.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>idporten-lib-common-pojo</artifactId>
+            <version>${idporten.common.version}</version>
+        </dependency>
+
 
         <!-- ****************************** -->
         <!-- * Third party dependencies   * -->

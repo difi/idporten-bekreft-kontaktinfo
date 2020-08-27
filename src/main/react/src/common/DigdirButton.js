@@ -21,6 +21,7 @@ const styles = (theme) => ({
         display: "flex",
         borderRadius: "4px",
         outline: "0",
+        class: "fa fa-pencil",
         border: "0",
         '&:hover': {
             borderColor: "#9fa9b4",
@@ -57,7 +58,7 @@ const styles = (theme) => ({
 });
 
 
-class DigdirButton extends Component {
+class DigdirIconButton extends Component {
 
     render() {
         const { classes, textKey, text, grey, t, tReady, ...rest } = this.props;
@@ -65,7 +66,7 @@ class DigdirButton extends Component {
         const buttonText = text ? text : t(textKey);
 
         return (
-            <Button className={classes.root} variant="contained" data-grey={grey} disableElevation {...rest}>
+            <Button className={classes.root} variant="outlined" data-grey={grey} disableElevation {...rest}>
                 {buttonText}
             </Button>
 
@@ -75,4 +76,4 @@ class DigdirButton extends Component {
 }
 
 const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(DigdirButton);
+export default compose(withStyles(styles), withTranslation())(DigdirIconButton);
