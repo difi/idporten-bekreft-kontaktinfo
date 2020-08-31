@@ -44,7 +44,7 @@ class ConfirmKontaktinfo extends Component {
         kontaktinfoStore.setCode(code);
         //Her skal vi kalle idporten
         kontaktinfoStore.fetchKontaktinfo(code);
-        console.log(kontaktinfoStore.current);
+        //console.log(kontaktinfoStore.current);
         console.log("gotoParam:" + gotoParam);
         //console.log("gotoParam2:" + gotoParam2.toString());
         //console.log("gotoParam2_array:" + gotoParam2);
@@ -60,8 +60,9 @@ class ConfirmKontaktinfo extends Component {
     }
 
     render() {
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
+        let {kontaktinfoStore} = this.props;
+        let current = kontaktinfoStore.current;
+        console.log("render epost: " + kontaktinfoStore.current.epost);
 
         return (
             <div>
@@ -71,7 +72,7 @@ class ConfirmKontaktinfo extends Component {
                     <SynchedInput
                         disabled={true}
                         id="email"
-                        source={current.epost}
+                        source={kontaktinfoStore.current.epost}
                         path="epost"
                         textKey="field.epost"
                         InputProps={{

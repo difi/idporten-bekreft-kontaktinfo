@@ -35,6 +35,7 @@ export default class KontaktinfoStore {
         console.log("fetchKontaktinfo: " + (API_BASE_URL + "/kontaktinfo?" + fnr));
         return axios.get(API_BASE_URL + "/kontaktinfo/" + fnr)
             .then((response) => this.handleResponse(response))
+            .catch((error) => this.handleError(error))
             .finally(() => {
                 //do nothing
             });
@@ -51,7 +52,10 @@ export default class KontaktinfoStore {
 
     @action.bound
     handleResponse(response) {
+        console.log("kontaktinforesponse: " + response.data.kontaktinformasjon.epostadresse);
         this.current = new Kontaktinfo(response);
+        //console.log("current: " + this.current);
+        console.log(JSON.stringify(response))
     }
 
     @action.bound
@@ -94,7 +98,7 @@ class Kontaktinfo {
         }
 
         let kontaktinformasjon = data.data.kontaktinformasjon || {};
-        this.epost = kontaktinformasjon.epost || "";
+        this.epost = kontaktinformasjon.epostadresse || "";
         this.mobilnr = kontaktinformasjon.mobilnr || "";
 
         let digitalPost = data.data.digital_post || {};
@@ -104,6 +108,9 @@ class Kontaktinfo {
         this.spraak = data.spraak || "";
         this.reservasjon = data.reservasjon || "";
         this.shouldUpdateKontaktinfo = data.shouldUpdateKontaktinfo;
+
+        console.log("this.epost: " + this.epost);
+        console.log("kontaktinformasjon.epostadresse: " + kontaktinformasjon.epostadresse);
     }
 
 }
