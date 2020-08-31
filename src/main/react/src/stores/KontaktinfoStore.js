@@ -33,7 +33,7 @@ export default class KontaktinfoStore {
     @action.bound
     fetchKontaktinfo(fnr) {
         console.log("fetchKontaktinfo: " + (API_BASE_URL + "/kontaktinfo?" + fnr));
-        return axios.get(API_BASE_URL + "/kontaktinfo?" + fnr)
+        return axios.get(API_BASE_URL + "/kontaktinfo/" + fnr)
             .then((response) => this.handleResponse(response))
             .finally(() => {
                 //do nothing
@@ -62,7 +62,7 @@ export default class KontaktinfoStore {
 
     @action.bound
     handleReturnToIdporten() {
-        // axios.post(this.gotoUrl);
+        axios.post(this.gotoUrl);
     }
 
     @action.bound
