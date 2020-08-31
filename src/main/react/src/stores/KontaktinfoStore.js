@@ -31,28 +31,33 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    fetchKontaktinfo(code) {
-        return axios.get(API_BASE_URL + "/kontaktinfo")
+    fetchKontaktinfo(fnr) {
+        console.log("fetchKontaktinfo: " + (API_BASE_URL + "/kontaktinfo?" + fnr));
+        return axios.get(API_BASE_URL + "/kontaktinfo/" + fnr)
             .then((response) => this.handleResponse(response))
+            .catch((error) => this.handleError(error))
             .finally(() => {
                 //do nothing
             });
     }
 
-    // getAuthStub(resolve) {
-    //     const stub ={ data: require("../test/stubs/get-authorizations")};
-    //     return resolve(stub);
-    // }
-
     @action.bound
     handleResponse(response) {
+        console.log("kontaktinforesponse: " + response.data.kontaktinformasjon.epostadresse);
         this.current = new Kontaktinfo(response);
+        //console.log("current: " + this.current);
+        console.log(JSON.stringify(response))
     }
 
     @action.bound
     handleError(error) {
         this.error = error.response ? error.response : error;
         console.error("Problem with authorizations endpoint: ", error);
+    }
+
+    @action.bound
+    handleReturnToIdporten() {
+        axios.post(this.gotoUrl);
     }
 
     @action.bound
@@ -68,14 +73,15 @@ export default class KontaktinfoStore {
 
 class Kontaktinfo {
 
-    @observable epostadresse = "";
-    @observable epostadresseGjentatt = "";
-    @observable mobiltelefonnummer = "";
-    @observable mobiltelefonnummerGjentatt = "";
+    @observable epost = "";
+    @observable epostBekreftet = "";
+    @observable mobilnr = "";
+    @observable mobilnrBekreftet = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
     @observable reservasjon = "";
+    @observable shouldUpdateKontaktinfo = false;
 
     constructor(data) {
         if(typeof data === "undefined") {
@@ -83,8 +89,8 @@ class Kontaktinfo {
         }
 
         let kontaktinformasjon = data.data.kontaktinformasjon || {};
-        this.epostadresse = kontaktinformasjon.epostadresse || "";
-        this.mobiltelefonnummer = kontaktinformasjon.mobiltelefonnummer || "";
+        this.epost = kontaktinformasjon.epostadresse || "";
+        this.mobilnr = kontaktinformasjon.mobilnr || "";
 
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
@@ -92,6 +98,10 @@ class Kontaktinfo {
 
         this.spraak = data.spraak || "";
         this.reservasjon = data.reservasjon || "";
+        this.shouldUpdateKontaktinfo = data.shouldUpdateKontaktinfo;
+
+        console.log("this.epost: " + this.epost);
+        console.log("kontaktinformasjon.epostadresse: " + kontaktinformasjon.epostadresse);
     }
 
 }

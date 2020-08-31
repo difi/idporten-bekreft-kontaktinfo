@@ -17,7 +17,7 @@ const stores = {
 };
 
 // api url
-export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : "";
+export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : ""; //"http://localhost:8080" "https://eid-atest-web01.dmz.local"
 export const API_BASE_URL = SERVER_API_URL + "/api";
 
 // Only import dev tools if we are outside production build, else just use Fragment
