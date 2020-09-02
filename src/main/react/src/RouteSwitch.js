@@ -23,10 +23,10 @@ class RouteSwitch extends React.Component {
     render() {
         return (
             <Switch>
-                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo} />
                 <PrivateRoute path={"/manglendeEpost"} component={ManglendeEpost} />
                 <PrivateRoute path={"/editMobilnr"} component={EditMobilnr} />
                 <PrivateRoute path={"/editEpost"} component={EditEpost} />
+                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo} />
                 {/*<DefaultLayout component={NotFound} />*/}
             </Switch>
         );

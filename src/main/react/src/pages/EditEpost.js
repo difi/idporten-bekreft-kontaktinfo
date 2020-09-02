@@ -32,11 +32,6 @@ class EditEpost extends Component {
     componentDidMount() {
         console.log("Edit email");
         const {kontaktinfoStore} = this.props;
-
-        const fnr = new URLSearchParams(this.props.location.search).get("fnr");
-        kontaktinfoStore.fetchKontaktinfo(fnr);
-
-        console.log(kontaktinfoStore.current);
     }
 
     @autobind
@@ -58,7 +53,7 @@ class EditEpost extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        console.log("url: " + this.gotoUrl);
+        console.log("edit EPOST - før render");
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />

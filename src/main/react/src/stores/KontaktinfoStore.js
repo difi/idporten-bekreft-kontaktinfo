@@ -33,11 +33,12 @@ export default class KontaktinfoStore {
     @action.bound
     fetchKontaktinfo(fnr) {
         console.log("fetchKontaktinfo: " + (API_BASE_URL + "/kontaktinfo?" + fnr));
+        this.isLoading = true;
         return axios.get(API_BASE_URL + "/kontaktinfo/" + fnr)
             .then((response) => this.handleResponse(response))
             .catch((error) => this.handleError(error))
             .finally(() => {
-                //do nothing
+                this.isLoading = false;
             });
     }
 
@@ -45,7 +46,7 @@ export default class KontaktinfoStore {
     handleResponse(response) {
         console.log("kontaktinforesponse: " + response.data.kontaktinformasjon.epostadresse);
         this.current = new Kontaktinfo(response);
-        //console.log("current: " + this.current);
+        console.log("current: " );
         console.log(JSON.stringify(response))
     }
 

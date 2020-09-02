@@ -14,6 +14,7 @@ import DigdirIconButton from "../common/DigdirIconButton";
 import { Edit } from '@material-ui/icons';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
     root: {
@@ -33,7 +34,7 @@ const styles = (theme) => ({
 class ConfirmKontaktinfo extends Component {
 
     componentDidMount() {
-        console.log("Getting anywhere 14:11");
+        console.log("Getting anywhere 15:29");
         const {kontaktinfoStore} = this.props;
 
         //const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
@@ -44,12 +45,25 @@ class ConfirmKontaktinfo extends Component {
         kontaktinfoStore.setCode(code);
         //Her skal vi kalle idporten
         kontaktinfoStore.fetchKontaktinfo(code);
-        //console.log(kontaktinfoStore.current);
         console.log("gotoParam:" + gotoParam);
-        //console.log("gotoParam2:" + gotoParam2.toString());
-        //console.log("gotoParam2_array:" + gotoParam2);
         console.log("getgotourl:" + kontaktinfoStore.gotoUrl);
 
+    }
+
+    @autobind
+    handleEditEpost(e) {
+        this.props.history.push({
+            pathname: '/editEpost',
+            state: {previousScreen: '/kontaktinfo'}
+        });
+    }
+
+    @autobind
+    handleEditMobilnr(e) {
+        this.props.history.push({
+            pathname: '/editMobilnr',
+            state: {previousScreen: '/kontaktinfo'}
+        });
     }
 
     @autobind
@@ -63,6 +77,7 @@ class ConfirmKontaktinfo extends Component {
         let {kontaktinfoStore} = this.props;
         let current = kontaktinfoStore.current;
         console.log("render epost: " + kontaktinfoStore.current.epost);
+        const isLoading = kontaktinfoStore.isLoading;
 
         return (
             <div>
@@ -71,25 +86,40 @@ class ConfirmKontaktinfo extends Component {
                     <SynchedInput
                         disabled={true}
                         id="email"
-                        source={kontaktinfoStore.current.epost}
+                        source={current.epost}
+                        value={current.epost}
                         path="epost"
                         textKey="field.epost"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton onClick={e => {console.log("You clicked edit! :)")}}><Edit/></IconButton>
+                                    <IconButton> <Link href="/editEpost"><Edit/></Link></IconButton>
                                 </InputAdornment>
                             )
                         }}
                     />
-                    <SynchedInput disabled={true} id="mobile" source={current.mobiltelefonnummer} path="mobile" textKey="field.mobile" />
-                    <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />
-                    </DigdirButtons>
+                    <SynchedInput
+                        disabled={true}
+                        id="mobilnr"
+                        source={current.mobilnr}
+                        value={current.mobilnr}
+                        path="mobilnr"
+                        textKey="field.mobilnr"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={e => {this.handleEditMobilnr(e)}}><Edit/></IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+
                 </DigdirForm>
 
                 <form id="postForm" method="post" action={kontaktinfoStore.gotoUrl}>
-                    <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" text={"Post form"} />
+                    <DigdirButtons>
+                    <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm" />
+                    </DigdirButtons>
                 </form>
 
             </div>
