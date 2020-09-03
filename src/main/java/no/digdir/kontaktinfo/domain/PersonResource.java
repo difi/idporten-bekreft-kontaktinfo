@@ -115,4 +115,8 @@ public class PersonResource {
         return true;
     }
 
+    public Boolean getShouldUpdateKontaktinfo() {
+        return shouldUpdateKontaktinfo;
+    }
+
 }
