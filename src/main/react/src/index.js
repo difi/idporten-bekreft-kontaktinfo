@@ -18,7 +18,8 @@ const stores = {
 
 // api url
 export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : ""; //"http://localhost:8080" "https://eid-atest-web01.dmz.local"
-export const API_BASE_URL = SERVER_API_URL + "/idporten-bekreft-kontaktinfo/api";
+let apiPath = (process.env.NODE_ENV === 'development') ? "/api" : "/idporten-bekreft-kontaktinfo/api";
+export const API_BASE_URL = SERVER_API_URL + apiPath;
 
 // Only import dev tools if we are outside production build, else just use Fragment
 // const DevTools = (process.env.NODE_ENV === 'development') ? require('mobx-react-devtools').default : Fragment;

@@ -20,7 +20,8 @@ i18n
 
         // backend options
         backend: {
-            crossDomain: true
+            crossDomain: true,
+            loadPath: '/idporten-bekreft-kontaktinfo/locales/{{lng}}/{{ns}}.json'
         },
 
         // react i18next special options (optional)
