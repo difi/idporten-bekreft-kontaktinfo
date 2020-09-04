@@ -73,7 +73,7 @@ export default class KontaktinfoStore {
 }
 
 class Kontaktinfo {
-
+    @observable teller = new Date().getSeconds();
     @observable epost = "";
     @observable epostBekreftet = "";
     @observable mobilnr = "";
@@ -91,7 +91,7 @@ class Kontaktinfo {
 
         let kontaktinformasjon = data.data.kontaktinformasjon || {};
         this.epost = kontaktinformasjon.epostadresse || "";
-        this.mobilnr = kontaktinformasjon.mobilnr || "";
+        this.mobilnr = kontaktinformasjon.mobiltelefonnummer || "";
 
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";

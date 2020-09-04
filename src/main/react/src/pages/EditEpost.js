@@ -11,6 +11,7 @@ import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import DigdirIconButton from "../common/DigdirIconButton";
+import {observable} from "mobx";
 
 const styles = (theme) => ({
     root: {
@@ -28,6 +29,7 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class EditEpost extends Component {
+    @observable confirmDisabled = true;
 
     componentDidMount() {
         console.log("Edit email");
@@ -35,33 +37,45 @@ class EditEpost extends Component {
     }
 
     @autobind
-    handleSubmit(e) {
-        const {kontaktinfoStore} = this.props;
-        console.log("handlesubmit edit Email: " + e);
-        window.location = this.props.kontaktinfoStore.gotoUrl;
+    handleCommit(e) {
+        this.props.history.push('/kontaktinfo');
     }
 
     @autobind
-    handleCommit(e) {
-        this.props.history.push({
-            pathname: '/kontaktinfo',
-            state: {previousScreen: 3}
-        });
+    validateEmailRepeated(e) {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        if (!(current.epost.match(".*@.*"))) {
+            this.confirmDisabled = true;
+            return;
+        }
+        console.log("epost teller: " + current.teller);
+        this.confirmDisabled = !(current.epost.length > 0 && current.epostBekreftet === current.epost);
     }
 
     render() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        console.log("edit EPOST - før render");
+        console.log("edit EPOST - før render ");
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleSubmit}>
-                    <SynchedInput disabled={true} id="epost" source={current.epostadresse} path="epost" textKey="field.epost" />
-                    <SynchedInput disabled={true} id="epostBekreftet" source={current.epostadresseGjentatt} path="epostBekreftet" textKey="field.epostBekreftet" />
+                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleCommit}>
+                    <SynchedInput id="epost"
+                                  source={current}
+                                  path="epost"
+                                  textKey="field.email"
+                                  onChangeCallback={this.validateEmailRepeated}/>
+                    <SynchedInput id="epostBekreftet"
+                                  source={current}
+                                  path="epostBekreftet"
+                                  textKey="field.emailrepeat"
+                                  onChangeCallback={this.validateEmailRepeated}/>
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" />
+                        <DigdirButton disabled={this.confirmDisabled} type="submit"
+                                      value="submit"
+                                      textKey="button.confirm" />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
                     </DigdirButtons>
                 </DigdirForm>

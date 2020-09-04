@@ -40,14 +40,10 @@ class ConfirmKontaktinfo extends Component {
         //const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
         const gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
         const code = new URLSearchParams(this.props.location.search).get("fnr");
-        //kontaktinfoStore.setGotoUrl(gotoParam2.toString());
         kontaktinfoStore.setGotoUrl(gotoParam); //"https://eid-atest-web01.dmz.local:443/opensso/UI/Login?realm=norge.no&ForceAuth=&gx_charset=UTF-8&locale=nb&service=KontaktInfo");
         kontaktinfoStore.setCode(code);
         //Her skal vi kalle idporten
         kontaktinfoStore.fetchKontaktinfo(code);
-        console.log("gotoParam:" + gotoParam);
-        console.log("getgotourl:" + kontaktinfoStore.gotoUrl);
-
     }
 
     @autobind
@@ -76,7 +72,8 @@ class ConfirmKontaktinfo extends Component {
     render() {
         let {kontaktinfoStore} = this.props;
         let current = kontaktinfoStore.current;
-        console.log("render epost: " + kontaktinfoStore.current.epost);
+        console.log("render epost: " + kontaktinfoStore.current.mobilnr);
+        console.log("confirm kontaktinfo teller: " + current.teller);
         const isLoading = kontaktinfoStore.isLoading;
 
         return (
@@ -86,10 +83,10 @@ class ConfirmKontaktinfo extends Component {
                     <SynchedInput
                         disabled={true}
                         id="email"
-                        source={current.epost}
+                        source={current}
                         value={current.epost}
                         path="epost"
-                        textKey="field.epost"
+                        textKey="field.email"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -101,10 +98,10 @@ class ConfirmKontaktinfo extends Component {
                     <SynchedInput
                         disabled={true}
                         id="mobilnr"
-                        source={current.mobilnr}
+                        source={current}
                         value={current.mobilnr}
                         path="mobilnr"
-                        textKey="field.mobilnr"
+                        textKey="field.mobile"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">

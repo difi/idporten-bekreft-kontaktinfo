@@ -11,6 +11,7 @@ import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import DigdirIconButton from "../common/DigdirIconButton";
+import {observable} from "mobx";
 
 const styles = (theme) => ({
     root: {
@@ -28,24 +29,28 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class EditMobilnr extends Component {
+    @observable confirmDisabled = true;
 
     componentDidMount() {
         console.log("Edit email");
     }
 
     @autobind
-    handleSubmit(e) {
-        const {kontaktinfoStore} = this.props;
-        console.log("handlesubmit edit Email: " + e);
-        window.location = this.props.kontaktinfoStore.gotoUrl;
+    handleCommit(e) {
+        this.props.history.push('/kontaktinfo');
     }
 
     @autobind
-    handleCommit(e) {
-        this.props.history.push({
-            pathname: '/kontaktinfo',
-            state: {previousScreen: 3}
-        });
+    validateMobileRepeated(e) {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        // if (!(current.mobilnr.match("^\\+?[0-9]+$"))) {
+        //     this.confirmDisabled = true;
+        //     return;
+        // }
+        console.log(current.mobilnr + "-" + current.mobilnrBekreftet);
+        console.log("mobil teller: " + current.teller);
+        this.confirmDisabled = !(current.mobilnr.length > 0 && current.mobilnrBekreftet === current.mobilnr);
     }
 
     render() {
@@ -57,10 +62,20 @@ class EditMobilnr extends Component {
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
-                    <SynchedInput disabled={true} id="mobilnr" source={current.mobilnr} path="mobilnr" textKey="field.mobilnr" />
-                    <SynchedInput disabled={true} id="mobilnrBekreftet" source={current.mobilnrBekreftet} path="mobilnrBekreftet" textKey="field.mobilnrBekreftet" />
+                    <SynchedInput id="mobilnr"
+                                  source={current}
+                                  path="mobilnr"
+                                  textKey="field.mobile"
+                                  onChangeCallback={this.validateMobileRepeated}/>
+                    <SynchedInput id="mobilnrBekreftet"
+                                  source={current}
+                                  path="mobilnrBekreftet"
+                                  textKey="field.mobilerepeat"
+                                  onChangeCallback={this.validateMobileRepeated}/>
                     <DigdirButtons>
-                        <DigdirButton textKey="button.confirm" />
+                        <DigdirButton disabled={this.confirmDisabled} type="submit"
+                                      value="submit"
+                                      textKey="button.confirm" />
                         {/*<DigdirButton textKey="button.confirm" form="bekreftKontaktinfo" type="submit" />*/}
                     </DigdirButtons>
                 </DigdirForm>
