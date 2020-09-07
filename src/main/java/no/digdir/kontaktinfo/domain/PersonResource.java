@@ -38,14 +38,19 @@ public class PersonResource {
 
     @JsonProperty(value = "email")
     private String email;
+
     @JsonProperty(value = "emailLastUpdated")
     private Date emailLastUpdated;
+
     @JsonProperty(value = "emailLastVerified")
     private Date emailLastVerified;
+
     @JsonProperty(value = "mobile")
     private String mobile;
+
     @JsonProperty(value = "mobileLastUpdated")
     private Date mobileLastUpdated;
+
     @JsonProperty(value = "mobileLastVerified")
     private Date mobileLastVerified;
 
@@ -129,6 +134,14 @@ public class PersonResource {
 
     public Boolean getShouldUpdateKontaktinfo() {
         return shouldUpdateKontaktinfo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getMobile() {
+        return mobile;
     }
 
 }
