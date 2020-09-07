@@ -48,8 +48,6 @@ class EditMobilnr extends Component {
         //     this.confirmDisabled = true;
         //     return;
         // }
-        console.log(current.mobilnr + "-" + current.mobilnrBekreftet);
-        console.log("mobil teller: " + current.teller);
         this.confirmDisabled = !(current.mobilnr.length > 0 && current.mobilnrBekreftet === current.mobilnr);
     }
 

@@ -27,24 +27,8 @@ public class ContactAPI {
         return clientService.getPersonForFnr(fnr);
     }
 
-    /*
-    @PostMapping("/test")
-    public String testPost() {
-        return "Denne fungerer ";
+    @PostMapping("/kontaktinfo")
+    public void updateContactInfo(@RequestParam String fnr, @RequestParam String email, @RequestParam String mobile) {
+        clientService.updateContactInfo(fnr, email, mobile);
     }
-
-    private PersonResource createKontaktinfoStub() {
-        KontaktinfoResource kontaktinfo = KontaktinfoResource.builder()
-                .email("noone@nowhere.com")
-                .build();
-        DigitalPostResource digitalPost = DigitalPostResource.builder()
-                .postkasseadresse("postkasseadresse")
-                .postkasseleverandoeradresse("Digipost")
-                .build();
-        return PersonResource.builder()
-                .kontaktinfo(kontaktinfo)
-                .digitalPost(digitalPost)
-                .build();
-    }
-    */
 }

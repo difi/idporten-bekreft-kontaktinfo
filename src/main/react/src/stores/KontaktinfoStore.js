@@ -43,8 +43,16 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
+    updateKontaktinfo(fnr, email, mobile) {
+        console.log("updating kontaktinfo: " + fnr + email + mobile);
+        return axios.post(API_BASE_URL + "/kontaktinfo",
+            {fnr: fnr, email: email, mobile: mobile})
+            .catch((error) => this.handleUpdateError(error));
+    }
+
+
+    @action.bound
     handleResponse(response) {
-        console.log("kontaktinforesponse: " + response.data.kontaktinformasjon.epostadresse);
         this.current = new Kontaktinfo(response);
         console.log("current: " );
         console.log(JSON.stringify(response))
@@ -53,7 +61,13 @@ export default class KontaktinfoStore {
     @action.bound
     handleError(error) {
         this.error = error.response ? error.response : error;
-        console.error("Problem with authorizations endpoint: ", error);
+        console.error("Problem with getting contact info: ", error);
+    }
+
+    @action.bound
+    handleUpdateError(error) {
+        this.error = error.response ? error.response : error;
+        console.error("Problem with updating data: ", error);
     }
 
     @action.bound
@@ -73,7 +87,6 @@ export default class KontaktinfoStore {
 }
 
 class Kontaktinfo {
-    @observable teller = new Date().getSeconds();
     @observable epost = "";
     @observable epostBekreftet = "";
     @observable mobilnr = "";
@@ -89,9 +102,11 @@ class Kontaktinfo {
             return;
         }
 
-        let kontaktinformasjon = data.data.kontaktinformasjon || {};
-        this.epost = kontaktinformasjon.epostadresse || "";
-        this.mobilnr = kontaktinformasjon.mobiltelefonnummer || "";
+        console.log("Data: " + JSON.stringify(data));
+        this.epost = data.data.email || "";
+        this.epostBekreftet = data.data.email || "";
+        this.mobilnr = data.data.mobile || "";
+        this.mobilnrBekreftet = data.data.mobile || "";
 
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
@@ -100,9 +115,6 @@ class Kontaktinfo {
         this.spraak = data.spraak || "";
         this.reservasjon = data.reservasjon || "";
         this.shouldUpdateKontaktinfo = data.shouldUpdateKontaktinfo;
-
-        console.log("this.epost: " + this.epost);
-        console.log("kontaktinformasjon.epostadresse: " + kontaktinformasjon.epostadresse);
     }
 
 }

@@ -72,14 +72,15 @@ class ConfirmKontaktinfo extends Component {
     render() {
         let {kontaktinfoStore} = this.props;
         let current = kontaktinfoStore.current;
-        console.log("render epost: " + kontaktinfoStore.current.mobilnr);
-        console.log("confirm kontaktinfo teller: " + current.teller);
         const isLoading = kontaktinfoStore.isLoading;
 
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" action={kontaktinfoStore.gotoUrl} method="post" onSubmitCallback={this.handleSubmit}>
+                <DigdirForm id="bekreftKontaktinfo"
+                            action={kontaktinfoStore.gotoUrl}
+                            method="post"
+                            onSubmitCallback={this.handleSubmit}>
                     <SynchedInput
                         disabled={true}
                         id="email"
@@ -90,7 +91,7 @@ class ConfirmKontaktinfo extends Component {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton> <Link href="/editEpost"><Edit/></Link></IconButton>
+                                    <IconButton onClick={e => {this.handleEditEpost(e)}}><Edit/></IconButton>
                                 </InputAdornment>
                             )
                         }}

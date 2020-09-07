@@ -30,14 +30,23 @@ const styles = (theme) => ({
 @observer
 class EditEpost extends Component {
     @observable confirmDisabled = true;
+    @observable oldEmail = "";
 
     componentDidMount() {
-        console.log("Edit email");
         const {kontaktinfoStore} = this.props;
+        this.oldEmail = kontaktinfoStore.current.email;
     }
 
     @autobind
     handleCommit(e) {
+        this.props.history.push('/kontaktinfo');
+    }
+
+    @autobind
+    handleCancel(e) {
+        console.log("Handle cancel " + this.oldEmail);
+        this.props.kontaktinfoStore.current.email = this.oldEmail;
+        this.props.kontaktinfoStore.current.emailBekreftet = this.oldEmail;
         this.props.history.push('/kontaktinfo');
     }
 
@@ -49,7 +58,6 @@ class EditEpost extends Component {
             this.confirmDisabled = true;
             return;
         }
-        console.log("epost teller: " + current.teller);
         this.confirmDisabled = !(current.epost.length > 0 && current.epostBekreftet === current.epost);
     }
 
@@ -57,11 +65,11 @@ class EditEpost extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        console.log("edit EPOST - før render ");
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo" onSubmitCallback={this.handleCommit}>
+                <DigdirForm id="bekreftKontaktinfo"
+                            onSubmitCallback={this.handleCommit}>
                     <SynchedInput id="epost"
                                   source={current}
                                   path="epost"
@@ -73,6 +81,9 @@ class EditEpost extends Component {
                                   textKey="field.emailrepeat"
                                   onChangeCallback={this.validateEmailRepeated}/>
                     <DigdirButtons>
+                        <DigdirButton type="submit"
+                                      value="cancel"
+                                      textKey="button.cancel" />
                         <DigdirButton disabled={this.confirmDisabled} type="submit"
                                       value="submit"
                                       textKey="button.confirm" />

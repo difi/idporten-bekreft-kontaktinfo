@@ -3,6 +3,7 @@ package no.digdir.kontaktinfo.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.idporten.domain.user.PersonNumber;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Slf4j
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PersonResource {
 
@@ -34,8 +36,18 @@ public class PersonResource {
     @JsonProperty(value = "varslingsstatus")
     private String alertStatus;
 
-    @JsonProperty(value = "kontaktinformasjon")
-    private KontaktinfoResource kontaktinfo;
+    @JsonProperty(value = "email")
+    private String email;
+    @JsonProperty(value = "emailLastUpdated")
+    private Date emailLastUpdated;
+    @JsonProperty(value = "emailLastVerified")
+    private Date emailLastVerified;
+    @JsonProperty(value = "mobile")
+    private String mobile;
+    @JsonProperty(value = "mobileLastUpdated")
+    private Date mobileLastUpdated;
+    @JsonProperty(value = "mobileLastVerified")
+    private Date mobileLastVerified;
 
     @JsonProperty(value = "digital_post")
     private DigitalPostResource digitalPost;
@@ -57,22 +69,22 @@ public class PersonResource {
 
     public static PersonResource fromUserDetailResource(UserDetailResource userDetailResource, Integer tipDaysUser) {
         final UserResource userResource = userDetailResource.getUser();
-        KontaktinfoResource kontaktinfo = KontaktinfoResource.builder()
-                .email(userResource.getEmail())
-                .emailUpdated(userResource.getEmail())
-                .mobile(userResource.getMobile())
-                .mobileUpdated(userResource.getMobile())
-                .build();
         boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);
 
         PersonResource personResource = PersonResource.builder()
                 .personIdentifikator(userResource.getSsn())
-                .kontaktinfo(kontaktinfo)
+                .email(userResource.getEmail())
+                .emailLastUpdated(userResource.getEmailLastUpdated())
+                .emailLastVerified(userResource.getEmailVerifiedDate())
+                .mobile(userResource.getMobile())
+                .mobileLastUpdated(userResource.getMobileLastUpdated())
+                .mobileLastVerified(userResource.getMobileVerifiedDate())
                 .showDpiInfo(showDpiInfo)
                 .lastUpdated(userResource.getLastUpdated())
                 .shouldUpdateKontaktinfo(shouldUpdateKontaktinfo(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
                 .build();
-
+        log.warn("email: " + personResource.getEmail());
+        log.warn("mobile: " + userResource.getMobile() + " - " + personResource.getMobile());
         return personResource;
     }
 
