@@ -1,5 +1,6 @@
 package no.digdir.kontaktinfo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Controller
+@Slf4j
 @RequestMapping("/api")
 public class ContactInfoController {
 
@@ -27,69 +29,89 @@ public class ContactInfoController {
     }
 
     /**
-     * ContactInfoController
-     * CHeck if user needs to update contact information, and redirect to location
+     * Route controller, send user to correct form if contact info
+     * needs to be updated
      *
      * @param fnr
-     * @return ResponseEntity
+     * @param gotoParam
+     * @return
      */
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam) {
 
         //TODO: Her et sted må vi nok validere requesten fra idporten også
-
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = _getPersonResourceForFnr(fnr);
 
         // check if user is registered in KRR
         if (personResource == null){
-            // user is not registered
-            // TODO: redirect user to create? (optional)
-            return redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
+
+            // user could not be found in KRR
+            // send user to create form (optional to update contact info)
+            // TODO: redirect to update all fields page
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
         }
 
         // check if user`s contact info is empty
         if (personResource.getEmail() == null && personResource.getMobile() == null) {
+
             // user is missing all contact info
-            // TODO: redirect user to update all fields? (optional)
-            return redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
+            // send user to update all fields form
+            // TODO: redirect user to update all fields page
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
         }
 
         // check if users`s email is empty
         if (personResource.getEmail() == null) {
-            return redirectWithParam("/idporten-bekreft-kontaktinfo/editEpost", fnr, gotoParam);
+
+            // user is missing email
+            // send user to update email form, with tip note (optional update)
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo/editEpost", fnr, gotoParam);
         }
 
         // check if user`s mobile is empty
         if (personResource.getMobile() == null) {
-            return redirectWithParam("/idporten-bekreft-kontaktinfo/editMobilnr", fnr, gotoParam);
+
+            // user is missing mobile
+            // send user to update mobile form, with tip note (optional update)
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo/editMobilnr", fnr, gotoParam);
         }
 
         // check if contact info is "out-of-date"
         if (personResource.getShouldUpdateKontaktinfo()) {
 
-            //TODO: redirect user to confirmation form ?
-            return redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
+            // user should update contact info (out-of-date)
+            // send user to user info page (confirm user info)
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
         }
 
-        // everything checks out
-        // TODO: redirect user to idporten
-        return redirect("");
+        // all contact info is provided, and up-to-date
+        // send user back to idporten. Continue.
+        return _redirect(gotoParam);
     }
 
     /**
-     * Creates redirect responsEntity
+     * Creates redirect URI and redirect user
      *
      * @param location
      * @return ResponseEntity
      */
-    private ResponseEntity<Void> redirect(String location){
+    private ResponseEntity<Void> _redirect(String location){
         return ResponseEntity
                 .status(302)
                 .location(URI.create(location))
                 .build();
     }
 
-    private ResponseEntity<Void> redirectWithParam(String location, String gotoParam, String fnr){
+    /**
+     * Create redirect URI with param and redirect user
+     *
+     * @param location
+     * @param gotoParam
+     * @param fnr
+     * @return
+     */
+    private ResponseEntity<Void> _redirectWithParam(String location, String fnr, String gotoParam){
+
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
@@ -100,6 +122,29 @@ public class ContactInfoController {
         } catch (URISyntaxException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
         }
-        return redirect(redirectUri.toUriString());
+
+        return _redirect(redirectUri.toUriString());
+    }
+
+    /**
+     * Get person resource for fnr
+     * return NULL if resource could not be found
+     *
+     * @param fnr
+     * @return
+     */
+    private PersonResource _getPersonResourceForFnr(String fnr){
+
+        PersonResource personResource;
+        try {
+            personResource = clientService.getPersonForFnr(fnr);
+        } catch (Exception e) {
+
+            // TODO: is this because user is not created in KRR, or because connection to KRR failed
+            log.error("Failed to retrieve digital contact info for user", e);
+            personResource = null;
+        }
+
+        return personResource;
     }
 }
