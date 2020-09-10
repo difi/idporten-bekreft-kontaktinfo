@@ -1,26 +1,17 @@
 import React, {Component} from 'react';
-// import ConsentCard from "../components/ConsentCard";
 import {inject, observer} from "mobx-react";
 
 import autobind from "autobind-decorator";
-// import consentStore from "../stores/ConsentStore";
-// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import DigdirButtons from "../common/DigdirButtons";
 import ContentInfoBox from "../common/ContentInfoBox";
-import ContentBox from "../common/ContentBox";
 import SynchedInput from "../common/SynchedInput";
 
-// import ErrorBox from "../components/ErrorBox";
 
 @inject("kontaktinfoStore")
 @observer
-class ManglendeEpost extends Component {
-
-    // componentWillMount() {
-    //     this.props.kontaktinfoStore.getKontaktinfo();
-    // }
+class MissingEmail extends Component {
 
     @autobind
     compareMobile(e) {
@@ -50,5 +41,5 @@ class ManglendeEpost extends Component {
     }
 }
 
-export default ManglendeEpost;
+export default MissingEmail;
 

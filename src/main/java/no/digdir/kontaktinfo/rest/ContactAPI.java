@@ -3,6 +3,7 @@ package no.digdir.kontaktinfo.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.PersonResource;
+import no.digdir.kontaktinfo.domain.UpdatedUserResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -28,7 +29,7 @@ public class ContactAPI {
     }
 
     @PostMapping("/kontaktinfo")
-    public void updateContactInfo(@RequestParam String fnr, @RequestParam String email, @RequestParam String mobile) {
-        clientService.updateContactInfo(fnr, email, mobile);
+    public void updateContactInfo(@RequestBody UpdatedUserResource user) {
+        clientService.updateContactInfo(user.getFnr(), user.getEmail(), user.getMobile());
     }
 }

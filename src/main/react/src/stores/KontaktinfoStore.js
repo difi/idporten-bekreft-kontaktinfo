@@ -43,10 +43,9 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    updateKontaktinfo(fnr, email, mobile) {
-        console.log("updating kontaktinfo: " + fnr + email + mobile);
+    updateKontaktinfo() {
         return axios.post(API_BASE_URL + "/kontaktinfo",
-            {fnr: fnr, email: email, mobile: mobile})
+            {fnr: this.current.fnr, email: this.current.email, mobile: this.current.mobile})
             .catch((error) => this.handleUpdateError(error));
     }
 
@@ -54,8 +53,6 @@ export default class KontaktinfoStore {
     @action.bound
     handleResponse(response) {
         this.current = new Kontaktinfo(response);
-        console.log("current: " );
-        console.log(JSON.stringify(response))
     }
 
     @action.bound
@@ -87,10 +84,11 @@ export default class KontaktinfoStore {
 }
 
 class Kontaktinfo {
-    @observable epost = "";
-    @observable epostBekreftet = "";
-    @observable mobilnr = "";
-    @observable mobilnrBekreftet = "";
+    @observable fnr = "";
+    @observable email = "";
+    @observable emailConfirmed = "";
+    @observable mobile = "";
+    @observable mobileConfirmed = "";
     @observable digitalPostkasse = "";
     @observable digitalPostkasseLeverandoer = "";
     @observable spraak = "";
@@ -102,11 +100,11 @@ class Kontaktinfo {
             return;
         }
 
-        console.log("Data: " + JSON.stringify(data));
-        this.epost = data.data.email || "";
-        this.epostBekreftet = data.data.email || "";
-        this.mobilnr = data.data.mobile || "";
-        this.mobilnrBekreftet = data.data.mobile || "";
+        this.fnr = data.data.personIdentifikator || "";
+        this.email = data.data.email || "";
+        this.emailConfirmed = data.data.email || "";
+        this.mobile = data.data.mobile || "";
+        this.mobileConfirmed = data.data.mobile || "";
 
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";

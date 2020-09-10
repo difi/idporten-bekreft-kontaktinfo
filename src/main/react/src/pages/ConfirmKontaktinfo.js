@@ -10,11 +10,9 @@ import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
-import DigdirIconButton from "../common/DigdirIconButton";
-import { Edit } from '@material-ui/icons';
+import {Edit} from '@material-ui/icons';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import Link from "@material-ui/core/Link";
 
 const styles = (theme) => ({
     root: {
@@ -34,79 +32,80 @@ const styles = (theme) => ({
 class ConfirmKontaktinfo extends Component {
 
     componentDidMount() {
-        console.log("Getting anywhere 15:29");
+        console.log("Getting anywhere 10:12");
         const {kontaktinfoStore} = this.props;
 
         //const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
         const gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-        const code = new URLSearchParams(this.props.location.search).get("fnr");
-        kontaktinfoStore.setGotoUrl(gotoParam); //"https://eid-atest-web01.dmz.local:443/opensso/UI/Login?realm=norge.no&ForceAuth=&gx_charset=UTF-8&locale=nb&service=KontaktInfo");
-        kontaktinfoStore.setCode(code);
+        const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+        if (gotoParam && gotoParam.length > 0) {
+            kontaktinfoStore.setGotoUrl(gotoParam); //"https://eid-atest-web01.dmz.local:443/opensso/UI/Login?realm=norge.no&ForceAuth=&gx_charset=UTF-8&locale=nb&service=KontaktInfo");
+        }
+        if (personIdentifikator) {
+            kontaktinfoStore.setCode(personIdentifikator);
+        }
         //Her skal vi kalle idporten
-        kontaktinfoStore.fetchKontaktinfo(code);
+        if (!kontaktinfoStore.current.fnr) {
+            kontaktinfoStore.fetchKontaktinfo(personIdentifikator);
+        }
     }
 
     @autobind
-    handleEditEpost(e) {
+    handleEditEmail(e) {
         this.props.history.push({
-            pathname: '/editEpost',
+            pathname: '/editEmail',
             state: {previousScreen: '/kontaktinfo'}
         });
     }
 
     @autobind
-    handleEditMobilnr(e) {
+    handleEditMobile(e) {
         this.props.history.push({
-            pathname: '/editMobilnr',
+            pathname: '/editMobile',
             state: {previousScreen: '/kontaktinfo'}
         });
     }
 
     @autobind
     handleSubmit(e) {
-        const {kontaktinfoStore} = this.props;
-        console.log("handlesubmit1: " + e);
-        //window.location = this.props.kontaktinfoStore.gotoUrl;
+        this.props.kontaktinfoStore.updateKontaktinfo()
     }
 
     render() {
-        let {kontaktinfoStore} = this.props;
-        let current = kontaktinfoStore.current;
-        const isLoading = kontaktinfoStore.isLoading;
+        let current = this.props.kontaktinfoStore.current;
 
         return (
             <div>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo"
                             action={kontaktinfoStore.gotoUrl}
-                            method="post"
-                            onSubmitCallback={this.handleSubmit}>
+                            method="post">
                     <SynchedInput
                         disabled={true}
                         id="email"
                         source={current}
-                        value={current.epost}
-                        path="epost"
+                        value={current.email}
+                        path="email"
                         textKey="field.email"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton onClick={e => {this.handleEditEpost(e)}}><Edit/></IconButton>
+                                    <IconButton onClick={e => {this.handleEditEmail(e)}}><Edit/></IconButton>
                                 </InputAdornment>
                             )
                         }}
                     />
                     <SynchedInput
                         disabled={true}
-                        id="mobilnr"
+                        id="mobile"
                         source={current}
-                        value={current.mobilnr}
-                        path="mobilnr"
+                        value={current.mobile}
+                        path="mobile"
                         textKey="field.mobile"
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton onClick={e => {this.handleEditMobilnr(e)}}><Edit/></IconButton>
+                                    <IconButton onClick={e => {this.handleEditMobile(e)}}><Edit/></IconButton>
                                 </InputAdornment>
                             )
                         }}
@@ -114,9 +113,9 @@ class ConfirmKontaktinfo extends Component {
 
                 </DigdirForm>
 
-                <form id="postForm" method="post" action={kontaktinfoStore.gotoUrl}>
+                <form id="postForm" method="post" action={kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
-                    <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm" />
+                        <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm"/>
                     </DigdirButtons>
                 </form>
 

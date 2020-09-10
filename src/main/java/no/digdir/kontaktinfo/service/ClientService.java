@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -40,9 +41,6 @@ public class ClientService {
         String url = krrConfigProvider.getUrl() + "/kontaktregister/users/userDetail?ssn={ssn}";
         try {
             ResponseEntity<UserDetailResource> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, UserDetailResource.class, fnr);
-            log.warn("responseEntity: " + responseEntity.getBody());
-            log.warn("responseEntity: " + responseEntity.getBody().getUser());
-            log.warn("responseEntity: " + responseEntity.getBody().getUser().getMobile());
             return responseEntity.getBody();
         } catch (RestClientException e) {
             log.error("Failed to retrieve digital contact info for user", e);
@@ -57,7 +55,7 @@ public class ClientService {
     }
 
     public void updateContactInfo(String fnr, String email, String mobile) {
-        log.warn("Prøver å oppdatere " + fnr + " - " + email + " - " + mobile);
+        log.error("Prøver å oppdatere " + fnr + " - " + email + " - " + mobile);
         UserDetailResource userDetail = getUserDetailResourceForFnr(fnr);
         if (userDetail == null) {
             addNewUser(createNewUserResource(fnr), email, mobile);
@@ -78,20 +76,22 @@ public class ClientService {
 
     private void updateUser(UserResource user, String emailAddress, String mobile) {
         updateUserResource(user, emailAddress, mobile);
-        String url = krrConfigProvider.getUrl() + "kontaktregister/users/{uuid}";
+        String url = krrConfigProvider.getUrl() + "/kontaktregister/users/{uuid}";
         try {
-            restTemplate.postForObject(url, createHttpEntity(user), UserResource.class, user.getUuid());
+            restTemplate.exchange(url, HttpMethod.PUT, createHttpEntity(user), UserResource.class, user.getUuid());
         } catch (RestClientException e) {
             log.error("Failed to update user", e);
+        } catch (Exception e) {
+            log.error("Hvilken feil? ", e);
         }
     }
 
     private void updateUserResource(UserResource user, String emailAddress, String mobile) {
-        if (!user.getMobile().equals(mobile)) {
+        if (!Objects.equals(user.getMobile(), mobile)) {
             user.setMobile(mobile);
             user.setMobileVerifiedDate(new Date());
         }
-        if (!user.getEmail().equals(emailAddress)) {
+        if (!Objects.equals(user.getEmail(), emailAddress)) {
             user.setEmail(emailAddress);
             user.setEmailLastUpdated(new Date());
         }

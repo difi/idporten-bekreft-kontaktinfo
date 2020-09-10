@@ -10,7 +10,7 @@ import {TransitionGroup} from "react-transition-group";
 import NotFound from "../components/NotFound";
 import CSSTransition from "react-transition-group/CSSTransition";
 import ConfirmKontaktinfo from "../pages/ConfirmKontaktinfo";
-import ManglendeEpost from "../pages/ManglendeEpost";
+import MissingEmail from "../pages/MissingEmail";
 
 const styles = (theme) => ({
     root: {
@@ -127,7 +127,7 @@ class ContentBox extends Component {
                         <section className={classes.routeSection}>
                             <Switch location={location}>
                                 <Route exact path="/" component={ConfirmKontaktinfo}/>
-                                <Route exact path="/manglendeEpost" component={ManglendeEpost}/>
+                                <Route exact path="/manglendeEpost" component={MissingEmail}/>
                                 <Route exact path="/confirmKontaktinfo" component={ConfirmKontaktinfo}/>
                                 <Route component={NotFound}/>
                             </Switch>
