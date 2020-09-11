@@ -94,6 +94,9 @@ public class PersonResource {
     }
 
     public static boolean shouldUpdateKontaktinfo(Date lastUpdated, Integer tipDaysUser) {
+        if (lastUpdated == null) {
+            return true;
+        }
         LocalDate lastUpdatedDate = lastUpdated.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
     }

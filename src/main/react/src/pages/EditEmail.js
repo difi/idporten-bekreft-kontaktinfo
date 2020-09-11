@@ -33,7 +33,6 @@ class EditEmail extends Component {
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
-        console.log("oldEmail: " + this.oldEmail);
     }
 
     @autobind
@@ -43,7 +42,6 @@ class EditEmail extends Component {
 
     @autobind
     handleCancel() {
-        console.log("Handle cancel " + this.oldEmail);
         this.props.kontaktinfoStore.current.email = this.oldEmail;
         this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
         this.props.history.push('/kontaktinfo');

@@ -55,7 +55,6 @@ public class ClientService {
     }
 
     public void updateContactInfo(String fnr, String email, String mobile) {
-        log.error("Prøver å oppdatere " + fnr + " - " + email + " - " + mobile);
         UserDetailResource userDetail = getUserDetailResourceForFnr(fnr);
         if (userDetail == null) {
             addNewUser(createNewUserResource(fnr), email, mobile);
@@ -89,15 +88,21 @@ public class ClientService {
     private void updateUserResource(UserResource user, String emailAddress, String mobile) {
         if (!Objects.equals(user.getMobile(), mobile)) {
             user.setMobile(mobile);
-            user.setMobileVerifiedDate(new Date());
+            user.setMobileLastUpdated(new Date());
         }
         if (!Objects.equals(user.getEmail(), emailAddress)) {
             user.setEmail(emailAddress);
             user.setEmailLastUpdated(new Date());
         }
+        if (user.getMobile() != null) {
+            user.setMobileVerifiedDate(new Date());
+        }
+        if (user.getEmail() != null) {
+            user.setEmailVerifiedDate(new Date());
+        }
     }
 
-    protected HttpEntity<Object> createHttpEntity() {
+    private HttpEntity<Object> createHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Client-Id", "Idporten");
         headers.setContentType(MediaType.APPLICATION_JSON);
