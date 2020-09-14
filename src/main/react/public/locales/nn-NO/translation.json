@@ -15,9 +15,9 @@
   },
   "field": {
     "email": "Email",
-    "emailrepeat": "Repeat your email address",
+    "emailConfirmed": "Repeat your email address",
     "mobile": "Mobile phone number",
-    "mobilerepeat": "Repeat mobile phone number",
+    "mobileConfirmed": "Repeat mobile phone number",
     "code": "Enter verification code",
     "password": "Password",
     "passwordrepeat": "Repeat the password",

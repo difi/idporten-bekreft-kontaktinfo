@@ -19,9 +19,9 @@
   },
   "field": {
     "email": "E-post",
-    "emailrepeat": "Gjenta e-post",
-    "mobile": "Mobile phone number",
-    "mobilerepeat": "Repeat mobile phone number",
+    "emailConfirmed": "Gjenta e-post",
+    "mobile": "Mobilnummer",
+    "mobileConfirmed": "Gjenta mobilnummer",
     "code": "Enter verification code",
     "password": "Password",
     "passwordrepeat": "Repeat the password",

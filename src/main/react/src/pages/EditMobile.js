@@ -70,7 +70,7 @@ class EditMobile extends Component {
                     <SynchedInput id="mobileConfirmed"
                                   source={current}
                                   path="mobileConfirmed"
-                                  textKey="field.mobilerepeat"
+                                  textKey="field.mobileConfirmed"
                                   onChangeCallback={this.validateMobileRepeated}/>
                     <DigdirButtons>
                         <DigdirButton disabled={this.confirmDisabled} type="submit"

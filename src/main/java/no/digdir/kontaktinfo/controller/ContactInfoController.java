@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponents;
@@ -30,8 +29,7 @@ public class ContactInfoController {
     }
 
     /**
-     * Route controller, send user to correct form if contact info
-     * needs to be updated
+     * Route controller, redirect user to correct form.
      *
      * @param fnr
      * @param gotoParam
@@ -40,53 +38,43 @@ public class ContactInfoController {
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam) {
 
-        //TODO: Her et sted må vi nok validere requesten fra idporten også
+        //TODO: validere request fra idporten?
+
         PersonResource personResource = _getPersonResourceForFnr(fnr);
 
-        // check if user is registered in KRR
-        if (personResource == null){
+       // check if user exist, or is missing all contact info
+        if (personResource == null || personResource.getEmail() == null && personResource.getMobile() == null) {
 
-            // user could not be found in KRR
-            // send user to create form (optional to update contact info)
-            // TODO: redirect to update all fields page
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
+            // redirect user to 'create' form (optional)
+            return _redirectWithParam("/idporten-bekreft-kontaktinfo/create", fnr, gotoParam);
         }
 
-        // check if user`s contact info is empty
-        if (personResource.getEmail() == null && personResource.getMobile() == null) {
-
-            // user is missing all contact info
-            // send user to update all fields form
-            // TODO: redirect user to update all fields page
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
-        }
-
-        // check if users`s email is empty
-        if (personResource.getEmail() == null) {
-
-            // user is missing email
-            // send user to update email form, with tip note (optional update)
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo/editEpost", fnr, gotoParam);
-        }
-
-        // check if user`s mobile is empty
-        if (personResource.getMobile() == null) {
-
-            // user is missing mobile
-            // send user to update mobile form, with tip note (optional update)
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo/editMobilnr", fnr, gotoParam);
-        }
-
-        // check if contact info is "out-of-date"
+        // check if users contact info needs to be updated
         if (personResource.getShouldUpdateKontaktinfo()) {
 
-            // user should update contact info (out-of-date)
-            // send user to user info page (confirm user info)
+            // if user is missing an email address
+            if (personResource.getEmail() == null) {
+                
+                // redirect user to 'create email' form (optional)
+                // show a tip note about why user should provide an email address
+                return _redirectWithParam("/idporten-bekreft-kontaktinfo/editEpost", fnr, gotoParam);
+            }
+
+           // if user is missing an mobile phone number
+            if (personResource.getMobile() == null) {
+
+                // redirect user to 'create phohen' form (optional)
+                // show a tip note about why user should provide an mobile phone number
+                return _redirectWithParam("/idporten-bekreft-kontaktinfo/editMobilnr", fnr, gotoParam);
+            }
+
+            // user has provided an email address and a mobile phone number
+            // redirect user to confirm their contact info
             return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
         }
 
-        // all contact info is provided, and up-to-date
-        // send user back to idporten. Continue.
+        // user does not have to update their contact info
+        // redirect user back to idporten
         return _redirect(gotoParam);
     }
 

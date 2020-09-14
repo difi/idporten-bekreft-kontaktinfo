@@ -74,7 +74,7 @@ class EditEmail extends Component {
                     <SynchedInput id="epostBekreftet"
                                   source={current}
                                   path="emailConfirmed"
-                                  textKey="field.emailrepeat"
+                                  textKey="field.emailConfirmed"
                                   onChangeCallback={this.validateEmailRepeated}/>
                     <DigdirButtons>
                         <DigdirButton disabled={this.confirmDisabled} type="submit"
