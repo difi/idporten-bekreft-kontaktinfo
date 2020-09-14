@@ -7,6 +7,7 @@ import DigdirForm from "../common/DigdirForm";
 import DigdirButtons from "../common/DigdirButtons";
 import ContentInfoBox from "../common/ContentInfoBox";
 import SynchedInput from "../common/SynchedInput";
+import ContentHeader from "../common/ContentHeader";
 
 
 @inject("kontaktinfoStore")
@@ -20,12 +21,17 @@ class MissingEmail extends Component {
         this.nextDisabled = !(email.length > 0 && email === emailrepeat);
     }
 
+    getTitle() {
+        return "Du har ikke registrert e-post";
+    }
+
     render() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
         return (
             <div>
+                <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
                 {/*<ContentBox textKey="info.manglendeEpostLabel"  />*/}
                 <DigdirForm id="registrerEpost" >

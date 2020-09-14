@@ -7,7 +7,7 @@ const styles = (theme) => ({
         border: props => props.warning ? "2px solid indianred" : "2px solid #ffc922",
         borderRadius: "4px",
         padding: "1em 1em 1.5em 4em;",
-        margin: "1em 2.2857em",
+        margin: "2em 2.2857em",
         position: "relative",
         fontSize: "14px",
         backgroundColor: "#f7f8fa",

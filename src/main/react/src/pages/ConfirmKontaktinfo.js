@@ -13,6 +13,7 @@ import SynchedInput from "../common/SynchedInput";
 import {Edit} from '@material-ui/icons';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
+import ContentHeader from "../common/ContentHeader";
 
 const styles = (theme) => ({
     root: {
@@ -30,6 +31,10 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class ConfirmKontaktinfo extends Component {
+
+    getTitle() {
+        return "Kontaktinformasjon";
+    }
 
     componentDidMount() {
         console.log("Getting anywhere 10:12");
@@ -76,6 +81,7 @@ class ConfirmKontaktinfo extends Component {
 
         return (
             <div>
+                <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo"
                             action={kontaktinfoStore.gotoUrl}

@@ -11,6 +11,7 @@ import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
+import ContentHeader from "../common/ContentHeader";
 
 const styles = (theme) => ({
     root: {
@@ -30,6 +31,10 @@ const styles = (theme) => ({
 class EditEmail extends Component {
     @observable confirmDisabled = false;
     @observable oldEmail = "";
+
+    getTitle() {
+        return "Din e-postadresse";
+    }
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
@@ -63,6 +68,7 @@ class EditEmail extends Component {
 
         return (
             <div>
+                <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="confirmContactinfo"
                             onSubmitCallback={this.handleCommit}>

@@ -9,6 +9,7 @@ import SynchedInput from "../common/SynchedInput";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
+import ContentHeader from "../common/ContentHeader";
 
 const styles = (theme) => ({
     root: {
@@ -26,6 +27,10 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class Create extends Component {
+
+    getTitle() {
+        return "Opprett kontaktinformasjon";
+    }
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
@@ -73,6 +78,7 @@ class Create extends Component {
 
         return (
             <div>
+                <ContentHeader title={this.getTitle()}/>
                 <DigdirForm id="confirmContactinfo"
                             onSubmitCallback={this.handleCommit}>
 

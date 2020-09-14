@@ -11,7 +11,7 @@ import './scss/import.scss';
 
 import RouteSwitch from "./RouteSwitch";
 import {inject, observer} from "mobx-react";
-import ContentHeader from "./common/ContentHeader";
+
 // import Spinner from "./components/Spinner";
 
 // @inject("authStore")
@@ -33,6 +33,7 @@ class App extends Component {
         <Router basename={`${process.env.PUBLIC_URL}`}>
           <RouteSwitch/>
         </Router>
+
     );
   }
 }
