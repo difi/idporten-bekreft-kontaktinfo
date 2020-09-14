@@ -1,0 +1,35 @@
+html, body {
+  height:100%;
+}
+
+body {
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5em;
+  letter-spacing: .1px;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height:100vh;
+  background-color:$primary-bg-color;
+
+}
+
+.main {
+  flex: 1 0 auto;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin-top: 3em;
+  margin-bottom: 3em;
+
+  .app {
+    max-width:500px;
+    margin:auto;
+    padding:0;
+    border: 1px solid $color-alto;
+    background-color:white;
+  }
+}
+

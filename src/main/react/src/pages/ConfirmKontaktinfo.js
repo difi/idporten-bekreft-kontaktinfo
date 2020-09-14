@@ -110,7 +110,6 @@ class ConfirmKontaktinfo extends Component {
                             )
                         }}
                     />
-
                 </DigdirForm>
 
                 <form id="postForm" method="post" action={kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
@@ -118,7 +117,6 @@ class ConfirmKontaktinfo extends Component {
                         <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm"/>
                     </DigdirButtons>
                 </form>
-
             </div>
         );
     }

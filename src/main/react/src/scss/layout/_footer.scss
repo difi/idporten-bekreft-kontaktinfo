@@ -1,0 +1,36 @@
+.footer {
+  background-color: $primary-color;
+  width:100%;
+  color:white;
+  margin-top:auto;
+
+  &__content {
+    display:flex;
+    justify-content: space-between;
+    max-width:600px;
+    margin:0 auto;
+    font-size: .8125em;
+    padding: 2.3em .7682em 10.9em .7682em;
+  }
+
+  &__logo {
+    width:30px;
+    height:30px;
+    margin: 15px 15px 0 0;
+    background: url(../../images/svg/eid-icon.svg) no-repeat top right;
+  }
+
+  &__link {
+    color: white;
+    text-decoration: none;
+    position:relative;
+    padding:.5em;
+    font-size: 1em;
+
+    &--provider {
+      &::before{
+        content:"Driftet av:  "
+      }
+    }
+  }
+}

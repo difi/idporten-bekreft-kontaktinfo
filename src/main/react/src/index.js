@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import ReactDOM from 'react-dom';
-import './css/index.css';
+import './scss/import.scss';
 import App from './App';
 import {Provider} from "mobx-react";
 import * as serviceWorker from './serviceWorker';
@@ -33,15 +33,17 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-    <Fragment>
-        <Provider {...new MainStore()}>
-            <ThemeProvider theme={theme}>
-                <SnackbarProvider maxSnack={3}>
-                    <App />
-                </SnackbarProvider>
-            </ThemeProvider>
-        </Provider>
-    </Fragment>
+    <div>
+        <Fragment>
+            <Provider {...new MainStore()}>
+                <ThemeProvider theme={theme}>
+                    <SnackbarProvider maxSnack={3}>
+                        <App />
+                    </SnackbarProvider>
+                </ThemeProvider>
+            </Provider>
+        </Fragment>
+    </div>
     , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -52,24 +52,47 @@
 
   <title>Bekreft Kontaktinformasjon</title>
 
-  <style>
-    body {
-      letter-spacing: .1px;
-      background-color: #f7f8fa;
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      text-decoration: none;
-      color: rgba(0, 0, 0, 0.87);
-    }
-  </style>
 </head>
 <body>
 <noscript>Bekreft kontaktinformasjon</noscript>
 <!--<script src="%PUBLIC_URL%/config.js"></script>-->
-<div id="root"></div>
+<header class="header">
+  <div class="header__content">
+    <a href="https://www.digdir.no/" class="header__link" tabindex="100">
+      <span class="fa fa-angle-left fa-lg" aria-hidden="true"></span>
+      <span>Tilbake</span>
+    </a>
+  </div>
+</header>
+<main class="main">
+
+  <div class="app" id="root"></div>
+</main>
+<footer class="footer">
+  <div class="footer__content">
+    <div class="footer__logo"></div>
+    <div class="footer__info">
+      <a class="footer__link" href="https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IdPorten&amp;pageid=dc6">
+        Kontaktskjema
+      </a>
+      <a class="footer__link" href="tel:+4780030300"><span>Tlf: 800 30 300</span></a>
+      <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/id-porten">
+        Hjelp til innlogging
+      </a>
+      <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/sikkerhet-og-personvern">
+        Sikkerhet og personvern
+      </a>
+      <div id="pageid" style="display:none">dc6</div>
+      <div id="version" style="display:none">DEV-SNAPSHOT.ef35f - 08.09.2020</div>
+      <p>
+        <a class="footer__link footer__link--provider" target="_blank" href="http://www.digdir.no/">Digitaliseringsdirektoratet</a>
+      </p>
+
+
+    </div>
+
+  </div>
+</footer>
+
 </body>
 </html>
