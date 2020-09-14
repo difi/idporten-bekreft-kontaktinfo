@@ -7,9 +7,11 @@ import {BrowserRouter as Router} from 'react-router-dom';
 // import './css/open-sans.css';
 // import './css/animations.css';
 // import './css/loader.css';
+import './scss/import.scss';
 
 import RouteSwitch from "./RouteSwitch";
 import {inject, observer} from "mobx-react";
+import ContentHeader from "./common/ContentHeader";
 // import Spinner from "./components/Spinner";
 
 // @inject("authStore")

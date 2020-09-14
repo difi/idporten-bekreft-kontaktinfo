@@ -33,6 +33,9 @@ const styles = (theme) => ({
         '&:last-child': {
             marginLeft: 0,
         },
+        '&:only-child': {
+            margin:"0em 2em 1em 2em",
+        },
         '&[data-grey=true]': {
             color: "#5e6b77",
             backgroundColor: "#fff",
