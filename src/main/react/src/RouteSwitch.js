@@ -6,6 +6,7 @@ import MissingEmail from "./pages/MissingEmail";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import Create from "./pages/Create";
+import ContentHeader from "./common/ContentHeader";
 
 class RouteSwitch extends React.Component {
 
@@ -16,14 +17,19 @@ class RouteSwitch extends React.Component {
 
     render() {
         return (
-            <Switch>
-                <PrivateRoute path={"/manglendeEpost"} component={MissingEmail} />
-                <PrivateRoute path={"/create"} component={Create} />
-                <PrivateRoute path={"/editMobile"} component={EditMobile} />
-                <PrivateRoute path={"/editEmail"} component={EditEmail} />
-                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo} />
-                {/*<DefaultLayout component={NotFound} />*/}
-            </Switch>
+            <div>
+
+                {/* eslint-disable-next-line react/jsx-no-undef */}
+                <ContentHeader/>
+                <Switch>
+                    <PrivateRoute path={"/manglendeEpost"} component={MissingEmail} />
+                    <PrivateRoute path={"/create"} component={Create} />
+                    <PrivateRoute path={"/editMobile"} component={EditMobile} />
+                    <PrivateRoute path={"/editEmail"} component={EditEmail} />
+                    <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo} />
+                    {/*<DefaultLayout component={NotFound} />*/}
+                </Switch>
+            </div>
         );
     }
 }
