@@ -118,7 +118,7 @@ class ConfirmKontaktinfo extends Component {
                     />
                 </DigdirForm>
 
-                <form id="postForm" method="post" action={kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
+                <form id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
                         <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm"/>
                     </DigdirButtons>
