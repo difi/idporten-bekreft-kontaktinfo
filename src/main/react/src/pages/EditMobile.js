@@ -11,6 +11,7 @@ import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
+import ContentHeader from "../common/ContentHeader";
 
 const styles = (theme) => ({
     root: {
@@ -30,6 +31,10 @@ const styles = (theme) => ({
 class EditMobile extends Component {
     @observable confirmDisabled = false;
     @observable oldMobile = "";
+
+    getTitle() {
+        return "Ditt mobilnummer";
+    }
 
     componentDidMount() {
         this.oldMobile = this.props.kontaktinfoStore.current.mobile;
@@ -60,6 +65,7 @@ class EditMobile extends Component {
 
         return (
             <div>
+                <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput id="mobile"

@@ -40,8 +40,6 @@
       s.parentNode.insertBefore(wf, s);
     })(); </script>
 
-
-
   <meta charset="utf-8"/>
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -50,49 +48,45 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/eid-logo.gif"/>
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Bekreft Kontaktinformasjon</title>
 
 </head>
 <body>
-<noscript>Bekreft kontaktinformasjon</noscript>
-<!--<script src="%PUBLIC_URL%/config.js"></script>-->
-<header class="header">
-  <div class="header__content">
-    <a href="https://www.digdir.no/" class="header__link" tabindex="100">
-      <span class="fa fa-angle-left fa-lg" aria-hidden="true"></span>
-      <span>Tilbake</span>
-    </a>
-  </div>
-</header>
-<main class="main">
-
-  <div class="app" id="root"></div>
-</main>
-<footer class="footer">
-  <div class="footer__content">
-    <div class="footer__logo"></div>
-    <div class="footer__info">
-      <a class="footer__link" href="https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IdPorten&amp;pageid=dc6">
-        Kontaktskjema
+  <noscript>Bekreft kontaktinformasjon</noscript>
+  <!--<script src="%PUBLIC_URL%/config.js"></script>-->
+  <header class="header">
+    <div class="header__content">
+      <a href="https://www.digdir.no/" class="header__link" tabindex="100">
+        <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
+        <span>Tilbake</span>
       </a>
-      <a class="footer__link" href="tel:+4780030300"><span>Tlf: 800 30 300</span></a>
-      <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/id-porten">
-        Hjelp til innlogging
-      </a>
-      <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/sikkerhet-og-personvern">
-        Sikkerhet og personvern
-      </a>
-      <div id="pageid" style="display:none">dc6</div>
-      <div id="version" style="display:none">DEV-SNAPSHOT.ef35f - 08.09.2020</div>
-      <p>
-        <a class="footer__link footer__link--provider" target="_blank" href="http://www.digdir.no/">Digitaliseringsdirektoratet</a>
-      </p>
-
-
     </div>
-
-  </div>
-</footer>
-
+  </header>
+  <main class="main">
+    <div class="app" id="root"></div>
+  </main>
+  <footer class="footer">
+    <div class="footer__content">
+      <div class="footer__logo"></div>
+      <div class="footer__info">
+        <a class="footer__link" href="https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IdPorten&amp;pageid=dc6">
+          Kontaktskjema
+        </a>
+        <a class="footer__link" href="tel:+4780030300"><span>Tlf: 800 30 300</span></a>
+        <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/id-porten">
+          Hjelp til innlogging
+        </a>
+        <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/sikkerhet-og-personvern">
+          Sikkerhet og personvern
+        </a>
+        <div id="pageid" style="display:none">dc6</div>
+        <div id="version" style="display:none">DEV-SNAPSHOT.ef35f - 08.09.2020</div>
+        <p>
+          <a class="footer__link footer__link--provider" target="_blank" href="http://www.digdir.no/">Digitaliseringsdirektoratet</a>
+        </p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
