@@ -10,6 +10,7 @@ import kontaktinfoStore from "../stores/KontaktinfoStore";
 import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
 import ContentHeader from "../common/ContentHeader";
+import ContentInfoBox from "../common/ContentInfoBox";
 
 const styles = (theme) => ({
     root: {
@@ -79,6 +80,7 @@ class Create extends Component {
         return (
             <div>
                 <ContentHeader title={this.getTitle()}/>
+                <ContentInfoBox textKey="info.manglendeInformasjon"  />
                 <DigdirForm id="confirmContactinfo"
                             onSubmitCallback={this.handleCommit}>
 

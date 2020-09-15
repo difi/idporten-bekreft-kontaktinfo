@@ -63,6 +63,7 @@ class EditMobile extends Component {
     render() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
+        this.validateMobileRepeated()
 
         return (
             <div>
@@ -87,10 +88,10 @@ class EditMobile extends Component {
                                       value="submit"
                                       textKey="button.confirm" />
                         <DigdirButton type="submit"
-                                      value="cancel"
+                                      value="skip"
                                       data-white="true"
                                       onClick={this.handleCancel}
-                                      textKey="button.cancel" />
+                                      textKey="button.skip" />
                     </DigdirButtons>
                 </DigdirForm>
             </div>

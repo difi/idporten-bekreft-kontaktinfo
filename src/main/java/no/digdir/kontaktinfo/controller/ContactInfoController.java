@@ -57,7 +57,7 @@ public class ContactInfoController {
                 
                 // redirect user to 'create email' form (optional)
                 // show a tip note about why user should provide an email address
-                return _redirectWithParam("/idporten-bekreft-kontaktinfo/editEpost", fnr, gotoParam);
+                return _redirectWithParam("/idporten-bekreft-kontaktinfo/createEmail", fnr, gotoParam);
             }
 
            // if user is missing an mobile phone number
@@ -65,7 +65,7 @@ public class ContactInfoController {
 
                 // redirect user to 'create phohen' form (optional)
                 // show a tip note about why user should provide an mobile phone number
-                return _redirectWithParam("/idporten-bekreft-kontaktinfo/editMobilnr", fnr, gotoParam);
+                return _redirectWithParam("/idporten-bekreft-kontaktinfo/createMobile", fnr, gotoParam);
             }
 
             // user has provided an email address and a mobile phone number

@@ -72,25 +72,15 @@ class EditEmail extends Component {
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="confirmContactinfo"
                             onSubmitCallback={this.handleCommit}>
-                    <SynchedInput id="email"
-                                  source={current}
-                                  path="email"
-                                  textKey="field.email"
-                                  onChangeCallback={this.validateEmailRepeated}/>
-                    <SynchedInput id="epostBekreftet"
-                                  source={current}
-                                  path="emailConfirmed"
-                                  textKey="field.emailConfirmed"
-                                  onChangeCallback={this.validateEmailRepeated}/>
+                    <SynchedInput id="email" source={current} path="email"
+                                  textKey="field.email" onChangeCallback={this.validateEmailRepeated}/>
+                    <SynchedInput id="epostBekreftet" source={current} path="emailConfirmed"
+                                  textKey="field.emailConfirmed" onChangeCallback={this.validateEmailRepeated}/>
                     <DigdirButtons>
                         <DigdirButton disabled={this.confirmDisabled} type="submit"
-                                      value="submit"
-                                      textKey="button.confirm" />
-                        <DigdirButton type="submit"
-                                      value="cancel"
-                                      data-white="true"
-                                      onClick={this.handleCancel}
-                                      textKey="button.cancel" />
+                                      value="submit" textKey="button.confirm" />
+                        <DigdirButton type="submit" value="cancel"
+                                      data-white="true" onClick={this.handleCancel} textKey="button.cancel" />
                     </DigdirButtons>
                 </DigdirForm>
             </div>

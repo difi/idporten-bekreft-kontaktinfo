@@ -2,44 +2,90 @@ import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
 
 import autobind from "autobind-decorator";
+import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
-import DigdirButtons from "../common/DigdirButtons";
 import ContentInfoBox from "../common/ContentInfoBox";
+import {withStyles} from "@material-ui/core";
+import {withTranslation} from "react-i18next";
+import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
+import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
+import ContentInfo from "../common/ContentInfo";
 
+const styles = (theme) => ({
+    root: {
+
+    },
+    codeButton: {
+        backgroundColor: "#006cff",
+        '&:hover': {
+            borderColor: "#9fa9b4",
+            backgroundColor: "#134f9e",
+        },
+    }
+});
 
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
-
-    @autobind
-    compareMobile(e) {
-        const email = this.props.kontaktinfoStore.current.email;
-        const emailrepeat = this.props.kontaktinfoStore.current.emailrepeat;
-        this.nextDisabled = !(email.length > 0 && email === emailrepeat);
-    }
+    @observable confirmDisabled = false;
+    @observable oldEmail = "";
 
     getTitle() {
-        return "Du har ikke registrert e-post";
+        return "Din e-postadresse";
+    }
+
+    componentDidMount() {
+        this.oldEmail = this.props.kontaktinfoStore.current.email;
+    }
+
+    @autobind
+    handleCommit() {
+        this.props.history.push('/kontaktinfo');
+    }
+
+    @autobind
+    handleCancel() {
+        this.props.kontaktinfoStore.current.email = this.oldEmail;
+        this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
+        this.props.history.push('/kontaktinfo');
+    }
+
+    @autobind
+    validateEmailRepeated() {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        if (!(current.email.match(".*@.*"))) {
+            this.confirmDisabled = true;
+            return;
+        }
+        this.confirmDisabled = !(current.email.length > 0 && current.emailConfirmed === current.email);
     }
 
     render() {
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
+        const current = this.props.kontaktinfoStore.current;
+        this.validateEmailRepeated()
 
         return (
             <div>
                 <ContentHeader title={this.getTitle()}/>
+
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
-                {/*<ContentBox textKey="info.manglendeEpostLabel"  />*/}
-                <DigdirForm id="registrerEpost" >
-                    <SynchedInput id="email" source={current.email} path="email" required textKey="field.email" autoFocus={true} onChangeCallback={this.compareMobile()} />
-                    <SynchedInput id="emailRepeat" source={current.emailrepeat} path="emailrepeat" required textKey="field.emailrepeat" autoFocus={true} onChangeCallback={this.compareMobile()} />
+                <ContentInfo textKey="info.manglendeEpostLabel" />
+
+                <DigdirForm id="confirmContactinfo"
+                            onSubmitCallback={this.handleCommit}>
+                    <SynchedInput id="email" source={current} path="email"
+                                  textKey="field.email" onChangeCallback={this.validateEmailRepeated}/>
+                    <SynchedInput id="epostBekreftet" source={current} path="emailConfirmed"
+                                  textKey="field.emailConfirmed" onChangeCallback={this.validateEmailRepeated}/>
                     <DigdirButtons>
-                        <DigdirButton textKey="button.skip"  />
-                        <DigdirButton disabled={this.nextDisabled} textKey="button.next" component="a" href={kontaktinfoStore.gotoUrl} />
+                        <DigdirButton disabled={this.confirmDisabled} type="submit"
+                                      value="submit" textKey="button.confirm" />
+                        <DigdirButton type="submit" value="skip"
+                                      data-white="true" onClick={this.handleCancel} textKey="button.skip" />
                     </DigdirButtons>
                 </DigdirForm>
             </div>
@@ -47,5 +93,5 @@ class MissingEmail extends Component {
     }
 }
 
-export default MissingEmail;
-
+const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
+export default compose(withStyles(styles), withTranslation())(MissingEmail);
