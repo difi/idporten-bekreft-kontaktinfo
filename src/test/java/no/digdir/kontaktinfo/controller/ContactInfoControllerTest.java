@@ -34,20 +34,6 @@ public class ContactInfoControllerTest {
     @MockBean
     private RestTemplate restTemplate;
 
-    @Test
-    public void checkUserIsMissingContactInfo() {
-        String fnr = "23079417815";
-        String email = null;
-        String mobile = null;
-
-        Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
-                .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
-
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
-
-        String path = contactInfoController.getRedirectPath(personResource);
-        assertEquals("/idporten-bekreft-kontaktinfo/create",path);
-    }
 
     @Test
     public void checkUserIsNullContactInfo() {
@@ -57,19 +43,19 @@ public class ContactInfoControllerTest {
     }
 
     @Test
-    public void checkUserNoUpdateRedirectedBackToIdPorten() {
+    public void checkUserIsMissingContactInfoPast90days() {
         String fnr = "23079417815";
-        String email = "mocking@digdir.no";
-        String mobile = "12121212";
+        String email = null;
+        String mobile = null;
 
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
         PersonResource personResource = clientService.getPersonForFnr(fnr);
-        personResource.setShouldUpdateKontaktinfo(false);
+        personResource.setShouldUpdateKontaktinfo(true);
 
         String path = contactInfoController.getRedirectPath(personResource);
-        assertEquals(null,path);
+        assertEquals("/idporten-bekreft-kontaktinfo/create",path);
     }
 
     @Test
@@ -118,6 +104,22 @@ public class ContactInfoControllerTest {
 
         String path = contactInfoController.getRedirectPath(personResource);
         assertEquals("/idporten-bekreft-kontaktinfo",path);
+    }
+
+    @Test
+    public void checkUserNoUpdateRedirectedBackToIdPorten() {
+        String fnr = "23079417815";
+        String email = "mocking@digdir.no";
+        String mobile = "12121212";
+
+        Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
+                .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
+
+        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        personResource.setShouldUpdateKontaktinfo(false);
+
+        String path = contactInfoController.getRedirectPath(personResource);
+        assertEquals(null,path);
     }
 
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {
