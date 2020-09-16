@@ -28,78 +28,53 @@ public class ContactInfoController {
         this.clientService = clientService;
     }
 
-    /**
-     * Route controller, redirect user to correct form.
-     *
-     * @param fnr
-     * @param gotoParam
-     * @return
-     */
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam) {
 
         //TODO: validere request fra idporten?
 
-        PersonResource personResource = _getPersonResourceForFnr(fnr);
+        PersonResource personResource = getPersonResourceForFnr(fnr);
 
-       // check if user exist, or is missing all contact info
-        if (personResource == null || personResource.getEmail() == null && personResource.getMobile() == null) {
-
-            // redirect user to 'create' form (optional)
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo/create", fnr, gotoParam);
+        if(getRedirectPath(personResource) != null){
+            return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam);
         }
 
-        // check if users contact info needs to be updated
-        if (personResource.getShouldUpdateKontaktinfo()) {
-
-            // if user is missing an email address
-            if (personResource.getEmail() == null) {
-                
-                // redirect user to 'create email' form (optional)
-                // show a tip note about why user should provide an email address
-                return _redirectWithParam("/idporten-bekreft-kontaktinfo/createEmail", fnr, gotoParam);
-            }
-
-           // if user is missing an mobile phone number
-            if (personResource.getMobile() == null) {
-
-                // redirect user to 'create phohen' form (optional)
-                // show a tip note about why user should provide an mobile phone number
-                return _redirectWithParam("/idporten-bekreft-kontaktinfo/createMobile", fnr, gotoParam);
-            }
-
-            // user has provided an email address and a mobile phone number
-            // redirect user to confirm their contact info
-            return _redirectWithParam("/idporten-bekreft-kontaktinfo", fnr, gotoParam);
-        }
-
-        // user does not have to update their contact info
-        // redirect user back to idporten
-        return _redirect(gotoParam);
+        return redirect(gotoParam);
     }
 
-    /**
-     * Creates redirect URI and redirect user
-     *
-     * @param location
-     * @return ResponseEntity
-     */
-    private ResponseEntity<Void> _redirect(String location){
+    public String getRedirectPath(PersonResource personResource) {
+
+        // check if user exist, or is missing all contact info
+        if (personResource == null || personResource.getEmail() == null && personResource.getMobile() == null) {
+            return "/idporten-bekreft-kontaktinfo/create";
+        }
+
+        if (personResource.getShouldUpdateKontaktinfo()) {
+
+            if (personResource.getEmail() == null) {
+                return "/idporten-bekreft-kontaktinfo/createEmail";
+            }
+
+            if (personResource.getMobile() == null) {
+                return "/idporten-bekreft-kontaktinfo/createMobile";
+            }
+
+            // user should confirm / update contact info
+            return "/idporten-bekreft-kontaktinfo";
+        }
+
+        // user should be redirected back to idporten
+        return null;
+    }
+
+    public ResponseEntity<Void> redirect(String location){
         return ResponseEntity
                 .status(302)
                 .location(URI.create(location))
                 .build();
     }
 
-    /**
-     * Create redirect URI with param and redirect user
-     *
-     * @param location
-     * @param gotoParam
-     * @param fnr
-     * @return
-     */
-    private ResponseEntity<Void> _redirectWithParam(String location, String fnr, String gotoParam){
+    public ResponseEntity<Void> redirectWithParam(String location, String fnr, String gotoParam){
 
         UriComponents redirectUri;
         try {
@@ -112,17 +87,10 @@ public class ContactInfoController {
             throw new RuntimeException("Couldn't build redirect-uri");
         }
 
-        return _redirect(redirectUri.toUriString());
+        return redirect(redirectUri.toUriString());
     }
 
-    /**
-     * Get person resource for fnr
-     * return NULL if resource could not be found
-     *
-     * @param fnr
-     * @return
-     */
-    private PersonResource _getPersonResourceForFnr(String fnr){
+    public PersonResource getPersonResourceForFnr(String fnr){
 
         PersonResource personResource;
         try {
