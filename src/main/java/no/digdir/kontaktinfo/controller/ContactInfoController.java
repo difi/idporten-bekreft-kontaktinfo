@@ -44,12 +44,15 @@ public class ContactInfoController {
 
     public String getRedirectPath(PersonResource personResource) {
 
-        // check if user exist, or is missing all contact info
-        if (personResource == null || personResource.getEmail() == null && personResource.getMobile() == null) {
+        if (personResource == null) {
             return "/idporten-bekreft-kontaktinfo/create";
         }
 
         if (personResource.getShouldUpdateKontaktinfo()) {
+
+            if(personResource.getEmail() == null && personResource.getMobile() == null){
+                return "/idporten-bekreft-kontaktinfo/create";
+            }
 
             if (personResource.getEmail() == null) {
                 return "/idporten-bekreft-kontaktinfo/createEmail";
