@@ -139,12 +139,4 @@ public class PersonResource {
         return shouldUpdateKontaktinfo;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
 }
