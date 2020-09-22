@@ -6,25 +6,10 @@ import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import ContentInfoBox from "../common/ContentInfoBox";
-import {withStyles} from "@material-ui/core";
-import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
-
-const styles = (theme) => ({
-    root: {
-
-    },
-    codeButton: {
-        backgroundColor: "#006cff",
-        '&:hover': {
-            borderColor: "#9fa9b4",
-            backgroundColor: "#134f9e",
-        },
-    }
-});
 
 @inject("kontaktinfoStore")
 @observer
@@ -67,7 +52,7 @@ class EditEmail extends Component {
         const current = this.props.kontaktinfoStore.current;
 
         return (
-            <div>
+            <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="confirmContactinfo"
@@ -83,10 +68,9 @@ class EditEmail extends Component {
                                       data-white="true" onClick={this.handleCancel} textKey="button.cancel" />
                     </DigdirButtons>
                 </DigdirForm>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(EditEmail);
+export default EditEmail;

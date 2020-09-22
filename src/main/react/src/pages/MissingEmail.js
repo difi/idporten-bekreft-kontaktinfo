@@ -69,7 +69,7 @@ class MissingEmail extends Component {
         this.validateEmailRepeated()
 
         return (
-            <div>
+            <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
@@ -88,10 +88,9 @@ class MissingEmail extends Component {
                                       data-white="true" onClick={this.handleCancel} textKey="button.skip" />
                     </DigdirButtons>
                 </DigdirForm>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(MissingEmail);
+export default MissingEmail;

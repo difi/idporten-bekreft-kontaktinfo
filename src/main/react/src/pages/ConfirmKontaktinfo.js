@@ -6,8 +6,6 @@ import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import ContentInfoBox from "../common/ContentInfoBox";
-import {withStyles} from "@material-ui/core";
-import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {Edit} from '@material-ui/icons';
@@ -37,7 +35,7 @@ class ConfirmKontaktinfo extends Component {
     }
 
     componentDidMount() {
-        console.log("Getting anywhere 10:12");
+
         const {kontaktinfoStore} = this.props;
 
         //const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
@@ -80,38 +78,26 @@ class ConfirmKontaktinfo extends Component {
         let current = this.props.kontaktinfoStore.current;
 
         return (
-            <div>
+            <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
                 <DigdirForm id="bekreftKontaktinfo"
                             action={kontaktinfoStore.gotoUrl}
                             method="post">
-                    <SynchedInput
-                        disabled={true}
-                        id="email"
-                        source={current}
-                        value={current.email}
-                        path="email"
-                        textKey="field.email"
-                        InputProps={{
+                    <SynchedInput disabled={true} id="email" source={current} value={current.email}
+                        path="email" textKey="field.email" InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton onClick={e => {this.handleEditEmail(e)}}><Edit/></IconButton>
+                                    <IconButton aria-label="Endre e-post" onClick={e => {this.handleEditEmail(e)}}><Edit/></IconButton>
                                 </InputAdornment>
                             )
                         }}
                     />
-                    <SynchedInput
-                        disabled={true}
-                        id="mobile"
-                        source={current}
-                        value={current.mobile}
-                        path="mobile"
-                        textKey="field.mobile"
-                        InputProps={{
+                    <SynchedInput disabled={true} id="mobile" source={current} value={current.mobile}
+                        path="mobile" textKey="field.mobile" InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton onClick={e => {this.handleEditMobile(e)}}><Edit/></IconButton>
+                                    <IconButton aria-label="Endre mobil" onClick={e => {this.handleEditMobile(e)}}><Edit/></IconButton>
                                 </InputAdornment>
                             )
                         }}
@@ -123,11 +109,10 @@ class ConfirmKontaktinfo extends Component {
                         <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm"/>
                     </DigdirButtons>
                 </form>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(ConfirmKontaktinfo);
+export default ConfirmKontaktinfo;
 

@@ -22,15 +22,34 @@
 
   &__link {
     color: white;
-    text-decoration: none;
     position:relative;
     padding:.5em;
     font-size: 1em;
+    text-decoration: none;
 
     &--provider {
       &::before{
         content:"Driftet av:  "
       }
     }
+  }
+
+  @media (max-width: 600px) {
+
+    .footer__content {
+      padding-bottom: 9em;
+      width:auto;
+    }
+
+    .footer__info {
+      margin:auto;
+
+      .footer__link {
+        float: left;
+        padding: 12px;
+        clear: both;
+      }
+    }
+
   }
 }

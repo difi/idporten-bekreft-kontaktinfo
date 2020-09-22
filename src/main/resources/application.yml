@@ -18,6 +18,12 @@ server:
       cookie:
         secure: false
         http-only: true
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
 
 # Spring boot actuator endpoint
 management:
@@ -49,6 +55,12 @@ spring:
   http:
     encoding:
       force: true
+
+  resources:
+    cache:
+      cachecontrol:
+        max-age: 120
+        must-revalidate: true
 
   # Spring Security - OAuth 2 provider
   security:

@@ -29,7 +29,7 @@ const styles = (theme) => ({
 
 @inject("kontaktinfoStore")
 @observer
-class EditMobile extends Component {
+class MissingMobile extends Component {
     @observable confirmDisabled = false;
     @observable oldMobile = "";
 
@@ -66,7 +66,7 @@ class EditMobile extends Component {
         this.validateMobileRepeated()
 
         return (
-            <div>
+            <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
                 <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
@@ -94,10 +94,9 @@ class EditMobile extends Component {
                                       textKey="button.skip" />
                     </DigdirButtons>
                 </DigdirForm>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(EditMobile);
+export default MissingMobile;

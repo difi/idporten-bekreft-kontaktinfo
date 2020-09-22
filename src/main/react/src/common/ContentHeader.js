@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core";
 import {observer} from "mobx-react";
-import {withTranslation} from "react-i18next";
 
 const styles = (theme) => ({
     root: {
@@ -65,7 +64,7 @@ class ContentHeader extends Component {
         const {classes} = this.props;
 
         return (
-            <div>
+            <React.Fragment>
                 <div className={classes.root} >
                     <h2 className={classes.h2}>Dine kontaktopplysninger</h2>
                     <div className={classes.providerBox}>
@@ -75,7 +74,7 @@ class ContentHeader extends Component {
                 <div className={classes.root} >
                     <h1 className={classes.h1}>{this.props.title}</h1>
                 </div>
-            </div>
+            </React.Fragment>
 
         );
     }

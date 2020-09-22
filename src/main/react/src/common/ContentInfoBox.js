@@ -30,11 +30,11 @@ const styles = (theme) => ({
 
 class ContentInfoBox extends Component {
     render() {
-        const { classes, textKey, t, iconUrl } = this.props;
+        const { classes, textKey, t } = this.props;
         const text = t(textKey);
 
         return (
-            <div className={classes.root} style={{fontSize: "14px"}} dangerouslySetInnerHTML={{ __html: `<div> ${text} </div>` }} ></div>
+            <div className={classes.root} dangerouslySetInnerHTML={{__html: `<div> ${text} </div>`}} />
         );
     }
 }

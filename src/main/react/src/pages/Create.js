@@ -7,23 +7,8 @@ import DigdirForm from "../common/DigdirForm";
 import DigdirButtons from "../common/DigdirButtons";
 import SynchedInput from "../common/SynchedInput";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
-import {withStyles} from "@material-ui/core";
-import {withTranslation} from "react-i18next";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
-
-const styles = (theme) => ({
-    root: {
-
-    },
-    codeButton: {
-        backgroundColor: "#006cff",
-        '&:hover': {
-            borderColor: "#9fa9b4",
-            backgroundColor: "#134f9e",
-        },
-    }
-});
 
 @inject("kontaktinfoStore")
 @observer
@@ -78,7 +63,7 @@ class Create extends Component {
         const current = kontaktinfoStore.current;
 
         return (
-            <div>
+            <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.manglendeInformasjon"  />
                 <DigdirForm id="confirmContactinfo"
@@ -105,11 +90,9 @@ class Create extends Component {
                     </DigdirButtons>
 
                 </DigdirForm>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles), withTranslation())(Create);
-
+export default Create;

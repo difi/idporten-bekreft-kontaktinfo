@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nb">
 <head>
   <!-- uncomment next line when debugging CSP locally. Online evaluator at https://csp-evaluator.withgoogle.com/ -->
   <!-- <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; object-src 'none'; default-src 'self'; connect-src 'self' eid-systest-minid-web01.dmz.local; script-src 'self' 'nonce-$request_id' ajax.googleapis.com 'unsafe-inline' 'strict-dynamic'; style-src 'self' 'unsafe-inline' 'nonce-$request_id' fonts.googleapis.com; font-src  fonts.gstatic.com ; img-src 'self' data: ;  frame-ancestors 'none'; child-src 'self'; frame-src 'self'; require-trusted-types-for 'script'"> -->
@@ -7,8 +7,6 @@
   <!-- nginx injects 'content="$request_id"' into tag below. Picked up by JSS when injecting styles - https://github.com/cssinjs/jss/blob/master/docs/csp.md -->
   <meta property="csp-nonce">
 
-  <!-- preload scripts and fonts -->
-  <link rel="preload" href="%PUBLIC_URL%/config.js" as="script">
   <link rel="preload" href="%PUBLIC_URL%/locales/nb-NO/translation.json" as="fetch" crossorigin>
 
   <% for (let index in htmlWebpackPlugin.files.js) { %>
@@ -16,29 +14,6 @@
   <link rel="preload" href="<%= htmlWebpackPlugin.files.js[index] %>" as="script">
   <%   } %>
   <% } %>
-
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-  <link rel="preconnect" href="//fonts.googleapis.com" crossorigin>
-
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
-
-  <link rel="dns-prefetch" href="//ajax.googleapis.com">
-  <link rel="preconnect" href="//ajax.googleapis.com" crossorigin>
-
-  <script type="text/javascript">
-    WebFontConfig = {
-      google: {families: ['Open Sans: 300,400,600,700:latin-ext&display=swap']}
-    };
-    (function () {
-      let wf = document.createElement('script');
-      wf.src = ('http:' === document.location.protocol ? 'http' : 'https') +
-              '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = 'true';
-      let s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(wf, s);
-    })(); </script>
 
   <meta charset="utf-8"/>
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico"/>
@@ -48,7 +23,8 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/eid-logo.gif"/>
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style> html { display: none }</style>
+
   <title>Bekreft Kontaktinformasjon</title>
 
 </head>
@@ -57,8 +33,12 @@
   <!--<script src="%PUBLIC_URL%/config.js"></script>-->
   <header class="header">
     <div class="header__content">
-      <a href="https://www.digdir.no/" class="header__link" tabindex="100">
-        <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
+      <a href="https://www.digdir.no/" class="header__link">
+        <img srcset="
+          %PUBLIC_URL%/images/angle-left-10x10.png 1x,
+          %PUBLIC_URL%/images/angle-left-20x20.png 2x,
+          %PUBLIC_URL%/images/angle-left-30x30.png 3x
+          " alt="angle left">
         <span>Tilbake</span>
       </a>
     </div>
@@ -70,23 +50,31 @@
     <div class="footer__content">
       <div class="footer__logo"></div>
       <div class="footer__info">
-        <a class="footer__link" href="https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IdPorten&amp;pageid=dc6">
+        <a class="footer__link"  rel="noopener" href="https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IdPorten&amp;pageid=dc6">
           Kontaktskjema
         </a>
         <a class="footer__link" href="tel:+4780030300"><span>Tlf: 800 30 300</span></a>
-        <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/id-porten">
+        <a class="footer__link" target="_blank" rel="noopener" href="https://eid.difi.no/nb/id-porten">
           Hjelp til innlogging
         </a>
-        <a class="footer__link" target="_blank" href="https://eid.difi.no/nb/sikkerhet-og-personvern">
+        <a class="footer__link" target="_blank" rel="noopener" href="https://eid.difi.no/nb/sikkerhet-og-personvern">
           Sikkerhet og personvern
         </a>
-        <div id="pageid" style="display:none">dc6</div>
-        <div id="version" style="display:none">DEV-SNAPSHOT.ef35f - 08.09.2020</div>
         <p>
-          <a class="footer__link footer__link--provider" target="_blank" href="http://www.digdir.no/">Digitaliseringsdirektoratet</a>
+          <a class="footer__link footer__link--provider" target="_blank" rel="noopener" href="http://www.digdir.no/">Digitaliseringsdirektoratet</a>
         </p>
       </div>
     </div>
   </footer>
 </body>
+  <script async type="text/javascript">
+    (function () {
+      let wf = document.createElement('script');
+      wf.src = ('http:' === document.location.protocol ? 'http' : 'https') +
+              '://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      let s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })(); </script>
 </html>

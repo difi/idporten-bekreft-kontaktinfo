@@ -12,11 +12,11 @@ const styles = (theme) => ({
 
 class ContentInfo extends Component {
     render() {
-        const { classes, textKey, t, iconUrl } = this.props;
+        const { classes, textKey, t } = this.props;
         const text = t(textKey);
 
         return (
-            <p className={classes.root} style={{fontSize: "14px"}} dangerouslySetInnerHTML={{ __html: `${text}` }} ></p>
+            <p className={classes.root} dangerouslySetInnerHTML={{__html: `${text}`}} />
         );
     }
 }
