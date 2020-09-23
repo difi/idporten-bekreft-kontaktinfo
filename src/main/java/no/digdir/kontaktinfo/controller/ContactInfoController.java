@@ -6,13 +6,14 @@ import no.digdir.kontaktinfo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -26,6 +27,35 @@ public class ContactInfoController {
     @Autowired
     public ContactInfoController(ClientService clientService) {
         this.clientService = clientService;
+    }
+
+    @GetMapping("/autosubmit")
+    @ResponseBody
+    public void receiveResponse(HttpServletRequest request,
+                                /*@RequestParam String code,
+                                @RequestParam String service,
+                                @RequestParam String serverid,*/
+                                HttpServletResponse response) throws URISyntaxException, IOException {
+
+/*
+        HttpSession session = request.getSession();
+
+        String url = UriComponentsBuilder.newInstance()
+                .uri(new URI((String) session.getAttribute("redirectUrl")))
+                .queryParam("code", code)
+                .queryParam("ForceAuth", session.getAttribute("forceAuth"))
+                .queryParam("gx_charset", request.getSession().getAttribute("gx_charset"))
+                .queryParam("locale", request.getSession().getAttribute("locale"))
+                .queryParam("goto", request.getSession().getAttribute("goto"))
+                .queryParam("service", service)
+                .queryParam("serverid", serverid)
+                .build()
+                .toUriString();
+
+         */
+
+        String url = "http://vg.no";
+        renderHelpingPage(response, url);
     }
 
     @GetMapping("/user/{fnr}/confirm")
@@ -106,5 +136,28 @@ public class ContactInfoController {
         }
 
         return personResource;
+    }
+
+    private void renderHelpingPage(HttpServletResponse response, String url) throws IOException {
+        StringBuilder result = new StringBuilder();
+        result.append(top(url));
+        result.append(footer());
+        response.setContentType(getContentType());
+        response.getWriter().append(result);
+    }
+    private String top(String url) {
+        return "<html>" +
+                "<head><title>Bekreft Kontaktinformasjon</title></head>" +
+                "<body onload=\"javascript:document.forms[0].submit()\">" +
+                "<form target=\"_parent\" method=\"post\" action=\"" + url + "\">";
+    }
+    private String footer() {
+        return "<noscript><input type=\"submit\" value=\"Click to redirect\"></noscript>" +
+                "</form>" +
+                "</body>" +
+                "</html>";
+    }
+    private String getContentType() {
+        return "text/html";
     }
 }
