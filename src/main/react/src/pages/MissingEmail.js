@@ -30,7 +30,7 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
-    @observable confirmDisabled = false;
+    @observable confirmDisabled = true;
     @observable oldEmail = "";
 
     getTitle() {
@@ -39,6 +39,23 @@ class MissingEmail extends Component {
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
+
+        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
+            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+            //console.log("new goto: " + gotoParam);
+            this.props.kontaktinfoStore.setGotoUrl(gotoParam);
+        }else{
+            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
+        }
+
+        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
+            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+            //console.log("new fnr: " + personIdentifikator);
+            this.props.kontaktinfoStore.setCode(personIdentifikator);
+        }else{
+            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
+        }
+
     }
 
     @autobind
@@ -50,7 +67,15 @@ class MissingEmail extends Component {
     handleCancel() {
         this.props.kontaktinfoStore.current.email = this.oldEmail;
         this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
-        this.props.history.push('/kontaktinfo');
+        //this.props.history.push('/kontaktinfo');
+
+        let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+        const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+
+        this.props.history.push({
+            pathname: '/kontaktinfo',
+            //search: "?fnr=" + personIdentifikator + "&goto=" + encodeURI(gotoParam.toString())
+        });
     }
 
     @autobind
@@ -66,7 +91,6 @@ class MissingEmail extends Component {
 
     render() {
         const current = this.props.kontaktinfoStore.current;
-        this.validateEmailRepeated()
 
         return (
             <React.Fragment>

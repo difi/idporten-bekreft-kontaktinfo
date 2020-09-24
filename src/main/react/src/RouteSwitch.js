@@ -2,12 +2,10 @@ import React, {Suspense,lazy} from "react";
 
 import {Switch} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-
 import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import DigdirLoading from "./common/DigdirLoading";
-
 
 //import Create from "./pages/Create";
 //import MissingMobile from "./pages/MissingMobile";

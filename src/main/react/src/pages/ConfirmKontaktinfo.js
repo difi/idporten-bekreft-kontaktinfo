@@ -38,19 +38,31 @@ class ConfirmKontaktinfo extends Component {
 
         const {kontaktinfoStore} = this.props;
 
-        //const gotoParam = new URLSearchParams(this.props.location.search).get("goto");
-        const gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-        const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-        if (gotoParam && gotoParam.length > 0) {
-            kontaktinfoStore.setGotoUrl(gotoParam); //"https://eid-atest-web01.dmz.local:443/opensso/UI/Login?realm=norge.no&ForceAuth=&gx_charset=UTF-8&locale=nb&service=KontaktInfo");
+        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
+            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+            //console.log("new goto: " + gotoParam);
+            kontaktinfoStore.setGotoUrl(gotoParam);
+        }else{
+            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
         }
-        if (personIdentifikator) {
+
+        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
+            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+            //console.log("new fnr: " + personIdentifikator);
             kontaktinfoStore.setCode(personIdentifikator);
+        }else{
+            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
         }
+
+
         //Her skal vi kalle idporten
-        if (!kontaktinfoStore.current.fnr) {
-            kontaktinfoStore.fetchKontaktinfo(personIdentifikator);
+        if (!kontaktinfoStore.current.fnr && this.props.kontaktinfoStore.code) {
+            //console.log("fetch kontaktinfo for: " + this.props.kontaktinfoStore.code);
+            kontaktinfoStore.fetchKontaktinfo(this.props.kontaktinfoStore.code);
+        }else{
+            //console.log("not fetching kontaktinfo, fnr:" + kontaktinfoStore.current.fnr + " code: " + this.props.kontaktinfoStore.code);
         }
+
     }
 
     @autobind
@@ -71,11 +83,13 @@ class ConfirmKontaktinfo extends Component {
 
     @autobind
     handleSubmit(e) {
-        this.props.kontaktinfoStore.updateKontaktinfo()
+        this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
+        this.props.kontaktinfoStore.updateKontaktinfo();
     }
 
     render() {
-        let current = this.props.kontaktinfoStore.current;
+        let {kontaktinfoStore} = this.props;
+        let current = kontaktinfoStore.current;
 
         return (
             <React.Fragment>

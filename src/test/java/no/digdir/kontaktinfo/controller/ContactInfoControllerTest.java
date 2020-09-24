@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -117,7 +118,7 @@ public class ContactInfoControllerTest {
         personResource.setShouldUpdateKontaktinfo(false);
 
         String path = contactInfoController.getRedirectPath(personResource);
-        assertEquals(null,path);
+        assertNull(path);
     }
     
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {

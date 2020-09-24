@@ -19,6 +19,7 @@ export default class KontaktinfoStore {
     @action.bound
     setGotoUrl(gotoUrlParam) {
         this.gotoUrl = gotoUrlParam;
+        //console.log("SetGotoUrl:" + this.gotoUrl);
     }
 
     @action.bound
@@ -28,6 +29,28 @@ export default class KontaktinfoStore {
 
     @action.bound
     getKontaktinfo() {
+    }
+
+    @action.bound
+    getKontaktinfoForGotoUrl() {
+        // Digitalt kontakt- og reservasjonsregister internal property names for SAML attributes
+        console.log("getKontaktinfoForGotoUrl-" + this.gotoUrl);
+        // console.log(new URLSearchParams(this.gotoUrl).toString());
+        // console.log(new URLSearchParams(this.gotoUrl));
+        // console.log(new URLSearchParams(this.gotoUrl.toString()).toString());
+        // console.log(new URLSearchParams(this.gotoUrl.toString()));
+        let url = new URLSearchParams();
+        url.append("digitalcontactregister-reserved", this.current.reservasjon || "");
+        url.append("digitalcontactregister-postboxoperator", this.current.digitalPostkasseLeverandoer || "");
+        url.append("digitalcontactregister-email", this.current.email || "");
+        url.append("digitalcontactregister-mobile", this.current.mobile || "");
+        url.append("digitalcontactregister-status", this.current.status || "");
+        console.log("det er " + url.toString());
+        this.setGotoUrl(this.gotoUrl + "&" + url.toString());
+        console.log(this.gotoUrl);
+        // let url = new URLSearchParams(this.gotoUrl);
+        console.log("og slutt");
+        return url.toString();
     }
 
     @action.bound

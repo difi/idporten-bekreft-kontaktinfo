@@ -9,13 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @Slf4j
@@ -32,29 +33,10 @@ public class ContactInfoController {
     @GetMapping("/autosubmit")
     @ResponseBody
     public void receiveResponse(HttpServletRequest request,
-                                /*@RequestParam String code,
-                                @RequestParam String service,
-                                @RequestParam String serverid,*/
+                                @RequestParam String gotoParam,
                                 HttpServletResponse response) throws URISyntaxException, IOException {
 
-/*
-        HttpSession session = request.getSession();
-
-        String url = UriComponentsBuilder.newInstance()
-                .uri(new URI((String) session.getAttribute("redirectUrl")))
-                .queryParam("code", code)
-                .queryParam("ForceAuth", session.getAttribute("forceAuth"))
-                .queryParam("gx_charset", request.getSession().getAttribute("gx_charset"))
-                .queryParam("locale", request.getSession().getAttribute("locale"))
-                .queryParam("goto", request.getSession().getAttribute("goto"))
-                .queryParam("service", service)
-                .queryParam("serverid", serverid)
-                .build()
-                .toUriString();
-
-         */
-
-        String url = "http://vg.no";
+        String url = gotoParam;
         renderHelpingPage(response, url);
     }
 
@@ -62,14 +44,17 @@ public class ContactInfoController {
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam) {
 
         //TODO: validere request fra idporten?
-
+        log.error("ContactInfoController confirm " + fnr + " -" + gotoParam);
         PersonResource personResource = getPersonResourceForFnr(fnr);
+        log.error("RedirectPath: " + getRedirectPath(personResource));
+        log.error("shouldUpdate: " + personResource.getShouldUpdateKontaktinfo());
 
         if(getRedirectPath(personResource) != null){
             return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam);
+        }else{
+            return redirectWithGotoParam("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam);
         }
 
-        return redirect(gotoParam);
     }
 
     public String getRedirectPath(PersonResource personResource) {
@@ -98,6 +83,7 @@ public class ContactInfoController {
 
         // user should be redirected back to idporten
         return null;
+
     }
 
     public ResponseEntity<Void> redirect(String location){
@@ -113,13 +99,28 @@ public class ContactInfoController {
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
-                    .queryParam("goto", gotoParam)
+                    .queryParam("goto", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
                     .queryParam("fnr", fnr)
                     .build();
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
         }
+        log.error("Redirecting: -" + redirectUri.toUriString());
+        return redirect(redirectUri.toUriString());
+    }
 
+    public ResponseEntity<Void> redirectWithGotoParam(String location, String gotoParam){
+
+        UriComponents redirectUri;
+        try {
+            redirectUri = UriComponentsBuilder.newInstance()
+                    .uri(new URI(location))
+                    .queryParam("gotoParam", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
+                    .build();
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new RuntimeException("Couldn't build redirect-uri");
+        }
+        log.error("Redirecting: -" + redirectUri.toUriString());
         return redirect(redirectUri.toUriString());
     }
 

@@ -98,7 +98,9 @@ public class PersonResource {
             return true;
         }
         LocalDate lastUpdatedDate = lastUpdated.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
+        boolean value = LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
+        log.error("Should update: " + value);
+        return value;
     }
 
     public static PersonResource fromPersonIdentifier(String personIdentifikator) {
@@ -133,10 +135,6 @@ public class PersonResource {
         }
 
         return true;
-    }
-
-    public Boolean getShouldUpdateKontaktinfo() {
-        return shouldUpdateKontaktinfo;
     }
 
 }

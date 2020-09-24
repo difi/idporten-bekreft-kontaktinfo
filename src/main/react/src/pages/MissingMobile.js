@@ -30,7 +30,7 @@ const styles = (theme) => ({
 @inject("kontaktinfoStore")
 @observer
 class MissingMobile extends Component {
-    @observable confirmDisabled = false;
+    @observable confirmDisabled = true;
     @observable oldMobile = "";
 
     getTitle() {
@@ -39,6 +39,23 @@ class MissingMobile extends Component {
 
     componentDidMount() {
         this.oldMobile = this.props.kontaktinfoStore.current.mobile;
+
+        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
+            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+            //console.log("new goto: " + gotoParam);
+            this.props.kontaktinfoStore.setGotoUrl(gotoParam);
+        }else{
+            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
+        }
+
+        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
+            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+            //console.log("new fnr: " + personIdentifikator);
+            this.props.kontaktinfoStore.setCode(personIdentifikator);
+        }else{
+            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
+        }
+
     }
 
     @autobind
@@ -50,7 +67,17 @@ class MissingMobile extends Component {
     handleCancel() {
         this.props.kontaktinfoStore.current.mobile = this.oldMobile;
         this.props.kontaktinfoStore.current.mobileConfirmed = this.oldMobile;
-        this.props.history.push('/kontaktinfo');
+        //this.props.history.push('/kontaktinfo');
+
+        let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+        const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+
+        this.props.history.push({
+            pathname: '/kontaktinfo'
+            //search: "?goto=" + encodeURIComponent(gotoParam.toString()) + "&fnr=" + personIdentifikator,
+        });
+
+
     }
 
     @autobind
@@ -63,7 +90,6 @@ class MissingMobile extends Component {
     render() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.validateMobileRepeated()
 
         return (
             <React.Fragment>
