@@ -6,26 +6,11 @@ import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import ContentInfoBox from "../common/ContentInfoBox";
-import {withStyles} from "@material-ui/core";
-import {withTranslation} from "react-i18next";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
-
-const styles = (theme) => ({
-    root: {
-
-    },
-    codeButton: {
-        backgroundColor: "#006cff",
-        '&:hover': {
-            borderColor: "#9fa9b4",
-            backgroundColor: "#134f9e",
-        },
-    }
-});
 
 @inject("kontaktinfoStore")
 @observer
@@ -39,23 +24,6 @@ class MissingMobile extends Component {
 
     componentDidMount() {
         this.oldMobile = this.props.kontaktinfoStore.current.mobile;
-
-        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
-            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-            //console.log("new goto: " + gotoParam);
-            this.props.kontaktinfoStore.setGotoUrl(gotoParam);
-        }else{
-            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
-        }
-
-        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
-            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-            //console.log("new fnr: " + personIdentifikator);
-            this.props.kontaktinfoStore.setCode(personIdentifikator);
-        }else{
-            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
-        }
-
     }
 
     @autobind
@@ -67,17 +35,7 @@ class MissingMobile extends Component {
     handleCancel() {
         this.props.kontaktinfoStore.current.mobile = this.oldMobile;
         this.props.kontaktinfoStore.current.mobileConfirmed = this.oldMobile;
-        //this.props.history.push('/kontaktinfo');
-
-        let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-        const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-
-        this.props.history.push({
-            pathname: '/kontaktinfo'
-            //search: "?goto=" + encodeURIComponent(gotoParam.toString()) + "&fnr=" + personIdentifikator,
-        });
-
-
+        this.props.history.push('/kontaktinfo');
     }
 
     @autobind

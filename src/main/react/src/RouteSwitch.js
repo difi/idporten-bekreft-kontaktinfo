@@ -1,15 +1,13 @@
 import React, {Suspense,lazy} from "react";
-
+import {withRouter} from 'react-router';
 import {Switch} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import DigdirLoading from "./common/DigdirLoading";
+import kontaktinfoStore from "./stores/KontaktinfoStore";
 import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
-import DigdirLoading from "./common/DigdirLoading";
-
-//import Create from "./pages/Create";
-//import MissingMobile from "./pages/MissingMobile";
-//import MissingEmail from "./pages/MissingEmail";
+import {inject} from "mobx-react";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>
@@ -17,14 +15,30 @@ const load = (Component: any) => (props: any) => (
     </Suspense>
 )
 
-//const ConfirmKontaktinfo = load(lazy(() => import ("./pages/ConfirmKontaktinfo")));
-//const EditMobile = load(lazy(() => import ("./pages/EditMobile")));
-//const EditEmail = load(lazy(() => import ("./pages/EditEmail")));
 const Create = load(lazy(() => import ("./pages/Create")));
 const MissingMobile = load(lazy(() => import ("./pages/MissingMobile")));
 const MissingEmail = load(lazy(() => import ("./pages/MissingEmail")));
 
+@inject("kontaktinfoStore")
 class RouteSwitch extends React.Component {
+
+    componentDidMount(){
+        const {kontaktinfoStore} = this.props;
+
+        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
+            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+            kontaktinfoStore.setGotoUrl(gotoParam);
+        }
+
+        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
+            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
+            kontaktinfoStore.setCode(personIdentifikator);
+        }
+
+        if (!kontaktinfoStore.current.fnr && this.props.kontaktinfoStore.code) {
+            kontaktinfoStore.fetchKontaktinfo(this.props.kontaktinfoStore.code);
+        }
+    }
 
     render() {
         return (
@@ -41,4 +55,4 @@ class RouteSwitch extends React.Component {
     }
 }
 
-export default RouteSwitch;
+export default withRouter(RouteSwitch);

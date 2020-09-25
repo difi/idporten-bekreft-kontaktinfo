@@ -13,56 +13,12 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import ContentHeader from "../common/ContentHeader";
 
-const styles = (theme) => ({
-    root: {
-
-    },
-    codeButton: {
-        backgroundColor: "#006cff",
-        '&:hover': {
-            borderColor: "#9fa9b4",
-            backgroundColor: "#134f9e",
-        },
-    }
-});
-
 @inject("kontaktinfoStore")
 @observer
 class ConfirmKontaktinfo extends Component {
 
     getTitle() {
         return "Kontaktinformasjon";
-    }
-
-    componentDidMount() {
-
-        const {kontaktinfoStore} = this.props;
-
-        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
-            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-            //console.log("new goto: " + gotoParam);
-            kontaktinfoStore.setGotoUrl(gotoParam);
-        }else{
-            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
-        }
-
-        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
-            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-            //console.log("new fnr: " + personIdentifikator);
-            kontaktinfoStore.setCode(personIdentifikator);
-        }else{
-            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
-        }
-
-
-        //Her skal vi kalle idporten
-        if (!kontaktinfoStore.current.fnr && this.props.kontaktinfoStore.code) {
-            //console.log("fetch kontaktinfo for: " + this.props.kontaktinfoStore.code);
-            kontaktinfoStore.fetchKontaktinfo(this.props.kontaktinfoStore.code);
-        }else{
-            //console.log("not fetching kontaktinfo, fnr:" + kontaktinfoStore.current.fnr + " code: " + this.props.kontaktinfoStore.code);
-        }
-
     }
 
     @autobind

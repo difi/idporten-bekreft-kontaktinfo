@@ -18,27 +18,6 @@ class Create extends Component {
         return "Opprett kontaktinformasjon";
     }
 
-    componentDidMount() {
-        this.oldEmail = this.props.kontaktinfoStore.current.email;
-        this.oldMobile = this.props.kontaktinfoStore.current.mobile;
-
-        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
-            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
-            //console.log("new goto: " + gotoParam);
-            this.props.kontaktinfoStore.setGotoUrl(gotoParam);
-        }else{
-            //console.log("current goto: " + this.props.kontaktinfoStore.gotoUrl);
-        }
-
-        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
-            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-            //console.log("new fnr: " + personIdentifikator);
-            this.props.kontaktinfoStore.setCode(personIdentifikator);
-        }else{
-            //console.log("current fnr: " + this.props.kontaktinfoStore.code);
-        }
-    }
-
     @autobind
     handleCommit() {
         this.props.history.push('/kontaktinfo');
