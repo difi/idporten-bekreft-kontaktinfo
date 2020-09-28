@@ -46,8 +46,6 @@ public class ContactInfoController {
         //TODO: validere request fra idporten?
         log.error("ContactInfoController confirm " + fnr + " -" + gotoParam);
         PersonResource personResource = getPersonResourceForFnr(fnr);
-        log.error("RedirectPath: " + getRedirectPath(personResource));
-        log.error("shouldUpdate: " + personResource.getShouldUpdateKontaktinfo());
 
         if(getRedirectPath(personResource) != null){
             return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam);
