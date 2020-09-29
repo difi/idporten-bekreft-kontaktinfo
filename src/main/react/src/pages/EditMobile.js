@@ -56,26 +56,48 @@ class EditMobile extends Component {
                 <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
                 <ContentInfo textKey="info.manglendeMobilLabel" />
 
-                <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
-                    <SynchedInput id="mobile"
-                                  source={current}
-                                  path="mobile"
-                                  textKey="field.mobile"
-                                  onChangeCallback={this.validateMobileRepeated}/>
-                    <SynchedInput id="mobileConfirmed"
-                                  source={current}
-                                  path="mobileConfirmed"
-                                  textKey="field.mobileConfirmed"
-                                  onChangeCallback={this.validateMobileRepeated}/>
+                <DigdirForm
+                    id="editMobilnr"
+                    onSubmitCallback={this.handleCommit}>
+
+                    <SynchedInput
+                        tabindex="1"
+                        id="idporten.input.CONTACTINFO_MOBILE"
+                        name="idporten.input.CONTACTINFO_MOBILE"
+                        source={current}
+                        path="mobile"
+                        textKey="field.mobile"
+                        onChangeCallback={this.validateMobileRepeated}/>
+
+                    <SynchedInput
+                        tabindex="2"
+                        id="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                        name="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                        source={current}
+                        path="mobileConfirmed"
+                        textKey="field.mobileConfirmed"
+                        onChangeCallback={this.validateMobileRepeated}/>
+
                     <DigdirButtons>
-                        <DigdirButton disabled={this.confirmDisabled} type="submit"
-                                      value="submit"
-                                      textKey="button.confirm" />
-                        <DigdirButton type="submit"
-                                      value="cancel"
-                                      data-white="true"
-                                      onClick={this.handleCancel}
-                                      textKey="button.cancel" />
+                        <DigdirButton
+                            tabindex="3"
+                            id="idporten.inputbutton.SAVE"
+                            name="idporten.inputbutton.SAVE"
+                            disabled={this.confirmDisabled}
+                            type="submit"
+                            value="submit"
+                            textKey="button.confirm" />
+
+                        <DigdirButton
+                            tabindex="4"
+                            id="idporten.inputbutton.CANCEL_SAVE"
+                            name="idporten.inputbutton.CANCEL_SAVE"
+                            type="submit"
+                            value="cancel"
+                            data-white="true"
+                            onClick={this.handleCancel}
+                            textKey="button.cancel" />
+
                     </DigdirButtons>
                 </DigdirForm>
             </React.Fragment>

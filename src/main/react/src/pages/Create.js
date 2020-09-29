@@ -64,24 +64,57 @@ class Create extends Component {
                 <DigdirForm id="confirmContactinfo"
                             onSubmitCallback={this.handleCommit}>
 
-                    <SynchedInput id="email" source={current} path="email"
-                                  textKey="field.email" onChangeCallback={this.compareEmail()}/>
+                    <SynchedInput
+                        tabindex="1"
+                        id="idporten.input.CONTACTINFO_EMAIL"
+                        name="idporten.input.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="email"
+                        textKey="field.email"
+                        onChangeCallback={this.compareEmail()}/>
 
-                    <SynchedInput id="emailConfirmed" source={current} path="emailConfirmed"
-                                  textKey="field.emailConfirmed" onChangeCallback={this.compareEmail()}/>
+                    <SynchedInput
+                        tabindex="2"
+                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="emailConfirmed"
+                        textKey="field.emailConfirmed"
+                        onChangeCallback={this.compareEmail()}/>
 
-                    <SynchedInput id="mobile" source={current} path="mobile"
-                                  textKey="field.mobile" onChangeCallback={this.compareMobile()}/>
+                    <SynchedInput
+                        tabindex="3"
+                        id="idporten.input.CONTACTINFO_MOBILE"
+                        name="idporten.input.CONTACTINFO_MOBILE"
+                        source={current}
+                        path="mobile"
+                        textKey="field.mobile"
+                        onChangeCallback={this.compareMobile()}/>
 
-                    <SynchedInput id="mobileConfirmed" source={current} path="mobileConfirmed"
-                                  textKey="field.mobileConfirmed" onChangeCallback={this.compareEmail()}/>
+                    <SynchedInput
+                        tabindex="4"
+                        id="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                        name="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                        source={current}
+                        path="mobileConfirmed"
+                        textKey="field.mobileConfirmed"
+                        onChangeCallback={this.compareEmail()}/>
 
                     <DigdirButtons>
-                        <DigdirButton disabled={this.emailMatch || this.mobileMatch }
-                                      type="submit" textKey="button.next"/>
+                        <DigdirButton
+                            tabindex="5"
+                            disabled={this.emailMatch || this.mobileMatch }
+                            type="submit"
+                            textKey="button.next"/>
 
-                        <DigdirButton type="submit" value="skip" data-white="true"
-                                      onClick={this.handleCancel} textKey="button.skip" />
+                        <DigdirButton
+                            tabindex="6"
+                            type="submit"
+                            value="skip"
+                            data-white="true"
+                            onClick={this.handleCancel}
+                            textKey="button.skip" />
+
                     </DigdirButtons>
 
                 </DigdirForm>

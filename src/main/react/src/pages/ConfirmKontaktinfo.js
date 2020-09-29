@@ -51,32 +51,68 @@ class ConfirmKontaktinfo extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="bekreftKontaktinfo"
-                            action={kontaktinfoStore.gotoUrl}
-                            method="post">
-                    <SynchedInput disabled={true} id="email" source={current} value={current.email}
-                        path="email" textKey="field.email" InputProps={{
+                <DigdirForm
+                    id="bekreftKontaktinfo"
+                    action={kontaktinfoStore.gotoUrl}
+                    method="post"
+                >
+
+                    <SynchedInput
+                        disabled={true}
+                        id="email"
+                        source={current}
+                        value={current.email}
+                        path="email"
+                        textKey="field.email"
+                        InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton aria-label="Endre e-post" onClick={e => {this.handleEditEmail(e)}}><Edit/></IconButton>
+                                    <IconButton
+                                        tabindex="2"
+                                        aria-label="Endre e-post"
+                                        id="idporten.inputbutton.CHANGE_EMAIL"
+                                        name="idporten.inputbutton.CHANGE_EMAIL"
+                                        onClick={e => {this.handleEditEmail(e)}}><Edit/>
+                                    </IconButton>
                                 </InputAdornment>
                             )
                         }}
                     />
-                    <SynchedInput disabled={true} id="mobile" source={current} value={current.mobile}
-                        path="mobile" textKey="field.mobile" InputProps={{
+
+                    <SynchedInput
+                        disabled={true}
+                        id="mobile"
+                        source={current}
+                        value={current.mobile}
+                        path="mobile"
+                        textKey="field.mobile"
+                        InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
-                                    <IconButton aria-label="Endre mobil" onClick={e => {this.handleEditMobile(e)}}><Edit/></IconButton>
+                                    <IconButton
+                                        tabindex="3"
+                                        aria-label="Endre mobil"
+                                        id="idporten.inputbutton.CHANGE_MOBILE"
+                                        name="idporten.inputbutton.CHANGE_MOBILE"
+                                        onClick={e => {this.handleEditMobile(e)}}><Edit/>
+                                    </IconButton>
                                 </InputAdornment>
                             )
                         }}
                     />
+
                 </DigdirForm>
 
                 <form id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
-                        <DigdirButton id="postFormButton" name="saveform" form="postForm" type="submit" textKey="button.confirm"/>
+                        <DigdirButton
+                            tabindex="4"
+                            id="idporten.inputbutton.CONTINUE_CONFIRM"
+                            name="idporten.inputbutton.CONTINUE_CONFIRM"
+                            form="postForm"
+                            type="submit"
+                            textKey="button.confirm"
+                        />
                     </DigdirButtons>
                 </form>
             </React.Fragment>

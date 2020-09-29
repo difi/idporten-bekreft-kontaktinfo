@@ -55,17 +55,48 @@ class EditEmail extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.kontaktinfo"  />
-                <DigdirForm id="confirmContactinfo"
-                            onSubmitCallback={this.handleCommit}>
-                    <SynchedInput id="email" source={current} path="email"
-                                  textKey="field.email" onChangeCallback={this.validateEmailRepeated}/>
-                    <SynchedInput id="epostBekreftet" source={current} path="emailConfirmed"
-                                  textKey="field.emailConfirmed" onChangeCallback={this.validateEmailRepeated}/>
+                <DigdirForm
+                    id="confirmContactinfo"
+                    onSubmitCallback={this.handleCommit}>
+
+                    <SynchedInput
+                        tabindex="1"
+                        id="idporten.input.CONTACTINFO_EMAIL"
+                        name="idporten.input.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="email"
+                        textKey="field.email"
+                        onChangeCallback={this.validateEmailRepeated}/>
+
+                    <SynchedInput
+                        tabindex="2"
+                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="emailConfirmed"
+                        textKey="field.emailConfirmed"
+                        onChangeCallback={this.validateEmailRepeated}/>
+
                     <DigdirButtons>
-                        <DigdirButton disabled={this.confirmDisabled} type="submit"
-                                      value="submit" textKey="button.confirm" />
-                        <DigdirButton type="submit" value="cancel"
-                                      data-white="true" onClick={this.handleCancel} textKey="button.cancel" />
+                        <DigdirButton
+                            tabindex="3"
+                            disabled={this.confirmDisabled}
+                            id="idporten.inputbutton.SAVE"
+                            name="idporten.inputbutton.SAVE"
+                            type="submit"
+                            value="submit"
+                            textKey="button.confirm" />
+
+                        <DigdirButton
+                            tabindex="4"
+                            id="idporten.inputbutton.CANCEL_SAVE"
+                            name="idporten.inputbutton.CANCEL_SAVE"
+                            type="submit"
+                            value="cancel"
+                            data-white="true"
+                            onClick={this.handleCancel}
+                            textKey="button.cancel" />
+
                     </DigdirButtons>
                 </DigdirForm>
             </React.Fragment>

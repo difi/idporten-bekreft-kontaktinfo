@@ -59,17 +59,48 @@ class MissingEmail extends Component {
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
                 <ContentInfo textKey="info.manglendeEpostLabel" />
 
-                <DigdirForm id="confirmContactinfo"
-                            onSubmitCallback={this.handleCommit}>
-                    <SynchedInput id="email" source={current} path="email"
-                                  textKey="field.email" onChangeCallback={this.validateEmailRepeated}/>
-                    <SynchedInput id="epostBekreftet" source={current} path="emailConfirmed"
-                                  textKey="field.emailConfirmed" onChangeCallback={this.validateEmailRepeated}/>
+                <DigdirForm
+                    id="confirmContactinfo"
+                    onSubmitCallback={this.handleCommit}>
+
+                    <SynchedInput
+                        tabindex="1"
+                        id="idporten.input.CONTACTINFO_EMAIL"
+                        name="idporten.input.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="email"
+                        textKey="field.email"
+                        onChangeCallback={this.validateEmailRepeated}/>
+
+                    <SynchedInput
+                        tabindex="2"
+                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                        source={current}
+                        path="emailConfirmed"
+                        textKey="field.emailConfirmed"
+                        onChangeCallback={this.validateEmailRepeated}/>
+
                     <DigdirButtons>
-                        <DigdirButton disabled={this.confirmDisabled} type="submit"
-                                      value="submit" textKey="button.confirm" />
-                        <DigdirButton type="submit" value="skip"
-                                      data-white="true" onClick={this.handleCancel} textKey="button.skip" />
+                        <DigdirButton
+                            tabindex="3"
+                            id="idporten.inputbutton.NEXT"
+                            name="idporten.inputbutton.NEXT"
+                            disabled={this.confirmDisabled}
+                            type="submit"
+                            value="submit"
+                            textKey="button.confirm" />
+
+                        <DigdirButton
+                            tabindex="4"
+                            id="idporten.inputbutton.SKIP"
+                            name="idporten.inputbutton.SKIP"
+                            type="submit"
+                            value="skip"
+                            data-white="true"
+                            onClick={this.handleCancel} textKey="button.skip" />
+
+
                     </DigdirButtons>
                 </DigdirForm>
             </React.Fragment>
