@@ -99,7 +99,7 @@ class EditMobile extends Component {
                             disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"
-                            textKey="button.confirm" />
+                            textKey="button.save" />
 
                         <DigdirButton
                             tabindex="4"

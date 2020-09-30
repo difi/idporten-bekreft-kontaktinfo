@@ -87,7 +87,7 @@ class MissingMobile extends Component {
                             disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"
-                            textKey="button.confirm"
+                            textKey="button.next"
                             id="idporten.inputbutton.NEXT"
                             name="idporten.inputbutton.NEXT"
                         />

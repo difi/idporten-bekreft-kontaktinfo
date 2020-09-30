@@ -8,7 +8,8 @@
     "confirm": "Bekreft",
     "cancel": "Avbryt",
     "skip": "Hopp over",
-    "next": "Neste"
+    "next": "Neste",
+    "save": "Lagre"
   },
   "info": {
     "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Les mer</a>",

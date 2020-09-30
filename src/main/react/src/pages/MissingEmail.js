@@ -89,7 +89,7 @@ class MissingEmail extends Component {
                             disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"
-                            textKey="button.confirm" />
+                            textKey="button.next" />
 
                         <DigdirButton
                             tabindex="4"

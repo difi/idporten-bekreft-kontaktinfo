@@ -41,7 +41,8 @@ class EditEmail extends Component {
     validateEmailRepeated() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        if (!(current.email.match(".*@.*"))) {
+
+        if (current.email.length && !(current.email.match(".*@.*"))) {
             this.confirmDisabled = true;
             return;
         }
@@ -85,7 +86,7 @@ class EditEmail extends Component {
                             name="idporten.inputbutton.SAVE"
                             type="submit"
                             value="submit"
-                            textKey="button.confirm" />
+                            textKey="button.save" />
 
                         <DigdirButton
                             tabindex="4"
