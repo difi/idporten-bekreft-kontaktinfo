@@ -35,7 +35,7 @@ class Create extends Component {
         const email = this.props.kontaktinfoStore.current.email;
         const emailConfirmed = this.props.kontaktinfoStore.current.emailConfirmed;
 
-        if (!(email.match(".*@.*")) ) {
+        if (email.length && !(email.match(".*@.*")) ) {
             this.emailMatch = true;
             return;
         }
@@ -45,12 +45,8 @@ class Create extends Component {
 
     @autobind
     handleCancel(e) {
-
-        // TODO: redirect to idporten ?? no need to confirm information
-        this.props.kontaktinfoStore.current.email = this.oldEmail;
-        this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
-        this.props.kontaktinfoStore.current.mobile = this.oldMobile;
-        this.props.kontaktinfoStore.current.mobileConfirmed = this.oldMobile;
+        this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
+        this.props.kontaktinfoStore.updateKontaktinfo();
     }
 
     render() {
