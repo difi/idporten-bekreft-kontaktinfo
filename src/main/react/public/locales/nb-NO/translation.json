@@ -11,14 +11,15 @@
     "next": "Neste"
   },
   "info": {
-    "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. Les mer her",
+    "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Les mer</a>",
     "manglendeInformasjon": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. Les mer her. <br><br> Du kan velge å gå videre uten å legge inn kontaktopplysninger.",
     "manglendeEpostVarsel": "Du har ikke registrert e-postadresse. E-postadressen blir brukt som varslingsadresse når stat eller kommune skal varsle deg om at de har sendt deg viktige brev og vedtak på nett. Bruker du MinID til å logge deg på offentlige tjenester på nett, kan e-postadressen også bli brukt til å sende deg engangskoder, dersom du har glemt passordet ditt.",
     "manglendeEpostLabel": "Du bør benytte din private e-postadresse, for å sikre at ingen andre får tilgang til din personlige ID.",
     "manglendeMobilVarsel": "Du har ikke registrert mobilnummer. Mobilnummeret blir brukt som varslingsadresse når stat eller kommune skal varsle deg om at de har sendt deg viktige brev og vedtak på nett. Bruker du MinID til å logge deg på offentlige tjenester på nett, kan mobilnummeret også brukes til å sende deg engangskoder på SMS.",
     "manglendeMobilLabel" : "Dersom du har et utelandsk nummer, husk å oppgi landskode (eks. <b>+46</b> eller <b>0046</b> for Sverige).",
     "digitalPostkasseOverskrift": "Din digitale postkasse",
-    "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?"
+    "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
+    "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil."
   },
   "field": {
     "email": "E-post",

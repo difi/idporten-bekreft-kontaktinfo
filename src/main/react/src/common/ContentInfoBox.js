@@ -10,7 +10,7 @@ const styles = (theme) => ({
         margin: "2em 2.2857em",
         position: "relative",
         fontSize: "14px",
-        backgroundColor: "#f7f8fa",
+        backgroundColor: "white",
         '&::after': {
             content: '""',
             display: "block",

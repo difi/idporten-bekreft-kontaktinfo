@@ -46,7 +46,7 @@ class MissingEmail extends Component {
             this.confirmDisabled = true;
             return;
         }
-        this.confirmDisabled = !(current.email.length > 0 && current.emailConfirmed === current.email);
+        this.confirmDisabled = !(current.emailConfirmed === current.email);
     }
 
     render() {

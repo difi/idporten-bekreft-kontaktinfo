@@ -54,8 +54,7 @@ class ConfirmKontaktinfo extends Component {
                 <DigdirForm
                     id="bekreftKontaktinfo"
                     action={kontaktinfoStore.gotoUrl}
-                    method="post"
-                >
+                    method="post">
 
                     <SynchedInput
                         disabled={true}

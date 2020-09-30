@@ -5,17 +5,18 @@ import autobind from "autobind-decorator";
 import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
-import ContentInfoBox from "../common/ContentInfoBox";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
-import ContentInfo from "../common/ContentInfo";
+import ContentInfoBox from "../common/ContentInfoBox";
 
 @inject("kontaktinfoStore")
 @observer
 class EditMobile extends Component {
     @observable confirmDisabled = false;
+    @observable displayWarning = false;
+
     @observable oldMobile = "";
 
     getTitle() {
@@ -42,7 +43,20 @@ class EditMobile extends Component {
     validateMobileRepeated() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.confirmDisabled = !(current.mobile.length > 0 && current.mobileConfirmed === current.mobile);
+
+        if(this.oldMobile != current.mobile && current.mobile.length === 0
+            || this.oldMobile != current.mobileConfirmed && current.mobileConfirmed.length === 0){
+            this.displayWarning = true;
+        }
+
+        /*
+        if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+            this.confirmDisabled = true;
+            return;
+        }
+        */
+
+        this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
     }
 
     render() {
@@ -53,8 +67,7 @@ class EditMobile extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
-                <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
-                <ContentInfo textKey="info.manglendeMobilLabel" />
+                { this.displayWarning ? <ContentInfoBox  textKey="info.sletteMobilVarsel"  /> : null }
 
                 <DigdirForm
                     id="editMobilnr"

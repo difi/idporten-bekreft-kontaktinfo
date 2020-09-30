@@ -45,7 +45,7 @@ class EditEmail extends Component {
             this.confirmDisabled = true;
             return;
         }
-        this.confirmDisabled = !(current.email.length > 0 && current.emailConfirmed === current.email);
+        this.confirmDisabled = !(current.emailConfirmed === current.email);
     }
 
     render() {
@@ -54,7 +54,7 @@ class EditEmail extends Component {
         return (
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
-                <ContentInfoBox textKey="info.kontaktinfo"  />
+
                 <DigdirForm
                     id="confirmContactinfo"
                     onSubmitCallback={this.handleCommit}>

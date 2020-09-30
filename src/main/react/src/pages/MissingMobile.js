@@ -42,7 +42,13 @@ class MissingMobile extends Component {
     validateMobileRepeated() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.confirmDisabled = !(current.mobile.length > 0 && current.mobileConfirmed === current.mobile);
+
+        if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+            this.confirmDisabled = true;
+            return;
+        }
+
+        this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
     }
 
     render() {
