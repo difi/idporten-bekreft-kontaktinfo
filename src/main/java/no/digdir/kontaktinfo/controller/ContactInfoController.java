@@ -35,7 +35,6 @@ public class ContactInfoController {
     public void receiveResponse(HttpServletRequest request,
                                 @RequestParam String gotoParam,
                                 HttpServletResponse response) throws URISyntaxException, IOException {
-
         String url = gotoParam;
         renderHelpingPage(response, url);
     }
@@ -125,6 +124,7 @@ public class ContactInfoController {
     public PersonResource getPersonResourceForFnr(String fnr){
 
         PersonResource personResource;
+
         try {
             personResource = clientService.getPersonForFnr(fnr);
         } catch (Exception e) {

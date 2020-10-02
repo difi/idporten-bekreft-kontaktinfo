@@ -33,8 +33,19 @@ public class ClientService {
     }
 
     public PersonResource getPersonForFnr(String fnr) {
-        return PersonResource.fromUserDetailResource(getUserDetailResourceForFnr(fnr),
-                krrConfigProvider.getTipDaysUser());
+
+        UserDetailResource userDetailResource = getUserDetailResourceForFnr(fnr);
+
+        if (userDetailResource.getUser() != null) {
+            return PersonResource.fromUserDetailResource(userDetailResource,
+                    krrConfigProvider.getTipDaysUser());
+        } else {
+
+            // return empty resource with fnr ( user not created )
+            PersonResource personResource = PersonResource.builder()
+                    .personIdentifikator(fnr).build();
+            return personResource;
+        }
     }
 
     private UserDetailResource getUserDetailResourceForFnr(String fnr) {
