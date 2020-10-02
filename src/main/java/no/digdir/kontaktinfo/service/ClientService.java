@@ -64,11 +64,13 @@ public class ClientService {
     }
 
     public void updateContactInfo(String fnr, String email, String mobile) {
+
         UserDetailResource userDetail = getUserDetailResourceForFnr(fnr);
-        if (userDetail == null) {
-            addNewUser(createNewUserResource(fnr), email, mobile);
-        } else {
+
+        if (userDetail.getUser() != null) {
             updateUser(userDetail.getUser(), email, mobile);
+        } else {
+            addNewUser(createNewUserResource(fnr), email, mobile);
         }
     }
 
