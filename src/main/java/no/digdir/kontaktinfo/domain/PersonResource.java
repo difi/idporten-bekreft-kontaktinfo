@@ -72,6 +72,8 @@ public class PersonResource {
     @JsonProperty(value = "shouldUpdateKontaktinfo")
     private Boolean shouldUpdateKontaktinfo;
 
+    private Boolean newUser;
+
     public static PersonResource fromUserDetailResource(UserDetailResource userDetailResource, Integer tipDaysUser) {
         final UserResource userResource = userDetailResource.getUser();
         boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);
@@ -87,9 +89,9 @@ public class PersonResource {
                 .showDpiInfo(showDpiInfo)
                 .lastUpdated(userResource.getLastUpdated())
                 .shouldUpdateKontaktinfo(shouldUpdateKontaktinfo(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
+                .newUser(false)
                 .build();
-        log.warn("email: " + personResource.getEmail());
-        log.warn("mobile: " + userResource.getMobile() + " - " + personResource.getMobile());
+
         return personResource;
     }
 
@@ -137,4 +139,7 @@ public class PersonResource {
         return true;
     }
 
+    public boolean isNewUser(){
+        return this.newUser;
+    }
 }

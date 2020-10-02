@@ -40,10 +40,8 @@ public class ClientService {
             return PersonResource.fromUserDetailResource(userDetailResource,
                     krrConfigProvider.getTipDaysUser());
         } else {
-
-            // return empty resource with fnr ( user not created )
             PersonResource personResource = PersonResource.builder()
-                    .personIdentifikator(fnr).build();
+                    .personIdentifikator(fnr).newUser(true).build();
             return personResource;
         }
     }

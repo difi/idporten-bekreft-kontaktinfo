@@ -58,6 +58,14 @@ public class ContactInfoControllerTest {
     }
 
     @Test
+    public void checkUserIsNewContactInfo() {
+        PersonResource personResource = new PersonResource();
+        personResource.setNewUser(true);
+        String path = contactInfoController.getRedirectPath(personResource);
+        assertEquals("/idporten-bekreft-kontaktinfo/create",path);
+    }
+
+    @Test
     public void checkUserIsMissingEmailPast90days() {
         String fnr = "23079417815";
         String email = null;

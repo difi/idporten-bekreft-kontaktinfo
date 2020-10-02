@@ -56,7 +56,7 @@ public class ContactInfoController {
 
     public String getRedirectPath(PersonResource personResource) {
 
-        if (personResource == null) {
+        if (personResource == null || personResource.isNewUser()) {
             return "/idporten-bekreft-kontaktinfo/create";
         }
 
