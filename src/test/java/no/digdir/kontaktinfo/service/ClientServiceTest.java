@@ -26,8 +26,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -89,8 +88,6 @@ class ClientServiceTest {
         String newEmail = "updated@digdir.no";
         String newMobile = "22224445";
         Date thisMorning = java.sql.Timestamp.valueOf(LocalDate.now().atStartOfDay());
-        String getUrl = "http://eid-systest-admin01.dmz.local:10002/kontaktinfo-backend/kontaktregister/users/userDetail?ssn={ssn}";
-        String putUrl = "http://eid-systest-admin01.dmz.local:10002/kontaktinfo-backend/kontaktregister/users/{uuid}";
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
         clientService.updateContactInfo(fnr, newEmail, newMobile);
@@ -104,6 +101,28 @@ class ClientServiceTest {
         assertTrue(newMobile, userResource.getEmailLastUpdated().after(thisMorning));
         assertTrue(newMobile, userResource.getMobileVerifiedDate().after(thisMorning));
         assertTrue(newMobile, userResource.getMobileLastUpdated().after(thisMorning));
+    }
+
+    @Test
+    void createContactInfo() {
+        String fnr = "23079417815";
+        String email = "retrieved@digdir.no";
+        String mobile = "";
+        Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
+                .thenReturn(new ResponseEntity(createEmptyUserDetailResource(), null, HttpStatus.OK));
+        clientService.updateContactInfo(fnr, email, mobile);
+        Mockito.verify(restTemplate, times(1)).exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString());
+        Mockito.verify(restTemplate, times(1)).postForObject(anyString(), userCaptor.capture(), any(Class.class));
+        UserResource userResource = userCaptor.getAllValues().get(0).getBody();
+        assertEquals(fnr, userResource.getSsn());
+        assertEquals(email, userResource.getEmail());
+        assertNull(userResource.getMobile());
+    }
+
+    @Test
+    void testAreTwoStringsBothEmpty() {
+        assertTrue(clientService.twoStringsAreBothEmpty("", null));
+        assertFalse(clientService.twoStringsAreBothEmpty("22", ""));
     }
 
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {
@@ -123,5 +142,9 @@ class ClientServiceTest {
                 null,
                 null);
         return new UserDetailResource(userResource, null, null);
+    }
+
+    private UserDetailResource createEmptyUserDetailResource() {
+        return new UserDetailResource(null, null, null);
     }
 }
