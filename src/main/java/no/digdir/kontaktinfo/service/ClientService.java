@@ -97,11 +97,11 @@ public class ClientService {
     }
 
     private void updateUserResource(UserResource user, String emailAddress, String mobile) {
-        if (!Objects.equals(user.getMobile(), mobile)) {
+        if (!Objects.equals(user.getMobile(), mobile) && !twoStringsAreBothEmpty(user.getMobile(), mobile)) {
             user.setMobile(mobile);
             user.setMobileLastUpdated(new Date());
         }
-        if (!Objects.equals(user.getEmail(), emailAddress)) {
+        if (!Objects.equals(user.getEmail(), emailAddress) && !twoStringsAreBothEmpty(user.getEmail(), emailAddress)) {
             user.setEmail(emailAddress);
             user.setEmailLastUpdated(new Date());
         }
@@ -111,6 +111,11 @@ public class ClientService {
         if (user.getEmail() != null) {
             user.setEmailVerifiedDate(new Date());
         }
+    }
+
+    protected boolean twoStringsAreBothEmpty(String oldValue, String newValue) {
+        return (oldValue == null || "".equals(oldValue.trim()))
+                && (newValue == null || "".equals(newValue.trim()));
     }
 
     private HttpEntity<Object> createHttpEntity() {
