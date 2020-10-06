@@ -80,7 +80,6 @@ public class ContactInfoController {
 
         // user should be redirected back to idporten
         return null;
-
     }
 
     public ResponseEntity<Void> redirect(String location){
