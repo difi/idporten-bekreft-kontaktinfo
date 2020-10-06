@@ -28,7 +28,7 @@ class EditMobile extends Component {
     }
 
     @autobind
-    handleCommit() {
+    handleSubmit() {
         this.props.history.push('/kontaktinfo');
     }
 
@@ -71,7 +71,7 @@ class EditMobile extends Component {
 
                 <DigdirForm
                     id="editMobilnr"
-                    onSubmitCallback={this.handleCommit}>
+                    onSubmitCallback={this.handleSubmit}>
 
                     <SynchedInput
                         tabindex="1"

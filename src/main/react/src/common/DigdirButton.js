@@ -34,7 +34,7 @@ const styles = (theme) => ({
             marginLeft: 0,
         },
         '&:only-child': {
-            margin:"0em 2em 1em 2em",
+            margin:"0em 0 0 17em",
         },
         '&[data-grey=true]': {
             color: "#5e6b77",

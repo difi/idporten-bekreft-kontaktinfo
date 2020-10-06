@@ -72,7 +72,6 @@ export default class KontaktinfoStore {
             .catch((error) => this.handleUpdateError(error));
     }
 
-
     @action.bound
     handleResponse(response) {
         this.current = new Kontaktinfo(response);

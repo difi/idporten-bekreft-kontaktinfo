@@ -19,11 +19,6 @@ class Create extends Component {
     }
 
     @autobind
-    handleCommit() {
-        this.props.history.push('/kontaktinfo');
-    }
-
-    @autobind
     compareMobile(e) {
         const mobile = this.props.kontaktinfoStore.current.mobile;
         const mobileConfirmed = this.props.kontaktinfoStore.current.mobileConfirmed;
@@ -44,7 +39,7 @@ class Create extends Component {
     }
 
     @autobind
-    handleCancel(e) {
+    handleSubmit() {
         this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
         this.props.kontaktinfoStore.updateKontaktinfo();
     }
@@ -58,7 +53,7 @@ class Create extends Component {
                 <ContentHeader title={this.getTitle()}/>
                 <ContentInfoBox textKey="info.manglendeInformasjon"  />
                 <DigdirForm id="confirmContactinfo"
-                            onSubmitCallback={this.handleCommit}>
+                            method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
                     <SynchedInput
                         tabindex="1"
@@ -101,16 +96,7 @@ class Create extends Component {
                             tabindex="5"
                             disabled={this.emailMatch || this.mobileMatch }
                             type="submit"
-                            textKey="button.next"/>
-
-                        <DigdirButton
-                            tabindex="6"
-                            type="submit"
-                            value="skip"
-                            data-white="true"
-                            onClick={this.handleCancel}
-                            textKey="button.skip" />
-
+                            textKey="button.confirm"/>
                     </DigdirButtons>
 
                 </DigdirForm>

@@ -27,7 +27,7 @@ class MissingMobile extends Component {
     }
 
     @autobind
-    handleCommit() {
+    handleSubmit() {
         this.props.history.push('/kontaktinfo');
     }
 
@@ -85,6 +85,7 @@ class MissingMobile extends Component {
                         <DigdirButton
                             tabindex="3"
                             disabled={this.confirmDisabled}
+                            onClick={this.handleSubmit()}
                             type="submit"
                             value="submit"
                             textKey="button.next"

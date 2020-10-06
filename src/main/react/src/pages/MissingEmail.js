@@ -27,7 +27,7 @@ class MissingEmail extends Component {
     }
 
     @autobind
-    handleCommit() {
+    handleSubmit() {
         this.props.history.push('/kontaktinfo');
     }
 
@@ -86,6 +86,7 @@ class MissingEmail extends Component {
                             tabindex="3"
                             id="idporten.inputbutton.NEXT"
                             name="idporten.inputbutton.NEXT"
+                            onClick={this.handleSubmit}
                             disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"

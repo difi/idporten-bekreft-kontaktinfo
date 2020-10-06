@@ -99,10 +99,9 @@ class ConfirmKontaktinfo extends Component {
                             )
                         }}
                     />
-
                 </DigdirForm>
 
-                <form id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
+                <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
                         <DigdirButton
                             tabindex="4"
@@ -113,7 +112,8 @@ class ConfirmKontaktinfo extends Component {
                             textKey="button.confirm"
                         />
                     </DigdirButtons>
-                </form>
+                </DigdirForm>
+
             </React.Fragment>
         );
     }

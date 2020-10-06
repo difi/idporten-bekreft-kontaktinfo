@@ -26,7 +26,7 @@ class EditEmail extends Component {
     }
 
     @autobind
-    handleCommit() {
+    handleSubmit() {
         this.props.history.push('/kontaktinfo');
     }
 
@@ -58,7 +58,7 @@ class EditEmail extends Component {
 
                 <DigdirForm
                     id="confirmContactinfo"
-                    onSubmitCallback={this.handleCommit}>
+                    onSubmitCallback={this.handleSubmit}>
 
                     <SynchedInput
                         tabindex="1"
