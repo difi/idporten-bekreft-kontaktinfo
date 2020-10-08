@@ -9,10 +9,14 @@ import SynchedInput from "../common/SynchedInput";
 import kontaktinfoStore from "../stores/KontaktinfoStore";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
+import {observable} from "mobx";
 
 @inject("kontaktinfoStore")
 @observer
 class Create extends Component {
+
+    @observable showValidateErrorEmail = false;
+    @observable showValidateErrorMobile = false;
 
     getTitle() {
         return "Opprett kontaktinformasjon";
@@ -22,6 +26,14 @@ class Create extends Component {
     compareMobile(e) {
         const mobile = this.props.kontaktinfoStore.current.mobile;
         const mobileConfirmed = this.props.kontaktinfoStore.current.mobileConfirmed;
+
+        if(mobile.length){
+            if(!mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.mobileMatch = true;
+                return;
+            }
+        }
+
         this.mobileMatch = !(mobile === mobileConfirmed);
     }
 
@@ -39,9 +51,19 @@ class Create extends Component {
     }
 
     @autobind
-    handleSubmit() {
-        this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
-        this.props.kontaktinfoStore.updateKontaktinfo();
+    handleSubmit(e) {
+        if(this.emailMatch){
+            e.preventDefault();
+            this.showValidateErrorEmail=true;
+            return false;
+        } else if (this.mobileMatch) {
+            e.preventDefault();
+            this.showValidateErrorMobile=true;
+            return false;
+        } else {
+            this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
+            this.props.kontaktinfoStore.updateKontaktinfo();
+        }
     }
 
     render() {
@@ -51,21 +73,27 @@ class Create extends Component {
         return (
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
+
+                { this.showValidateErrorEmail && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+                { this.showValidateErrorMobile && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+
                 <ContentInfoBox textKey="info.manglendeInformasjon"  />
                 <DigdirForm id="confirmContactinfo"
                             method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
                     <SynchedInput
-                        tabindex="1"
+                        tabIndex="1"
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
                         path="email"
                         textKey="field.email"
-                        onChangeCallback={this.compareEmail()}/>
+                        onChangeCallback={this.compareEmail()}
+                        error={this.showValidateErrorEmail}/>
 
                     <SynchedInput
-                        tabindex="2"
+                        tabIndex="2"
+                        error={this.showValidateErrorEmail}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
@@ -74,7 +102,8 @@ class Create extends Component {
                         onChangeCallback={this.compareEmail()}/>
 
                     <SynchedInput
-                        tabindex="3"
+                        tabIndex="3"
+                        error={this.showValidateErrorMobile}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -83,7 +112,8 @@ class Create extends Component {
                         onChangeCallback={this.compareMobile()}/>
 
                     <SynchedInput
-                        tabindex="4"
+                        tabIndex="4"
+                        error={this.showValidateErrorMobile}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
@@ -93,8 +123,7 @@ class Create extends Component {
 
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="5"
-                            disabled={this.emailMatch || this.mobileMatch }
+                            tabIndex="5"
                             type="submit"
                             textKey="button.confirm"/>
                     </DigdirButtons>

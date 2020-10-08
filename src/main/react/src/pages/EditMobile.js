@@ -16,6 +16,7 @@ import ContentInfoBox from "../common/ContentInfoBox";
 class EditMobile extends Component {
     @observable confirmDisabled = false;
     @observable displayWarning = false;
+    @observable showValidateError = false;
 
     @observable oldMobile = "";
 
@@ -29,7 +30,12 @@ class EditMobile extends Component {
 
     @autobind
     handleSubmit() {
-        this.props.history.push('/kontaktinfo');
+        if(this.confirmDisabled){
+            this.showValidateError=true
+        } else {
+            this.props.history.push('/kontaktinfo');
+        }
+
     }
 
     @autobind
@@ -49,12 +55,12 @@ class EditMobile extends Component {
             this.displayWarning = true;
         }
 
-        /*
-        if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-            this.confirmDisabled = true;
-            return;
+        if(current.mobile.length){
+            if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.confirmDisabled = true;
+                return;
+            }
         }
-        */
 
         this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
     }
@@ -67,6 +73,7 @@ class EditMobile extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
+                { this.showValidateError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
                 { this.displayWarning ? <ContentInfoBox  textKey="info.sletteMobilVarsel"  /> : null }
 
                 <DigdirForm
@@ -74,7 +81,8 @@ class EditMobile extends Component {
                     onSubmitCallback={this.handleSubmit}>
 
                     <SynchedInput
-                        tabindex="1"
+                        tabIndex="1"
+                        error={this.showValidateError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -83,7 +91,8 @@ class EditMobile extends Component {
                         onChangeCallback={this.validateMobileRepeated}/>
 
                     <SynchedInput
-                        tabindex="2"
+                        tabIndex="2"
+                        error={this.showValidateError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
@@ -93,16 +102,15 @@ class EditMobile extends Component {
 
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="3"
+                            tabIndex="3"
                             id="idporten.inputbutton.SAVE"
                             name="idporten.inputbutton.SAVE"
-                            disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"
                             textKey="button.save" />
 
                         <DigdirButton
-                            tabindex="4"
+                            tabIndex="4"
                             id="idporten.inputbutton.CANCEL_SAVE"
                             name="idporten.inputbutton.CANCEL_SAVE"
                             type="submit"

@@ -16,6 +16,7 @@ import ContentInfo from "../common/ContentInfo";
 @observer
 class MissingMobile extends Component {
     @observable confirmDisabled = true;
+    @observable showValidateError = false;
     @observable oldMobile = "";
 
     getTitle() {
@@ -27,8 +28,12 @@ class MissingMobile extends Component {
     }
 
     @autobind
-    handleSubmit() {
-        this.props.history.push('/kontaktinfo');
+    handleCommit() {
+        if(this.confirmDisabled){
+            this.showValidateError=true;
+        } else {
+            this.props.history.push('/kontaktinfo');
+        }
     }
 
     @autobind
@@ -43,9 +48,11 @@ class MissingMobile extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-            this.confirmDisabled = true;
-            return;
+        if(current.mobile.length){
+            if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.confirmDisabled = true;
+                return;
+            }
         }
 
         this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
@@ -59,12 +66,15 @@ class MissingMobile extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
+                { this.showValidateError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+
                 <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
                 <ContentInfo textKey="info.manglendeMobilLabel" />
 
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput
-                        tabindex="1"
+                        tabIndex="1"
+                        error={this.showValidateError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -73,7 +83,8 @@ class MissingMobile extends Component {
                         onChangeCallback={this.validateMobileRepeated}
                     />
                     <SynchedInput
-                        tabindex="2"
+                        tabIndex="2"
+                        error={this.showValidateError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
@@ -83,9 +94,8 @@ class MissingMobile extends Component {
                     />
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="3"
-                            disabled={this.confirmDisabled}
-                            onClick={this.handleSubmit()}
+                            tabIndex="3"
+                            onClick={this.handleSubmit}
                             type="submit"
                             value="submit"
                             textKey="button.next"
@@ -94,7 +104,7 @@ class MissingMobile extends Component {
                         />
 
                         <DigdirButton
-                            tabindex="4"
+                            tabIndex="4"
                             type="submit"
                             value="skip"
                             data-white="true"

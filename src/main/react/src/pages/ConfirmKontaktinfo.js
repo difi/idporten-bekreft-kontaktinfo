@@ -50,7 +50,7 @@ class ConfirmKontaktinfo extends Component {
         return (
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
-                <ContentInfoBox textKey="info.kontaktinfo"  />
+                <ContentInfoBox textKey="info.kontaktinfo" state="warning" />
                 <DigdirForm
                     id="bekreftKontaktinfo"
                     action={kontaktinfoStore.gotoUrl}
@@ -67,7 +67,7 @@ class ConfirmKontaktinfo extends Component {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
-                                        tabindex="2"
+                                        tabIndex="2"
                                         aria-label="Endre e-post"
                                         id="idporten.inputbutton.CHANGE_EMAIL"
                                         name="idporten.inputbutton.CHANGE_EMAIL"
@@ -89,7 +89,7 @@ class ConfirmKontaktinfo extends Component {
                             endAdornment: (
                                 <InputAdornment position="end">
                                     <IconButton
-                                        tabindex="3"
+                                        tabIndex="3"
                                         aria-label="Endre mobil"
                                         id="idporten.inputbutton.CHANGE_MOBILE"
                                         name="idporten.inputbutton.CHANGE_MOBILE"
@@ -104,7 +104,7 @@ class ConfirmKontaktinfo extends Component {
                 <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="4"
+                            tabIndex="4"
                             id="idporten.inputbutton.CONTINUE_CONFIRM"
                             name="idporten.inputbutton.CONTINUE_CONFIRM"
                             form="postForm"

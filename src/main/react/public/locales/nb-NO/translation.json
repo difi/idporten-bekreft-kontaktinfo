@@ -11,6 +11,10 @@
     "next": "Neste",
     "save": "Lagre"
   },
+  "error": {
+    "mobileError": "Mobilnummeret er ugyldig",
+    "emailError": "E-postadressen er ugyldig"
+  },
   "info": {
     "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Les mer</a>",
     "manglendeInformasjon": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. Les mer her. <br><br> Du kan velge å gå videre uten å legge inn kontaktopplysninger.",

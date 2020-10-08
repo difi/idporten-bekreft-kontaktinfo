@@ -15,6 +15,7 @@ import ContentHeader from "../common/ContentHeader";
 @observer
 class EditEmail extends Component {
     @observable confirmDisabled = false;
+    @observable showValidateError = false;
     @observable oldEmail = "";
 
     getTitle() {
@@ -27,7 +28,12 @@ class EditEmail extends Component {
 
     @autobind
     handleSubmit() {
-        this.props.history.push('/kontaktinfo');
+        if(this.confirmDisabled){
+            this.showValidateError=true;
+        } else {
+            this.props.history.push('/kontaktinfo');
+        }
+
     }
 
     @autobind
@@ -56,12 +62,15 @@ class EditEmail extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
+                { this.showValidateError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+
                 <DigdirForm
                     id="confirmContactinfo"
                     onSubmitCallback={this.handleSubmit}>
 
                     <SynchedInput
-                        tabindex="1"
+                        tabIndex="1"
+                        error={this.showValidateError}
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
@@ -70,7 +79,8 @@ class EditEmail extends Component {
                         onChangeCallback={this.validateEmailRepeated}/>
 
                     <SynchedInput
-                        tabindex="2"
+                        tabIndex="2"
+                        error={this.showValidateError}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
@@ -80,8 +90,7 @@ class EditEmail extends Component {
 
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="3"
-                            disabled={this.confirmDisabled}
+                            tabIndex="3"
                             id="idporten.inputbutton.SAVE"
                             name="idporten.inputbutton.SAVE"
                             type="submit"
@@ -89,7 +98,7 @@ class EditEmail extends Component {
                             textKey="button.save" />
 
                         <DigdirButton
-                            tabindex="4"
+                            tabIndex="4"
                             id="idporten.inputbutton.CANCEL_SAVE"
                             name="idporten.inputbutton.CANCEL_SAVE"
                             type="submit"

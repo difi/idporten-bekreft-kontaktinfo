@@ -16,6 +16,7 @@ import ContentInfo from "../common/ContentInfo";
 @observer
 class MissingEmail extends Component {
     @observable confirmDisabled = true;
+    @observable showValidateError = false;
     @observable oldEmail = "";
 
     getTitle() {
@@ -28,7 +29,11 @@ class MissingEmail extends Component {
 
     @autobind
     handleSubmit() {
-        this.props.history.push('/kontaktinfo');
+        if (this.confirmDisabled){
+            this.showValidateError = true;
+        } else {
+            this.props.history.push('/kontaktinfo');
+        }
     }
 
     @autobind
@@ -42,10 +47,12 @@ class MissingEmail extends Component {
     validateEmailRepeated() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        if (!(current.email.match(".*@.*"))) {
+
+        if (current.email.length && !(current.email.match(".*@.*"))) {
             this.confirmDisabled = true;
             return;
         }
+
         this.confirmDisabled = !(current.emailConfirmed === current.email);
     }
 
@@ -56,6 +63,8 @@ class MissingEmail extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
+                { this.showValidateError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
                 <ContentInfo textKey="info.manglendeEpostLabel" />
 
@@ -64,7 +73,8 @@ class MissingEmail extends Component {
                     onSubmitCallback={this.handleCommit}>
 
                     <SynchedInput
-                        tabindex="1"
+                        tabIndex="1"
+                        error={this.showValidateError}
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
@@ -73,7 +83,8 @@ class MissingEmail extends Component {
                         onChangeCallback={this.validateEmailRepeated}/>
 
                     <SynchedInput
-                        tabindex="2"
+                        tabIndex="2"
+                        error={this.showValidateError}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
@@ -83,17 +94,16 @@ class MissingEmail extends Component {
 
                     <DigdirButtons>
                         <DigdirButton
-                            tabindex="3"
+                            tabIndex="3"
                             id="idporten.inputbutton.NEXT"
                             name="idporten.inputbutton.NEXT"
                             onClick={this.handleSubmit}
-                            disabled={this.confirmDisabled}
                             type="submit"
                             value="submit"
                             textKey="button.next" />
 
                         <DigdirButton
-                            tabindex="4"
+                            tabIndex="4"
                             id="idporten.inputbutton.SKIP"
                             name="idporten.inputbutton.SKIP"
                             type="submit"
