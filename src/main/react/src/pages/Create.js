@@ -61,8 +61,15 @@ class Create extends Component {
             this.showValidateErrorMobile=true;
             return false;
         } else {
+            const mobile = this.props.kontaktinfoStore.current.mobile;
+            const email = this.props.kontaktinfoStore.current.email;
+
             this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
-            this.props.kontaktinfoStore.updateKontaktinfo();
+
+            if(mobile.length !== 0 || email.length !== 0){
+                console.log("updating")
+                this.props.kontaktinfoStore.updateKontaktinfo();
+            }
         }
     }
 
@@ -125,7 +132,7 @@ class Create extends Component {
                         <DigdirButton
                             tabIndex="5"
                             type="submit"
-                            textKey="button.confirm"/>
+                            textKey="button.next"/>
                     </DigdirButtons>
 
                 </DigdirForm>
