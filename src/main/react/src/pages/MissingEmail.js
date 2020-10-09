@@ -15,8 +15,8 @@ import ContentInfo from "../common/ContentInfo";
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
-    @observable confirmDisabled = true;
-    @observable showValidateError = false;
+    @observable emailValidationError = true;
+    @observable displayEmailValidationError = false;
     @observable oldEmail = "";
 
     getTitle() {
@@ -29,8 +29,8 @@ class MissingEmail extends Component {
 
     @autobind
     handleSubmit() {
-        if (this.confirmDisabled){
-            this.showValidateError = true;
+        if (this.emailValidationError){
+            this.displayEmailValidationError = true;
         } else {
             this.props.history.push('/kontaktinfo');
         }
@@ -49,11 +49,11 @@ class MissingEmail extends Component {
         const current = kontaktinfoStore.current;
 
         if (current.email.length && !(current.email.match(".*@.*"))) {
-            this.confirmDisabled = true;
+            this.emailValidationError = true;
             return;
         }
 
-        this.confirmDisabled = !(current.emailConfirmed === current.email);
+        this.emailValidationError = !(current.emailConfirmed === current.email);
     }
 
     render() {
@@ -63,7 +63,7 @@ class MissingEmail extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
-                { this.showValidateError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+                { this.displayEmailValidationError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
 
                 <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
                 <ContentInfo textKey="info.manglendeEpostLabel" />
@@ -74,7 +74,7 @@ class MissingEmail extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.showValidateError}
+                        error={this.displayEmailValidationError}
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
@@ -84,7 +84,7 @@ class MissingEmail extends Component {
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.showValidateError}
+                        error={this.displayEmailValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}

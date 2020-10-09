@@ -14,9 +14,9 @@ import ContentInfoBox from "../common/ContentInfoBox";
 @inject("kontaktinfoStore")
 @observer
 class EditMobile extends Component {
-    @observable confirmDisabled = false;
-    @observable displayWarning = false;
-    @observable showValidateError = false;
+    @observable mobileValidationError = false;
+    @observable displayMobileDeleteWarning = false;
+    @observable displayMobileValidationError = false;
 
     @observable oldMobile = "";
 
@@ -30,12 +30,11 @@ class EditMobile extends Component {
 
     @autobind
     handleSubmit() {
-        if(this.confirmDisabled){
-            this.showValidateError=true
+        if(this.mobileValidationError){
+            this.displayMobileValidationError=true
         } else {
             this.props.history.push('/kontaktinfo');
         }
-
     }
 
     @autobind
@@ -52,17 +51,17 @@ class EditMobile extends Component {
 
         if(this.oldMobile != current.mobile && current.mobile.length === 0
             || this.oldMobile != current.mobileConfirmed && current.mobileConfirmed.length === 0){
-            this.displayWarning = true;
+            this.displayMobileDeleteWarning = true;
         }
 
         if(current.mobile.length){
             if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.confirmDisabled = true;
+                this.mobileValidationError = true;
                 return;
             }
         }
 
-        this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
+        this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
     }
 
     render() {
@@ -73,8 +72,8 @@ class EditMobile extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
-                { this.showValidateError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
-                { this.displayWarning ? <ContentInfoBox  textKey="info.sletteMobilVarsel"  /> : null }
+                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+                { this.displayMobileDeleteWarning ? <ContentInfoBox textKey="info.sletteMobilVarsel"  /> : null }
 
                 <DigdirForm
                     id="editMobilnr"
@@ -82,7 +81,7 @@ class EditMobile extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.showValidateError}
+                        error={this.displayMobileValidationError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -92,7 +91,7 @@ class EditMobile extends Component {
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.showValidateError}
+                        error={this.displayMobileValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}

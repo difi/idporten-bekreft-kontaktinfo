@@ -15,8 +15,8 @@ import ContentInfo from "../common/ContentInfo";
 @inject("kontaktinfoStore")
 @observer
 class MissingMobile extends Component {
-    @observable confirmDisabled = true;
-    @observable showValidateError = false;
+    @observable mobileValidationError = true;
+    @observable displayMobileValidationError = false;
     @observable oldMobile = "";
 
     getTitle() {
@@ -29,8 +29,8 @@ class MissingMobile extends Component {
 
     @autobind
     handleCommit() {
-        if(this.confirmDisabled){
-            this.showValidateError=true;
+        if(this.mobileValidationError){
+            this.displayMobileValidationError=true;
         } else {
             this.props.history.push('/kontaktinfo');
         }
@@ -50,12 +50,12 @@ class MissingMobile extends Component {
 
         if(current.mobile.length){
             if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.confirmDisabled = true;
+                this.mobileValidationError = true;
                 return;
             }
         }
 
-        this.confirmDisabled = !(current.mobileConfirmed === current.mobile);
+        this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
     }
 
     render() {
@@ -66,7 +66,7 @@ class MissingMobile extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
-                { this.showValidateError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
 
                 <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
                 <ContentInfo textKey="info.manglendeMobilLabel" />
@@ -74,7 +74,7 @@ class MissingMobile extends Component {
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput
                         tabIndex="1"
-                        error={this.showValidateError}
+                        error={this.displayMobileValidationError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -84,7 +84,7 @@ class MissingMobile extends Component {
                     />
                     <SynchedInput
                         tabIndex="2"
-                        error={this.showValidateError}
+                        error={this.displayMobileValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}

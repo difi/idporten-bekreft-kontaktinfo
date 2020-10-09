@@ -15,8 +15,8 @@ import {observable} from "mobx";
 @observer
 class Create extends Component {
 
-    @observable showValidateErrorEmail = false;
-    @observable showValidateErrorMobile = false;
+    @observable displayEmailValidationError = false;
+    @observable displayMobileValidationError = false;
 
     getTitle() {
         return "Opprett kontaktinformasjon";
@@ -29,12 +29,12 @@ class Create extends Component {
 
         if(mobile.length){
             if(!mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.mobileMatch = true;
+                this.mobileValidationError = true;
                 return;
             }
         }
 
-        this.mobileMatch = !(mobile === mobileConfirmed);
+        this.mobileValidationError = !(mobile === mobileConfirmed);
     }
 
     @autobind
@@ -43,22 +43,22 @@ class Create extends Component {
         const emailConfirmed = this.props.kontaktinfoStore.current.emailConfirmed;
 
         if (email.length && !(email.match(".*@.*")) ) {
-            this.emailMatch = true;
+            this.emailValidationError = true;
             return;
         }
 
-        this.emailMatch = !(email === emailConfirmed);
+        this.emailValidationError = !(email === emailConfirmed);
     }
 
     @autobind
     handleSubmit(e) {
-        if(this.emailMatch){
+        if(this.emailValidationError){
             e.preventDefault();
-            this.showValidateErrorEmail=true;
+            this.displayEmailValidationError=true;
             return false;
-        } else if (this.mobileMatch) {
+        } else if (this.mobileValidationError) {
             e.preventDefault();
-            this.showValidateErrorMobile=true;
+            this.displayMobileValidationError=true;
             return false;
         } else {
             const mobile = this.props.kontaktinfoStore.current.mobile;
@@ -67,7 +67,6 @@ class Create extends Component {
             this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
 
             if(mobile.length !== 0 || email.length !== 0){
-                console.log("updating")
                 this.props.kontaktinfoStore.updateKontaktinfo();
             }
         }
@@ -81,8 +80,8 @@ class Create extends Component {
             <React.Fragment>
                 <ContentHeader title={this.getTitle()}/>
 
-                { this.showValidateErrorEmail && <ContentInfoBox textKey="error.emailError" state="error"  /> }
-                { this.showValidateErrorMobile && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+                { this.displayEmailValidationError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
 
                 <ContentInfoBox textKey="info.manglendeInformasjon"  />
                 <DigdirForm id="confirmContactinfo"
@@ -96,11 +95,11 @@ class Create extends Component {
                         path="email"
                         textKey="field.email"
                         onChangeCallback={this.compareEmail()}
-                        error={this.showValidateErrorEmail}/>
+                        error={this.displayEmailValidationError}/>
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.showValidateErrorEmail}
+                        error={this.displayEmailValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
@@ -110,7 +109,7 @@ class Create extends Component {
 
                     <SynchedInput
                         tabIndex="3"
-                        error={this.showValidateErrorMobile}
+                        error={this.displayMobileValidationError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -120,7 +119,7 @@ class Create extends Component {
 
                     <SynchedInput
                         tabIndex="4"
-                        error={this.showValidateErrorMobile}
+                        error={this.displayMobileValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
