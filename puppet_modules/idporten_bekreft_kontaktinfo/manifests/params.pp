@@ -16,8 +16,6 @@ class idporten_bekreft_kontaktinfo::params {
   $krr_backend_connect_timeout                = 10000
   $krr_tip_days_user                          = 90
 
-  $oidc_provider_url            = hiera('idporten_bekreft_kontaktinfo::idporten_oidc_provider_url')
-
   $server_port                                 = 8080
   $java_home                                   = hiera('platform::java_home')
 }
