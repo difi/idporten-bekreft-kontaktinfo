@@ -14,13 +14,9 @@ import {observable} from "mobx";
 @inject("kontaktinfoStore")
 @observer
 class Create extends Component {
-
     @observable displayEmailValidationError = false;
     @observable displayMobileValidationError = false;
 
-    getTitle() {
-        return "Opprett kontaktinformasjon";
-    }
 
     @autobind
     compareMobile(e) {
@@ -29,11 +25,13 @@ class Create extends Component {
 
         if(mobile.length){
             if(!mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.errorMessageMobile = "error.mobileError"
                 this.mobileValidationError = true;
                 return;
             }
         }
 
+        this.errorMessageMobile = "error.mobileRepeatError"
         this.mobileValidationError = !(mobile === mobileConfirmed);
     }
 
@@ -43,15 +41,20 @@ class Create extends Component {
         const emailConfirmed = this.props.kontaktinfoStore.current.emailConfirmed;
 
         if (email.length && !(email.match(".*@.*")) ) {
+            this.errorMessageEmail = "error.emailError"
             this.emailValidationError = true;
             return;
         }
 
+        this.errorMessageEmail = "error.emailRepeatError"
         this.emailValidationError = !(email === emailConfirmed);
     }
 
     @autobind
     handleSubmit(e) {
+        this.displayMobileValidationError=this.compareMobile();
+        this.displayEmailValidationError=this.compareEmail();
+
         if(this.emailValidationError){
             e.preventDefault();
             this.displayEmailValidationError=true;
@@ -78,12 +81,13 @@ class Create extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
+                <ContentHeader title="title" sub_title="page_title.create"/>
 
-                { this.displayEmailValidationError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
-                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+                { this.displayEmailValidationError && <ContentInfoBox content={this.errorMessageEmail} state="error"  /> }
+                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessageMobile} state="error"  /> }
 
-                <ContentInfoBox textKey="info.manglendeInformasjon"  />
+                <ContentInfoBox content="info.manglendeInformasjon"  />
+
                 <DigdirForm id="confirmContactinfo"
                             method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
@@ -94,7 +98,7 @@ class Create extends Component {
                         source={current}
                         path="email"
                         textKey="field.email"
-                        onChangeCallback={this.compareEmail()}
+                        onChangeCallback={this.compareEmail}
                         error={this.displayEmailValidationError}/>
 
                     <SynchedInput
@@ -105,7 +109,7 @@ class Create extends Component {
                         source={current}
                         path="emailConfirmed"
                         textKey="field.emailConfirmed"
-                        onChangeCallback={this.compareEmail()}/>
+                        onChangeCallback={this.compareEmail}/>
 
                     <SynchedInput
                         tabIndex="3"
@@ -115,7 +119,7 @@ class Create extends Component {
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.compareMobile()}/>
+                        onChangeCallback={this.compareMobile}/>
 
                     <SynchedInput
                         tabIndex="4"
@@ -125,7 +129,7 @@ class Create extends Component {
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.compareEmail()}/>
+                        onChangeCallback={this.compareEmail}/>
 
                     <DigdirButtons>
                         <DigdirButton

@@ -14,13 +14,10 @@ import ContentHeader from "../common/ContentHeader";
 @inject("kontaktinfoStore")
 @observer
 class EditEmail extends Component {
+    @observable errorMessage = "";
     @observable emailValidationError = false;
     @observable displayEmailValidationError = false;
     @observable oldEmail = "";
-
-    getTitle() {
-        return "Din e-postadresse";
-    }
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
@@ -49,9 +46,12 @@ class EditEmail extends Component {
         const current = kontaktinfoStore.current;
 
         if (current.email.length && !(current.email.match(".*@.*"))) {
+            this.errorMessage = "error.emailError"
             this.emailValidationError = true;
             return;
         }
+
+        this.errorMessage = "error.emailRepeatError"
         this.emailValidationError = !(current.emailConfirmed === current.email);
     }
 
@@ -60,9 +60,9 @@ class EditEmail extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
+                <ContentHeader title="title" sub_title="page_title.edit_email"/>
 
-                { this.displayEmailValidationError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+                { this.displayEmailValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
                 <DigdirForm
                     id="confirmContactinfo"

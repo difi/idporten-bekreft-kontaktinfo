@@ -1,60 +1,41 @@
 {
-  "title": "Contact information",
-  "menu_language": "English",
-  "menu_label": "Change language",
+  "title": "Dine kontaktopplysingar",
   "button": {
-    "continue": "Continue",
-    "continueto": "Continue to ",
-    "cancel": "Cancel",
-    "back": "Back",
-    "next": "Next",
-    "login": "Login",
-    "return": "Return",
-    "code": "Send verification code",
-    "retry": "Retry"
+    "continue": "Fortsett",
+    "sendInformasjon": "Send informasjon på e-post",
+    "confirm": "Stadfest",
+    "cancel": "Avbryt",
+    "skip": "Hopp over",
+    "next": "Neste",
+    "save": "Lagre"
+  },
+  "page_title": {
+    "confirm": "Kontaktopplysingar",
+    "edit_email": "Din e-post",
+    "edit_mobile": "Ditt mobilnummer",
+    "create": "Registrere kontaktinformasjon"
+  },
+  "error": {
+    "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
+    "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret blei ikkje gjenteke korrekt.",
+    "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
+    "emailRepeatError": "<strong>Feil:</strong> E-postadressa blei ikkje gjenteke korrekt."
+  },
+  "info": {
+    "kontaktinfo": "Informasjonen nedanfor blir lagra i eit felles kontaktregister som stat og kommune skal bruke når dei kontaktar deg. <a href=\"https://eid.difi.no/nn/kommunikasjon-pa-nett-som-hovudregel\" target=\"_blank\">Les meir</a>",
+    "manglendeInformasjon": "Informasjonen nedanfor blir lagra i eit felles kontaktregister som stat og kommune skal bruke når dei kontaktar deg. <a href=\"https://eid.difi.no/nn/kommunikasjon-pa-nett-som-hovudregel\" target=\"_blank\">Les meir</a> <br><br> Du kan velge å gå videre uten å legge inn kontaktopplysninger.",
+    "manglendeEpostVarsel": "Du har ikkje registrert e-postadresse. E-postadressa blir nytta som varslingsadresse når stat eller kommune skal varsle deg om at dei har sendt deg viktige brev og vedtak på nett. Brukar du MinID til å logge deg på offentlege tenester på nett, kan e-postadressa også bli brukt til å sende deg eingangskodar, dersom du har gløymt passordet ditt.",
+    "manglendeEpostLabel": "Du bør nytte den private e-postadressa di for å sikre at ingen andre før tilgang til din personlege ID.",
+    "manglendeMobilVarsel": "Du har ikkje registrert mobilnummer. Mobilnummeret blir nytta som varslingsadresse når stat eller kommune skal varsle deg om at dei har sendt deg viktige brev og vedtak på nett. Brukar du MinID til å logge deg på offentlege tenester på nett, kan mobilnummeret også nyttast til å sende deg eingangskodar på SMS.",
+    "manglendeMobilLabel" : "Dersom du har eit utanlandsk nummer, må du hugse å skrive inn landskode (f.eks.  <strong>+46</strong> eller <strong>0046</strong> for Sverige)",
+    "digitalPostkasseOverskrift": "Din digitale postkasse",
+    "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
+    "sletteMobilVarsel": "Dersom du fjernar mobilnummeret kan du ikkje lenger motta eingangskode frå MinID eller kommunikasjon frå stat og kommune til din mobil."
   },
   "field": {
-    "email": "Email",
-    "emailConfirmed": "Repeat your email address",
-    "mobile": "Mobile phone number",
-    "mobileConfirmed": "Repeat mobile phone number",
-    "code": "Enter verification code",
-    "password": "Password",
-    "passwordrepeat": "Repeat the password",
-    "personIdentifier": "D number / personal ID number",
-    "personIdentifierPlaceholder": "(11 digits)"
-  },
-  "misc": {
-    "notfound": {
-      "title": "Not Found",
-      "text": "The page you tried to access does not exist."
-    },
-    "congratulations": "Your MinID is now ready for use."
-  },
-  "login": {
-    "fail": {
-      "title": "Login failed",
-      "text": "<strong>Service unavailable</strong><br/><br/>Verification stopped. Please try again later."
-    }
-  },
-  "status": {
-    },
-  "validation": {
-    "password": "Must be at least 8 characters, including digits and letters.",
-    "mobile": "Please specify valid mobile number.",
-    "email": "Please specify valid email address.",
-    "person_identifier": "Please specify valid D number.",
-    "html5": {
-      "badInput":  "The specified value cannot be parsed, or is out of range.",
-      "patternMismatch": "Please match the requested format.",
-      "rangeOverflow": "The specified value is too large.",
-      "rangeUnderflow": "The specified value is too small.",
-      "stepMismatch": "Please select a valid value.",
-      "tooLong": "The text is too long.",
-      "tooShort": "The text is too short.",
-      "typeMismatch": "The specified value does not match type.",
-      "valueMissing": "Please fill out this field."
-    }
+    "email": "E-post",
+    "emailConfirmed": "Gjenta e-post",
+    "mobile": "Mobilnummer",
+    "mobileConfirmed": "Gjenta mobilnummer"
   }
-
 }

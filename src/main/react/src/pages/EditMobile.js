@@ -14,15 +14,12 @@ import ContentInfoBox from "../common/ContentInfoBox";
 @inject("kontaktinfoStore")
 @observer
 class EditMobile extends Component {
+    @observable errorMessage = "";
     @observable mobileValidationError = false;
     @observable displayMobileDeleteWarning = false;
     @observable displayMobileValidationError = false;
 
     @observable oldMobile = "";
-
-    getTitle() {
-        return "Ditt mobilnummer";
-    }
 
     componentDidMount() {
         this.oldMobile = this.props.kontaktinfoStore.current.mobile;
@@ -51,16 +48,19 @@ class EditMobile extends Component {
 
         if(this.oldMobile != current.mobile && current.mobile.length === 0
             || this.oldMobile != current.mobileConfirmed && current.mobileConfirmed.length === 0){
+            this.errorMessage = "error.mobileError"
             this.displayMobileDeleteWarning = true;
         }
 
         if(current.mobile.length){
             if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.errorMessage = "error.mobileError"
                 this.mobileValidationError = true;
                 return;
             }
         }
 
+        this.errorMessage = "error.mobileRepeatError"
         this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
     }
 
@@ -70,10 +70,10 @@ class EditMobile extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
+                <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
-                { this.displayMobileDeleteWarning ? <ContentInfoBox textKey="info.sletteMobilVarsel"  /> : null }
+                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                { this.displayMobileDeleteWarning ? <ContentInfoBox content="info.sletteMobilVarsel"  /> : null }
 
                 <DigdirForm
                     id="editMobilnr"

@@ -15,13 +15,10 @@ import ContentInfo from "../common/ContentInfo";
 @inject("kontaktinfoStore")
 @observer
 class MissingMobile extends Component {
+    @observable errorMessage = "";
     @observable mobileValidationError = true;
     @observable displayMobileValidationError = false;
     @observable oldMobile = "";
-
-    getTitle() {
-        return "Ditt mobilnummer";
-    }
 
     componentDidMount() {
         this.oldMobile = this.props.kontaktinfoStore.current.mobile;
@@ -50,11 +47,13 @@ class MissingMobile extends Component {
 
         if(current.mobile.length){
             if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
+                this.errorMessage = "error.mobileError"
                 this.mobileValidationError = true;
                 return;
             }
         }
 
+        this.errorMessage = "error.mobileRepeatError"
         this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
     }
 
@@ -64,12 +63,12 @@ class MissingMobile extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
+                <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.displayMobileValidationError && <ContentInfoBox textKey="error.mobileError" state="error"  /> }
+                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
-                <ContentInfoBox textKey="info.manglendeMobilVarsel"  />
-                <ContentInfo textKey="info.manglendeMobilLabel" />
+                <ContentInfoBox content="info.manglendeMobilVarsel"  />
+                <ContentInfo content="info.manglendeMobilLabel" />
 
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput

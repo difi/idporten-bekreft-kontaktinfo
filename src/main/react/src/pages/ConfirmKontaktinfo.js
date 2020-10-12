@@ -17,10 +17,6 @@ import ContentHeader from "../common/ContentHeader";
 @observer
 class ConfirmKontaktinfo extends Component {
 
-    getTitle() {
-        return "Kontaktinformasjon";
-    }
-
     @autobind
     handleEditEmail(e) {
         this.props.history.push({
@@ -49,8 +45,8 @@ class ConfirmKontaktinfo extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
-                <ContentInfoBox textKey="info.kontaktinfo" state="warning" />
+                <ContentHeader title="title" sub_title="page_title.confirm"/>
+                <ContentInfoBox content="info.kontaktinfo" state="warning" />
                 <DigdirForm
                     id="bekreftKontaktinfo"
                     action={kontaktinfoStore.gotoUrl}

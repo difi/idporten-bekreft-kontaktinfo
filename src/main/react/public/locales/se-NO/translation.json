@@ -1,0 +1,39 @@
+{
+  "title": "Rievdadit oktavuođadieđuid",
+  "button": {
+    "continue": "Joatkke",
+    "sendInformasjon": "Sádde dieđuid e-poastan",
+    "confirm": "Duođaš",
+    "cancel": "Gaskkalduhte",
+    "skip": "Njuike",
+    "next": "Boahtte",
+    "save": "Vurke"
+  },
+  "page_title": {
+    "confirm": "Du dieđut",
+    "edit_email": "Rievdat e-poastaadreasse",
+    "edit_mobile": "Rievdat mobilnummar",
+    "create": ""
+  },
+  "error": {
+    "mobileError": "Mobiltelefonnummar ii dohkálaš.",
+    "mobileRepeatError": "Mobilnummar",
+    "emailError": "E-poastaadreassa ii leat dohkálaš.",
+    "emailRepeatError": "E-poastaadreassa ii geardduhuvvon riekta."
+  },
+  "info": {
+    "kontaktinfo": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
+    "manglendeInformasjon": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
+    "manglendeEpostVarsel": "Jus iežat e- boastta čujuhusa registreret, de lea dutnje álki ráhkadit ođđa beassansáni MiniID:ii, jus vajálduhttát iežat beassansáni.",
+    "manglendeEpostLabel": "Berret geavahit iežat priváhta e-poastta, vai oktage eará ii oainne du persuvnnalaš ID.",
+    "manglendeMobilVarsel": "Jus anát MiniID:a, de sáhttát válljet SMS:a bokte oažžut ovttahávvasaš kodaid. Dálle it dárbbaš PIN-kodareivve.",
+    "manglendeMobilLabel" : "Jus dus lea olgoritnummar, muitte čállit riikkakoda (omd. Ruota <strong>+46</strong> dahje <strong>0046</strong>)",
+    "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile."
+  },
+  "field": {
+    "email": "E-poasta:",
+    "emailConfirmed": "Gearddut e-poasta:",
+    "mobile": "Mobilnummar:",
+    "mobileConfirmed": "Gearddut nummar:"
+  }
+}

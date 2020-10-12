@@ -58,16 +58,16 @@ const styles = (theme) => ({
 
 class ContentInfoBox extends Component {
     render() {
-        const { classes, textKey, t } = this.props;
-        const text = t(textKey);
+        const { classes, content, t } = this.props;
+        const t_content = t(content);
 
         if(this.props.state === 'error'){
             return (
-                <div className={classes.error} dangerouslySetInnerHTML={{__html: `<div> ${text} </div>`}} />
+                <div className={classes.error} dangerouslySetInnerHTML={{__html: `<div> ${t_content} </div>`}} />
             );
         } else {
             return (
-                <div className={classes.warning} dangerouslySetInnerHTML={{__html: `<div> ${text} </div>`}} />
+                <div className={classes.warning} dangerouslySetInnerHTML={{__html: `<div> ${t_content} </div>`}} />
             );
         }
     }

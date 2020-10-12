@@ -1,9 +1,7 @@
 {
-  "title": "Contact information",
-  "menu_language": "English",
-  "menu_label": "Change language",
+  "title": "Dine kontaktopplysninger",
   "button": {
-    "continue": "Videre",
+    "continue": "Fortsett",
     "sendInformasjon": "Send informasjon på e-post",
     "confirm": "Bekreft",
     "cancel": "Avbryt",
@@ -11,9 +9,17 @@
     "next": "Neste",
     "save": "Lagre"
   },
+  "page_title": {
+    "confirm": "Kontaktinformasjon",
+    "edit_email": "Din e-postadresse",
+    "edit_mobile": "Ditt mobilnummer",
+    "create": "Opprett kontaktinformasjon"
+  },
   "error": {
-    "mobileError": "Mobilnummeret er ugyldig",
-    "emailError": "E-postadressen er ugyldig"
+    "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
+    "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret ble ikke gjentatt korrekt.",
+    "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
+    "emailRepeatError": "<strong>Feil:</strong> E-postadressen ble ikke korrekt gjentatt."
   },
   "info": {
     "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Les mer</a>",
@@ -30,44 +36,6 @@
     "email": "E-post",
     "emailConfirmed": "Gjenta e-post",
     "mobile": "Mobilnummer",
-    "mobileConfirmed": "Gjenta mobilnummer",
-    "code": "Enter verification code",
-    "password": "Password",
-    "passwordrepeat": "Repeat the password",
-    "personIdentifier": "D number / personal ID number",
-    "personIdentifierPlaceholder": "(11 digits)"
-  },
-  "misc": {
-    "notfound": {
-      "title": "Not Found",
-      "text": "The page you tried to access does not exist."
-    },
-    "congratulations": "Your MinID is now ready for use."
-  },
-  "login": {
-    "fail": {
-      "title": "Login failed",
-      "text": "<strong>Service unavailable</strong><br/><br/>Verification stopped. Please try again later."
-    }
-  },
-  "status": {
-    },
-  "validation": {
-    "password": "Must be at least 8 characters, including digits and letters.",
-    "mobile": "Please specify valid mobile number.",
-    "email": "Please specify valid email address.",
-    "person_identifier": "Please specify valid D number.",
-    "html5": {
-      "badInput":  "The specified value cannot be parsed, or is out of range.",
-      "patternMismatch": "Please match the requested format.",
-      "rangeOverflow": "The specified value is too large.",
-      "rangeUnderflow": "The specified value is too small.",
-      "stepMismatch": "Please select a valid value.",
-      "tooLong": "The text is too long.",
-      "tooShort": "The text is too short.",
-      "typeMismatch": "The specified value does not match type.",
-      "valueMissing": "Please fill out this field."
-    }
+    "mobileConfirmed": "Gjenta mobilnummer"
   }
-
 }

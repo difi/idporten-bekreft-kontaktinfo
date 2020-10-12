@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core";
 import {observer} from "mobx-react";
+import {withTranslation} from "react-i18next";
 
 const styles = (theme) => ({
     root: {
@@ -61,18 +62,20 @@ const styles = (theme) => ({
 class ContentHeader extends Component {
 
     render() {
-        const {classes} = this.props;
+        const { classes, title, t, sub_title } = this.props;
+        const t_title = t(title);
+        const t_sub_title = t(sub_title);
 
         return (
             <React.Fragment>
                 <div className={classes.root} >
-                    <h2 className={classes.h2}>Dine kontaktopplysninger</h2>
+                    <h2 className={classes.h2} dangerouslySetInnerHTML={{__html: `<div> ${t_title} </div>`}}/>
                     <div className={classes.providerBox}>
                         <img className={classes.providerImage} src={require("../images/svg/eid-icon.svg")} alt="Bekreft kontaktinformasjon" />
                     </div>
                 </div>
                 <div className={classes.root} >
-                    <h1 className={classes.h1}>{this.props.title}</h1>
+                    <h1 className={classes.h1} dangerouslySetInnerHTML={{__html: `<div> ${t_sub_title} </div>`}}/>
                 </div>
             </React.Fragment>
 
@@ -82,4 +85,4 @@ class ContentHeader extends Component {
 }
 
 const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withStyles(styles))(ContentHeader);
+export default compose(withStyles(styles), withTranslation())(ContentHeader);

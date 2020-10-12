@@ -4,14 +4,35 @@
   "menu_label": "Change language",
   "button": {
     "continue": "Continue",
-    "continueto": "Continue to ",
+    "sendInformasjon": "Continue to",
+    "confirm": "Confirm",
     "cancel": "Cancel",
-    "back": "Back",
+    "skip": "Skip",
     "next": "Next",
-    "login": "Login",
-    "return": "Return",
-    "code": "Send verification code",
-    "retry": "Retry"
+    "save": "Save"
+  },
+  "page_title": {
+    "confirm": "Confirm contact information",
+    "edit_email": "Change email address",
+    "edit_mobile": "Change mobile phone number",
+    "create": "Create contact information"
+  },
+  "error": {
+    "mobileError": "<strong>Error:</strong> Your mobile phone number is not valid.",
+    "mobileRepeatError": "<strong>Error:</strong> Your mobile phone number was repeated incorrectly.",
+    "emailError": "<strong>Error:</strong> Your e-mail address is not valid.",
+    "emailRepeatError": "<strong>Error:</strong> You repeated the e-mail address incorrectly."
+  },
+  "info": {
+    "kontaktinfo": "The information below is stored in a common contact register that the state and municipality will use when they contact you.. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Read more</a>",
+    "manglendeInformasjon": "The information below is stored in a common contact register that the state and municipality will use when they contact you.<br><br> You can choose to proceed without entering contact information.",
+    "manglendeEpostVarsel": "You have not registered an email address. The e-mail address is used as a notification address when the state or municipality is to notify you that they have sent you important letters and decisions online. If you use MinID to log in to public services online, the e-mail address can also be used to send you one-time codes, if you have forgotten your password.",
+    "manglendeEpostLabel": "You should use your private e-mail address to ensure that no one else has access to your personal ID.",
+    "manglendeMobilVarsel": "You have not registered a mobile number. The mobile number is used as a notification address when the state or municipality is to notify you that they have sent you important letters and decisions online. If you use MinID to log in to public services online, the mobile number can also be used to send you one-time codes via SMS.",
+    "manglendeMobilLabel" : "If you have a foreign number, remember to enter the country code (<b> +46 </b> or <b> 0046 </b> for Sweden).",
+    "digitalPostkasseOverskrift": "Your digital mailbox",
+    "digitalPostkasseTekst": "You can now receive letters from the state and municipality digitally in a secure mailbox online. Do you want more information?",
+    "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile."
   },
   "field": {
     "email": "Email",
@@ -38,7 +59,7 @@
     }
   },
   "status": {
-    },
+  },
   "validation": {
     "password": "Must be at least 8 characters, including digits and letters.",
     "mobile": "Please specify valid mobile number.",
@@ -56,5 +77,4 @@
       "valueMissing": "Please fill out this field."
     }
   }
-
 }

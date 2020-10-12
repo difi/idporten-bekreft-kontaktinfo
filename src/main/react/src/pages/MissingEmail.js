@@ -15,13 +15,10 @@ import ContentInfo from "../common/ContentInfo";
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
+    @observable errorMessage = "";
     @observable emailValidationError = true;
     @observable displayEmailValidationError = false;
     @observable oldEmail = "";
-
-    getTitle() {
-        return "Din e-postadresse";
-    }
 
     componentDidMount() {
         this.oldEmail = this.props.kontaktinfoStore.current.email;
@@ -49,10 +46,12 @@ class MissingEmail extends Component {
         const current = kontaktinfoStore.current;
 
         if (current.email.length && !(current.email.match(".*@.*"))) {
+            this.errorMessage = "error.emailError"
             this.emailValidationError = true;
             return;
         }
 
+        this.errorMessage = "error.emailRepeatError"
         this.emailValidationError = !(current.emailConfirmed === current.email);
     }
 
@@ -61,12 +60,12 @@ class MissingEmail extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title={this.getTitle()}/>
+                <ContentHeader title="title" sub_title="page_title.edit_email"/>
 
-                { this.displayEmailValidationError && <ContentInfoBox textKey="error.emailError" state="error"  /> }
+                { this.displayEmailValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
-                <ContentInfoBox textKey="info.manglendeEpostVarsel"  />
-                <ContentInfo textKey="info.manglendeEpostLabel" />
+                <ContentInfoBox content="info.manglendeEpostVarsel"  />
+                <ContentInfo content="info.manglendeEpostLabel" />
 
                 <DigdirForm
                     id="confirmContactinfo"
