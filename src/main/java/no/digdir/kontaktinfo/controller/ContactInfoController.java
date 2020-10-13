@@ -40,14 +40,14 @@ public class ContactInfoController {
     }
 
     @GetMapping("/user/{fnr}/confirm")
-    public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam) {
+    public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
 
         //TODO: validere request fra idporten?
         log.error("ContactInfoController confirm " + fnr + " -" + gotoParam);
         PersonResource personResource = getPersonResourceForFnr(fnr);
 
         if(getRedirectPath(personResource) != null){
-            return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam);
+            return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam, locale);
         }else{
             return redirectWithGotoParam("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam);
         }
@@ -89,12 +89,15 @@ public class ContactInfoController {
                 .build();
     }
 
-    public ResponseEntity<Void> redirectWithParam(String location, String fnr, String gotoParam){
+    public ResponseEntity<Void> redirectWithParam(String location, String fnr, String gotoParam, String locale){
 
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
+
+                    // i18n uses 'lng' param to set locale automagic
+                    .queryParam("lng", locale)
                     .queryParam("goto", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
                     .queryParam("fnr", fnr)
                     .build();

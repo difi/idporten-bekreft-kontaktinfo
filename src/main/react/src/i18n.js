@@ -10,7 +10,7 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        fallbackLng: 'nb-NO',
+        fallbackLng: 'nb',
         load: "currentOnly",
         debug: false,
         // keySeparator: true,
