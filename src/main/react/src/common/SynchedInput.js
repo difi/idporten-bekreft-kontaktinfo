@@ -87,6 +87,7 @@ class SynchedInput extends Component {
                        onChange={this.onChange}
                        onBlur={this.onValidate}
                        onInvalid={this.onInvalid}
+                       autoComplete="off"
                        {...rest}
             />
         );
