@@ -79,8 +79,8 @@ class MissingMobile extends Component {
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.validateMobileRepeated}
-                    />
+                        onChangeCallback={this.validateMobileRepeated}/>
+                        
                     <SynchedInput
                         tabIndex="2"
                         error={this.displayMobileValidationError}
@@ -89,8 +89,8 @@ class MissingMobile extends Component {
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.validateMobileRepeated}
-                    />
+                        onChangeCallback={this.validateMobileRepeated}/>
+
                     <DigdirButtons>
                         <DigdirButton
                             tabIndex="3"
@@ -99,8 +99,7 @@ class MissingMobile extends Component {
                             value="submit"
                             textKey="button.next"
                             id="idporten.inputbutton.NEXT"
-                            name="idporten.inputbutton.NEXT"
-                        />
+                            name="idporten.inputbutton.NEXT"/>
 
                         <DigdirButton
                             tabIndex="4"
@@ -110,8 +109,7 @@ class MissingMobile extends Component {
                             onClick={this.handleCancel}
                             textKey="button.skip"
                             id="idporten.inputbutton.SKIP"
-                            name="idporten.inputbutton.SKIP"
-                        />
+                            name="idporten.inputbutton.SKIP"/>
                     </DigdirButtons>
                 </DigdirForm>
             </React.Fragment>

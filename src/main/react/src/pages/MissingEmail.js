@@ -110,7 +110,6 @@ class MissingEmail extends Component {
                             data-white="true"
                             onClick={this.handleCancel} textKey="button.skip" />
 
-
                     </DigdirButtons>
                 </DigdirForm>
             </React.Fragment>

@@ -71,8 +71,7 @@ class ConfirmKontaktinfo extends Component {
                                     </IconButton>
                                 </InputAdornment>
                             )
-                        }}
-                    />
+                        }}/>
 
                     <SynchedInput
                         disabled={true}
@@ -93,8 +92,7 @@ class ConfirmKontaktinfo extends Component {
                                     </IconButton>
                                 </InputAdornment>
                             )
-                        }}
-                    />
+                        }}/>
                 </DigdirForm>
 
                 <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
@@ -109,7 +107,6 @@ class ConfirmKontaktinfo extends Component {
                         />
                     </DigdirButtons>
                 </DigdirForm>
-
             </React.Fragment>
         );
     }
