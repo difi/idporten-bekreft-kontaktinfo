@@ -15,7 +15,8 @@ class idporten_bekreft_kontaktinfo::params {
   $krr_backend_read_timeout                   = 10000
   $krr_backend_connect_timeout                = 10000
   $krr_tip_days_user                          = 90
-
-  $server_port                                 = 8080
-  $java_home                                   = hiera('platform::java_home')
+  $tomcat_tmp_dir                             = '/opt/idporten-bekreft-kontaktinfo/tmp'
+  $health_show_details                        = 'always'
+  $server_port                                = 8080
+  $java_home                                  = hiera('platform::java_home')
 }

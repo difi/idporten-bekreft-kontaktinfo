@@ -1,4 +1,16 @@
 # ===================================================================
+# Standard Spring Boot properties
+# ===================================================================
+server:
+  tomcat:
+    basedir: <%= @tomcat_tmp_dir %>
+
+management:
+    endpoint:
+        health:
+          show-details: <%= @health_show_details %>
+
+# ===================================================================
 # Application specific properties
 # ===================================================================
 krr:

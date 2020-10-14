@@ -13,6 +13,7 @@ server:
       rotate: false
       pattern: "%h\u0009%l\u0009%u\u0009%t\u0009\u0022%r\u0022\u0009%s\u0009%b\u0009%D\u0009%{no.difi.correlationId}i"
     remote-ip-header: X-Forwarded-For
+    basedir: "/opt/idporten-bekreft-kontaktinfo/tmp"
   servlet:
     session:
       cookie:
@@ -27,11 +28,14 @@ server:
 
 # Spring boot actuator endpoint
 management:
+  metrics:
+    tags:
+      application: "Idporten-bekreft-kontaktinfo"
   endpoints:
     web:
       base-path: /
       exposure:
-        include: "health, info, version"
+        include: "health, info, version, prometheus"
   endpoint:
     health:
       show-details: always

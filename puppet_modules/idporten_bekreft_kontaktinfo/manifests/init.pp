@@ -10,7 +10,9 @@ class idporten_bekreft_kontaktinfo (
   String $krr_backend_url                              = $idporten_bekreft_kontaktinfo::params::krr_backend_url,
   Integer $krr_backend_read_timeout                    = $idporten_bekreft_kontaktinfo::params::krr_backend_read_timeout,
   Integer $krr_backend_connect_timeout                 = $idporten_bekreft_kontaktinfo::params::krr_backend_connect_timeout,
-  Integer $krr_tip_days_user                           = $idporten_bekreft_kontaktinfo::params::krr_tip_days_user
+  Integer $krr_tip_days_user                           = $idporten_bekreft_kontaktinfo::params::krr_tip_days_user,
+  String $tomcat_tmp_dir                               = $idporten_bekreft_kontaktinfo::params::tomcat_tmp_dir,
+  String $health_show_details                          = $idporten_bekreft_kontaktinfo::params::health_show_details
 
 ) inherits idporten_bekreft_kontaktinfo::params {
 

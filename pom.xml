@@ -39,19 +39,7 @@
         <eid.common.version>2020-06-29-1322-841ed34</eid.common.version>
         <idporten.common.version>2020-05-28-1255-7f7fe4c</idporten.common.version>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <!-- Import dependency management from Spring Boot -->
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    
     <dependencies>
         <!-- ****************************** -->
         <!-- * Spring boot dependencies   * -->
@@ -128,6 +116,15 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>${logstash.logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.10.6</version>
         </dependency>
 
 <!--        Test-->
