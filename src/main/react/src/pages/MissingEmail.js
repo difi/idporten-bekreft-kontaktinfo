@@ -11,13 +11,12 @@ import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
+import Validator from "../components/Validator";
 
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
-    @observable errorMessage = "";
-    @observable emailValidationError = true;
-    @observable displayEmailValidationError = false;
+    @observable error = null;
     @observable oldEmail = "";
 
     componentDidMount() {
@@ -26,9 +25,11 @@ class MissingEmail extends Component {
 
     @autobind
     handleSubmit() {
-        if (this.emailValidationError){
-            this.displayEmailValidationError = true;
-        } else {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        this.error = Validator.validateEmail(current.email,current.emailConfirmed)
+
+        if(!this.error){
             this.props.history.push('/kontaktinfo');
         }
     }
@@ -40,21 +41,6 @@ class MissingEmail extends Component {
         this.props.history.push('/kontaktinfo');
     }
 
-    @autobind
-    validateEmailRepeated() {
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
-
-        if (current.email.length && !(current.email.match(".*@.*"))) {
-            this.errorMessage = "error.emailError"
-            this.emailValidationError = true;
-            return;
-        }
-
-        this.errorMessage = "error.emailRepeatError"
-        this.emailValidationError = !(current.emailConfirmed === current.email);
-    }
-
     render() {
         const current = this.props.kontaktinfoStore.current;
 
@@ -62,7 +48,7 @@ class MissingEmail extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_email"/>
 
-                { this.displayEmailValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
 
                 <ContentInfoBox content="info.manglendeEpostVarsel"  />
                 <ContentInfo content="info.manglendeEpostLabel" />
@@ -73,23 +59,23 @@ class MissingEmail extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.displayEmailValidationError}
+                        error={this.error}
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
                         path="email"
                         textKey="field.email"
-                        onChangeCallback={this.validateEmailRepeated}/>
+                        />
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.displayEmailValidationError}
+                        error={this.error}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
                         path="emailConfirmed"
                         textKey="field.emailConfirmed"
-                        onChangeCallback={this.validateEmailRepeated}/>
+                        />
 
                     <DigdirButtons>
                         <DigdirButton

@@ -11,13 +11,12 @@ import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
+import Validator from "../components/Validator";
 
 @inject("kontaktinfoStore")
 @observer
 class MissingMobile extends Component {
-    @observable errorMessage = "";
-    @observable mobileValidationError = true;
-    @observable displayMobileValidationError = false;
+    @observable error = null;
     @observable oldMobile = "";
 
     componentDidMount() {
@@ -26,9 +25,11 @@ class MissingMobile extends Component {
 
     @autobind
     handleCommit() {
-        if(this.mobileValidationError){
-            this.displayMobileValidationError=true;
-        } else {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        this.error = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+
+        if(!this.error){
             this.props.history.push('/kontaktinfo');
         }
     }
@@ -40,23 +41,6 @@ class MissingMobile extends Component {
         this.props.history.push('/kontaktinfo');
     }
 
-    @autobind
-    validateMobileRepeated() {
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
-
-        if(current.mobile.length){
-            if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.errorMessage = "error.mobileError"
-                this.mobileValidationError = true;
-                return;
-            }
-        }
-
-        this.errorMessage = "error.mobileRepeatError"
-        this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
-    }
-
     render() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
@@ -65,7 +49,7 @@ class MissingMobile extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
 
                 <ContentInfoBox content="info.manglendeMobilVarsel"  />
                 <ContentInfo content="info.manglendeMobilLabel" />
@@ -73,23 +57,23 @@ class MissingMobile extends Component {
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput
                         tabIndex="1"
-                        error={this.displayMobileValidationError}
+                        error={this.error}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.validateMobileRepeated}/>
+                        />
                         
                     <SynchedInput
                         tabIndex="2"
-                        error={this.displayMobileValidationError}
+                        error={this.error}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.validateMobileRepeated}/>
+                        />
 
                     <DigdirButtons>
                         <DigdirButton

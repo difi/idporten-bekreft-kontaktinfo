@@ -10,58 +10,27 @@ import kontaktinfoStore from "../stores/KontaktinfoStore";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
 import {observable} from "mobx";
+import Validator from "../components/Validator";
 
 @inject("kontaktinfoStore")
 @observer
 class Create extends Component {
-    @observable displayEmailValidationError = false;
-    @observable displayMobileValidationError = false;
-
-
-    @autobind
-    compareMobile(e) {
-        const mobile = this.props.kontaktinfoStore.current.mobile;
-        const mobileConfirmed = this.props.kontaktinfoStore.current.mobileConfirmed;
-
-        if(mobile.length){
-            if(!mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.errorMessageMobile = "error.mobileError"
-                this.mobileValidationError = true;
-                return;
-            }
-        }
-
-        this.errorMessageMobile = "error.mobileRepeatError"
-        this.mobileValidationError = !(mobile === mobileConfirmed);
-    }
-
-    @autobind
-    compareEmail(e) {
-        const email = this.props.kontaktinfoStore.current.email;
-        const emailConfirmed = this.props.kontaktinfoStore.current.emailConfirmed;
-
-        if (email.length && !(email.match(".*@.*")) ) {
-            this.errorMessageEmail = "error.emailError"
-            this.emailValidationError = true;
-            return;
-        }
-
-        this.errorMessageEmail = "error.emailRepeatError"
-        this.emailValidationError = !(email === emailConfirmed);
-    }
+    @observable errorEmail = null;
+    @observable errorMobile = null;
 
     @autobind
     handleSubmit(e) {
-        this.displayMobileValidationError=this.compareMobile();
-        this.displayEmailValidationError=this.compareEmail();
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
 
-        if(this.emailValidationError){
+        this.errorEmail = Validator.validateEmail(current.email,current.emailConfirmed)
+        this.errorMobile = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+
+        if(this.errorEmail){
             e.preventDefault();
-            this.displayEmailValidationError=true;
             return false;
-        } else if (this.mobileValidationError) {
+        } else if (this.errorMobile) {
             e.preventDefault();
-            this.displayMobileValidationError=true;
             return false;
         } else {
             const mobile = this.props.kontaktinfoStore.current.mobile;
@@ -69,6 +38,7 @@ class Create extends Component {
 
             this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
 
+            // dont create user if no data is provided
             if(mobile.length !== 0 || email.length !== 0){
                 this.props.kontaktinfoStore.updateKontaktinfo();
             }
@@ -83,8 +53,8 @@ class Create extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.create"/>
 
-                { this.displayEmailValidationError && <ContentInfoBox content={this.errorMessageEmail} state="error"  /> }
-                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessageMobile} state="error"  /> }
+                { this.errorEmail && <ContentInfoBox content={this.errorEmail} state="error"  /> }
+                { this.errorMobile && <ContentInfoBox content={this.errorMobile} state="error"  /> }
 
                 <ContentInfoBox content="info.manglendeInformasjon"  />
 
@@ -98,38 +68,34 @@ class Create extends Component {
                         source={current}
                         path="email"
                         textKey="field.email"
-                        onChangeCallback={this.compareEmail}
-                        error={this.displayEmailValidationError}/>
+                        error={this.errorEmail}/>
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.displayEmailValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}
                         path="emailConfirmed"
                         textKey="field.emailConfirmed"
-                        onChangeCallback={this.compareEmail}/>
+                        error={this.errorEmail}/>
 
                     <SynchedInput
                         tabIndex="3"
-                        error={this.displayMobileValidationError}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.compareMobile}/>
+                        error={this.errorMobile}/>
 
                     <SynchedInput
                         tabIndex="4"
-                        error={this.displayMobileValidationError}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.compareEmail}/>
+                        error={this.errorMobile}/>
 
                     <DigdirButtons>
                         <DigdirButton
@@ -137,7 +103,6 @@ class Create extends Component {
                             type="submit"
                             textKey="button.next"/>
                     </DigdirButtons>
-
                 </DigdirForm>
             </React.Fragment>
         );

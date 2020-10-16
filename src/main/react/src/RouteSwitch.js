@@ -8,6 +8,7 @@ import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import {inject} from "mobx-react";
+import Validator from "./components/Validator";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>

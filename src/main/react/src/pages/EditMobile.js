@@ -10,15 +10,13 @@ import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
+import Validator from "../components/Validator";
 
 @inject("kontaktinfoStore")
 @observer
 class EditMobile extends Component {
-    @observable errorMessage = "";
-    @observable mobileValidationError = false;
-    @observable displayMobileDeleteWarning = false;
-    @observable displayMobileValidationError = false;
-
+    @observable error = null;
+    @observable warning = null;
     @observable oldMobile = "";
 
     componentDidMount() {
@@ -27,9 +25,12 @@ class EditMobile extends Component {
 
     @autobind
     handleSubmit() {
-        if(this.mobileValidationError){
-            this.displayMobileValidationError=true
-        } else {
+        const {kontaktinfoStore} = this.props;
+        const current = kontaktinfoStore.current;
+        this.error = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+
+
+        if(!this.error){
             this.props.history.push('/kontaktinfo');
         }
     }
@@ -42,26 +43,10 @@ class EditMobile extends Component {
     }
 
     @autobind
-    validateMobileRepeated() {
+    checkForWarnings(){
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-
-        if(this.oldMobile != current.mobile && current.mobile.length === 0
-            || this.oldMobile != current.mobileConfirmed && current.mobileConfirmed.length === 0){
-            this.errorMessage = "error.mobileError"
-            this.displayMobileDeleteWarning = true;
-        }
-
-        if(current.mobile.length){
-            if(!current.mobile.replace(/\s+/g, '').match("^([+][0-9]{2})?[0-9]{8}$")){
-                this.errorMessage = "error.mobileError"
-                this.mobileValidationError = true;
-                return;
-            }
-        }
-
-        this.errorMessage = "error.mobileRepeatError"
-        this.mobileValidationError = !(current.mobileConfirmed === current.mobile);
+        this.warning = Validator.isMobileRemoved(current.mobile, current.mobileConfirmed, this.oldMobile)
     }
 
     render() {
@@ -72,8 +57,8 @@ class EditMobile extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.displayMobileValidationError && <ContentInfoBox content={this.errorMessage} state="error"  /> }
-                { this.displayMobileDeleteWarning ? <ContentInfoBox content="info.sletteMobilVarsel"  /> : null }
+                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
+                { this.warning && <ContentInfoBox content={this.warning}  /> }
 
                 <DigdirForm
                     id="editMobilnr"
@@ -81,23 +66,25 @@ class EditMobile extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.displayMobileValidationError}
+                        error={this.error}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.validateMobileRepeated}/>
+                        onChangeCallback={this.checkForWarnings}
+                        />
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.displayMobileValidationError}
+                        error={this.error}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.validateMobileRepeated}/>
+                        onChangeCallback={this.checkForWarnings}
+                        />
 
                     <DigdirButtons>
                         <DigdirButton
@@ -106,7 +93,8 @@ class EditMobile extends Component {
                             name="idporten.inputbutton.SAVE"
                             type="submit"
                             value="submit"
-                            textKey="button.save" />
+                            textKey="button.save"
+                        />
 
                         <DigdirButton
                             tabIndex="4"
