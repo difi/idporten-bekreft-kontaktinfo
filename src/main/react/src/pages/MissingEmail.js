@@ -17,17 +17,12 @@ import Validator from "../components/Validator";
 @observer
 class MissingEmail extends Component {
     @observable error = null;
-    @observable oldEmail = "";
-
-    componentDidMount() {
-        this.oldEmail = this.props.kontaktinfoStore.current.email;
-    }
 
     @autobind
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateEmail(current.email,current.emailConfirmed)
+        this.error = Validator.validateEmail(current)
 
         if(!this.error){
             this.props.history.push('/kontaktinfo');
@@ -36,8 +31,10 @@ class MissingEmail extends Component {
 
     @autobind
     handleCancel() {
-        this.props.kontaktinfoStore.current.email = this.oldEmail;
-        this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
+        const current = this.props.kontaktinfoStore.current
+        current.email = current.history.email;
+        current.emailConfirmed = current.email;
+
         this.props.history.push('/kontaktinfo');
     }
 

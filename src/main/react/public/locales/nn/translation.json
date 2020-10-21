@@ -7,7 +7,8 @@
     "cancel": "Avbryt",
     "skip": "Hopp over",
     "next": "Neste",
-    "save": "Lagre"
+    "save": "Lagre",
+    "reset": "Tilbakestill"
   },
   "page_title": {
     "confirm": "Kontaktopplysingar",
@@ -19,7 +20,8 @@
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
     "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret blei ikkje gjenteke korrekt.",
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
-    "emailRepeatError": "<strong>Feil:</strong> E-postadressa blei ikkje gjenteke korrekt."
+    "emailRepeatError": "<strong>Feil:</strong> E-postadressa blei ikkje gjenteke korrekt.",
+    "allContactInfoIsRemoved": "For å fullføre registreringa må du skrive inn mobilnummer, e-post eller begge deler."
   },
   "info": {
     "kontaktinfo": "Informasjonen nedanfor blir lagra i eit felles kontaktregister som stat og kommune skal bruke når dei kontaktar deg. <a href=\"https://eid.difi.no/nn/kommunikasjon-pa-nett-som-hovudregel\" target=\"_blank\">Les meir</a>",

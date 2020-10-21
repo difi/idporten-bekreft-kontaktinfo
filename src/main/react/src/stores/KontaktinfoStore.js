@@ -116,6 +116,10 @@ class Kontaktinfo {
     @observable spraak = "";
     @observable reservasjon = "";
     @observable shouldUpdateKontaktinfo = false;
+    @observable history = {
+        "email":"",
+        "mobile":""
+    };
 
     constructor(data) {
         if(typeof data === "undefined") {
@@ -128,6 +132,11 @@ class Kontaktinfo {
         this.mobile = data.data.mobile || "";
         this.mobileConfirmed = data.data.mobile || "";
 
+        this.history = {
+            "email" : data.data.email || "",
+            "mobile" : data.data.mobile || ""
+        };
+
         let digitalPost = data.data.digital_post || {};
         this.digitalPostkasse = digitalPost.postkasseadresse || "";
         this.digitalPostkasseLeverandoer = digitalPost.postkasseleverandoeradresse || "";
@@ -136,5 +145,4 @@ class Kontaktinfo {
         this.reservasjon = data.reservasjon || "";
         this.shouldUpdateKontaktinfo = data.shouldUpdateKontaktinfo;
     }
-
 }

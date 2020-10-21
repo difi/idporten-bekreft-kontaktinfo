@@ -119,12 +119,6 @@ class ClientServiceTest {
         assertNull(userResource.getMobile());
     }
 
-    @Test
-    void testAreTwoStringsBothEmpty() {
-        assertTrue(clientService.twoStringsAreBothEmpty("", null));
-        assertFalse(clientService.twoStringsAreBothEmpty("22", ""));
-    }
-
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {
         UserResource userResource = new UserResource("uuid",
                 ssn,

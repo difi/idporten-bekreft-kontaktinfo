@@ -17,36 +17,32 @@ import Validator from "../components/Validator";
 class EditMobile extends Component {
     @observable error = null;
     @observable warning = null;
-    @observable oldMobile = "";
-
-    componentDidMount() {
-        this.oldMobile = this.props.kontaktinfoStore.current.mobile;
-    }
 
     @autobind
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+        this.error = Validator.validateMobile(current)
 
+        if(this.warning){
+            this.warning=null;
+        } else if(!this.error) {
+            this.warning = Validator.isMobileRemoved(current)
+        }
 
-        if(!this.error){
+        if(!this.error && !this.warning){
+            this.props.kontaktinfoStore.current.history.mobile = current.mobile;
             this.props.history.push('/kontaktinfo');
         }
     }
 
     @autobind
     handleCancel() {
-        this.props.kontaktinfoStore.current.mobile = this.oldMobile;
-        this.props.kontaktinfoStore.current.mobileConfirmed = this.oldMobile;
-        this.props.history.push('/kontaktinfo');
-    }
+        const current = this.props.kontaktinfoStore.current
+        current.mobile = current.history.mobile;
+        current.mobileConfirmed = current.mobile;
 
-    @autobind
-    checkForWarnings(){
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
-        this.warning = Validator.isMobileRemoved(current.mobile, current.mobileConfirmed, this.oldMobile)
+        this.props.history.push('/kontaktinfo');
     }
 
     render() {
@@ -72,7 +68,6 @@ class EditMobile extends Component {
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        onChangeCallback={this.checkForWarnings}
                         />
 
                     <SynchedInput
@@ -83,7 +78,6 @@ class EditMobile extends Component {
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        onChangeCallback={this.checkForWarnings}
                         />
 
                     <DigdirButtons>
@@ -93,7 +87,7 @@ class EditMobile extends Component {
                             name="idporten.inputbutton.SAVE"
                             type="submit"
                             value="submit"
-                            textKey="button.save"
+                            textKey={ this.warning ? "button.confirm" : "button.save"}
                         />
 
                         <DigdirButton

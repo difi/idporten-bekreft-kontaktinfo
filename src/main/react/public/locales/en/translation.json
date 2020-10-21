@@ -9,7 +9,8 @@
     "cancel": "Cancel",
     "skip": "Skip",
     "next": "Next",
-    "save": "Save"
+    "save": "Save",
+    "reset": "Reset"
   },
   "page_title": {
     "confirm": "Confirm contact information",
@@ -21,7 +22,8 @@
     "mobileError": "<strong>Error:</strong> Your mobile phone number is not valid.",
     "mobileRepeatError": "<strong>Error:</strong> Your mobile phone number was repeated incorrectly.",
     "emailError": "<strong>Error:</strong> Your e-mail address is not valid.",
-    "emailRepeatError": "<strong>Error:</strong> You repeated the e-mail address incorrectly."
+    "emailRepeatError": "<strong>Error:</strong> You repeated the e-mail address incorrectly.",
+    "allContactInfoIsRemoved": "To complete the registration, you must enter either a mobile number, e-mail or both."
   },
   "info": {
     "kontaktinfo": "The information below is stored in a common contact register that the state and municipality will use when they contact you. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Read more</a>",

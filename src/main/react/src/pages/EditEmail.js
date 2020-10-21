@@ -16,27 +16,24 @@ import Validator from "../components/Validator"
 @observer
 class EditEmail extends Component {
     @observable error = null;
-    @observable oldEmail = "";
-
-    componentDidMount() {
-        this.oldEmail = this.props.kontaktinfoStore.current.email;
-    }
 
     @autobind
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateEmail(current.email,current.emailConfirmed)
+        this.error = Validator.validateEmail(current)
 
         if(!this.error){
+            this.props.kontaktinfoStore.current.history.email = current.email;
             this.props.history.push('/kontaktinfo');
         }
     }
 
     @autobind
     handleCancel() {
-        this.props.kontaktinfoStore.current.email = this.oldEmail;
-        this.props.kontaktinfoStore.current.emailConfirmed = this.oldEmail;
+        const current = this.props.kontaktinfoStore.current
+        current.email = current.history.email;
+        current.emailConfirmed = current.email;
         this.props.history.push('/kontaktinfo');
     }
 

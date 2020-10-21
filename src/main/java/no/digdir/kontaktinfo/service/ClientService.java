@@ -96,26 +96,25 @@ public class ClientService {
         }
     }
 
-    private void updateUserResource(UserResource user, String emailAddress, String mobile) {
-        if (!Objects.equals(user.getMobile(), mobile) && !twoStringsAreBothEmpty(user.getMobile(), mobile)) {
-            user.setMobile(mobile);
-            user.setMobileLastUpdated(new Date());
-        }
-        if (!Objects.equals(user.getEmail(), emailAddress) && !twoStringsAreBothEmpty(user.getEmail(), emailAddress)) {
-            user.setEmail(emailAddress);
+    private void updateUserResource(UserResource user, String email, String mobile) {
+        // KRR accepts only NULL if value should be removed
+        email = ((email.equals("")) ? null : email);
+        mobile = ((mobile.equals("")) ? null : mobile);
+
+        if (!Objects.equals(user.getEmail(), email)) {
+            user.setEmail(email);
             user.setEmailLastUpdated(new Date());
         }
-        if (user.getMobile() != null) {
-            user.setMobileVerifiedDate(new Date());
+        if (!Objects.equals(user.getMobile(), mobile)) {
+            user.setMobile(mobile);
+            user.setMobileLastUpdated(new Date());
         }
         if (user.getEmail() != null) {
             user.setEmailVerifiedDate(new Date());
         }
-    }
-
-    protected boolean twoStringsAreBothEmpty(String oldValue, String newValue) {
-        return (oldValue == null || "".equals(oldValue.trim()))
-                && (newValue == null || "".equals(newValue.trim()));
+        if (user.getMobile() != null) {
+            user.setMobileVerifiedDate(new Date());
+        }
     }
 
     private HttpEntity<Object> createHttpEntity() {

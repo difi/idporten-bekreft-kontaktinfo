@@ -17,17 +17,12 @@ import Validator from "../components/Validator";
 @observer
 class MissingMobile extends Component {
     @observable error = null;
-    @observable oldMobile = "";
-
-    componentDidMount() {
-        this.oldMobile = this.props.kontaktinfoStore.current.mobile;
-    }
 
     @autobind
     handleCommit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+        this.error = Validator.validateMobile(current)
 
         if(!this.error){
             this.props.history.push('/kontaktinfo');
@@ -36,8 +31,10 @@ class MissingMobile extends Component {
 
     @autobind
     handleCancel() {
-        this.props.kontaktinfoStore.current.mobile = this.oldMobile;
-        this.props.kontaktinfoStore.current.mobileConfirmed = this.oldMobile;
+        const current = this.props.kontaktinfoStore.current
+        current.mobile = current.history.mobile;
+        current.mobileConfirmed = current.mobile;
+
         this.props.history.push('/kontaktinfo');
     }
 

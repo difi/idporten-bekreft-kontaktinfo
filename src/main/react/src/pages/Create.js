@@ -23,8 +23,8 @@ class Create extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        this.errorEmail = Validator.validateEmail(current.email,current.emailConfirmed)
-        this.errorMobile = Validator.validateMobile(current.mobile,current.mobileConfirmed)
+        this.errorEmail = Validator.validateEmail(current)
+        this.errorMobile = Validator.validateMobile(current)
 
         if(this.errorEmail){
             e.preventDefault();
@@ -33,8 +33,8 @@ class Create extends Component {
             e.preventDefault();
             return false;
         } else {
-            const mobile = this.props.kontaktinfoStore.current.mobile;
-            const email = this.props.kontaktinfoStore.current.email;
+            const mobile = current.mobile;
+            const email = current.email;
 
             this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
 

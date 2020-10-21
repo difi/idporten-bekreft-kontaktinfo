@@ -7,7 +7,8 @@
     "cancel": "Gaskkalduhte",
     "skip": "Njuike",
     "next": "Boahtte",
-    "save": "Vurke"
+    "save": "Vurke",
+    "reset": "Reset"
   },
   "page_title": {
     "confirm": "Du dieđut",
@@ -19,7 +20,8 @@
     "mobileError": "Mobiltelefonnummar ii dohkálaš.",
     "mobileRepeatError": "Mobilnummar",
     "emailError": "E-poastaadreassa ii leat dohkálaš.",
-    "emailRepeatError": "E-poastaadreassa ii geardduhuvvon riekta."
+    "emailRepeatError": "E-poastaadreassa ii geardduhuvvon riekta.",
+    "allContactInfoIsRemoved": "To complete the registration, you must enter either a mobile number, e-mail or both."
   },
   "info": {
     "kontaktinfo": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",

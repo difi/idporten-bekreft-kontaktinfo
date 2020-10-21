@@ -7,7 +7,8 @@
     "cancel": "Avbryt",
     "skip": "Hopp over",
     "next": "Neste",
-    "save": "Lagre"
+    "save": "Lagre",
+    "reset": "Tilbakestill"
   },
   "page_title": {
     "confirm": "Kontaktinformasjon",
@@ -19,7 +20,9 @@
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
     "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret ble ikke gjentatt korrekt.",
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
-    "emailRepeatError": "<strong>Feil:</strong> E-postadressen ble ikke korrekt gjentatt."
+    "emailRepeatError": "<strong>Feil:</strong> E-postadressen ble ikke korrekt gjentatt.",
+    "allContactInfoIsRemoved": "For å fullføre registreringen må du skrive inn enten mobilnummer, e-post eller begge deler."
+
   },
   "info": {
     "kontaktinfo": "Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg. <a href='http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret'>Les mer</a>",
