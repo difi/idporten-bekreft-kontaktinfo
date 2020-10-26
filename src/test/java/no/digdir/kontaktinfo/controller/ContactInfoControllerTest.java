@@ -44,7 +44,7 @@ public class ContactInfoControllerTest {
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
 
         String path = contactInfoController.getRedirectPath(personResource);
         assertEquals("/idporten-bekreft-kontaktinfo/create",path);
@@ -74,7 +74,7 @@ public class ContactInfoControllerTest {
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
         personResource.setShouldUpdateKontaktinfo(true);
 
         String path = contactInfoController.getRedirectPath(personResource);
@@ -90,7 +90,7 @@ public class ContactInfoControllerTest {
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
         personResource.setShouldUpdateKontaktinfo(true);
 
         String path = contactInfoController.getRedirectPath(personResource);
@@ -106,7 +106,7 @@ public class ContactInfoControllerTest {
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
         personResource.setShouldUpdateKontaktinfo(true);
 
         String path = contactInfoController.getRedirectPath(personResource);
@@ -122,7 +122,7 @@ public class ContactInfoControllerTest {
         Mockito.when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class), anyString()))
                 .thenReturn(new ResponseEntity(createUserDetailResource(fnr, email, mobile), null, HttpStatus.OK));
 
-        PersonResource personResource = clientService.getPersonForFnr(fnr);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
         personResource.setShouldUpdateKontaktinfo(false);
 
         String path = contactInfoController.getRedirectPath(personResource);

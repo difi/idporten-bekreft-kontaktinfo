@@ -5,11 +5,10 @@ import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.digdir.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.kontaktinfo.domain.PersonResource;
+import no.digdir.kontaktinfo.integration.KontaktregisterClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.Date;
@@ -21,79 +20,46 @@ import java.util.Objects;
 public class ClientService {
     public static List<MediaType> ACCEPT_MEDIA_TYPES = Collections.singletonList(MediaType.APPLICATION_JSON);
 
-    HttpEntity<Object> httpEntity = createHttpEntity();
-
-    private final RestTemplate restTemplate;
     private final KrrConfigProvider krrConfigProvider;
+    private final KontaktregisterClient kontaktregisterClient;
 
     @Autowired
-    public ClientService(RestTemplate restTemplate, KrrConfigProvider krrConfigProvider) {
-        this.restTemplate = restTemplate;
+    public ClientService(KrrConfigProvider krrConfigProvider, KontaktregisterClient kontaktregisterClient) {
         this.krrConfigProvider = krrConfigProvider;
+        this.kontaktregisterClient = kontaktregisterClient;
     }
 
-    public PersonResource getPersonForFnr(String fnr) {
-
-        UserDetailResource userDetailResource = getUserDetailResourceForFnr(fnr);
+    public PersonResource getKontaktinfo(String fnr) {
+        UserDetailResource userDetailResource = kontaktregisterClient.getUser(fnr);
 
         if (userDetailResource.getUser() != null) {
             return PersonResource.fromUserDetailResource(userDetailResource,
                     krrConfigProvider.getTipDaysUser());
         } else {
-            PersonResource personResource = PersonResource.builder()
+            // user does not exist in KRR, create local PersonResource
+            return PersonResource.builder()
                     .personIdentifikator(fnr).newUser(true).build();
-            return personResource;
         }
     }
 
-    private UserDetailResource getUserDetailResourceForFnr(String fnr) {
-        String url = krrConfigProvider.getUrl() + "/kontaktregister/users/userDetail?ssn={ssn}";
-        try {
-            ResponseEntity<UserDetailResource> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, UserDetailResource.class, fnr);
-            return responseEntity.getBody();
-        } catch (RestClientException e) {
-            log.error("Failed to retrieve digital contact info for user", e);
-            return null;
-        }
-    }
-
-    private UserResource createNewUserResource(String fnr) {
-        UserResource userResource = new UserResource();
-        userResource.setSsn(fnr);
-        return userResource;
-    }
-
-    public void updateContactInfo(String fnr, String email, String mobile) {
-
-        UserDetailResource userDetail = getUserDetailResourceForFnr(fnr);
+    public void updateKontaktinfo(String fnr, String email, String mobile) {
+        UserDetailResource userDetail = kontaktregisterClient.getUser(fnr);
 
         if (userDetail.getUser() != null) {
             updateUser(userDetail.getUser(), email, mobile);
         } else {
-            addNewUser(createNewUserResource(fnr), email, mobile);
+            createUser(createNewUserResource(fnr), email, mobile);
         }
     }
 
-    private void addNewUser(UserResource user, String emailAddress, String mobile) {
-        updateUserResource(user, emailAddress, mobile);
-        String url = krrConfigProvider.getUrl() + "/kontaktregister/users/";
-        try {
-            restTemplate.postForObject(url, createHttpEntity(user), UserResource.class);
-        } catch (RestClientException e) {
-            log.error("Failed to add user", e);
-        }
+    private void createUser(UserResource user, String email, String mobile) {
+        updateUserResource(user, email, mobile);
+        kontaktregisterClient.createUser(user);
     }
 
-    private void updateUser(UserResource user, String emailAddress, String mobile) {
-        updateUserResource(user, emailAddress, mobile);
-        String url = krrConfigProvider.getUrl() + "/kontaktregister/users/{uuid}";
-        try {
-            restTemplate.exchange(url, HttpMethod.PUT, createHttpEntity(user), UserResource.class, user.getUuid());
-        } catch (RestClientException e) {
-            log.error("Failed to update user", e);
-        } catch (Exception e) {
-            log.error("Hvilken feil? ", e);
-        }
+    private void updateUser(UserResource user, String email, String mobile) {
+        updateUserResource(user, email, mobile);
+        kontaktregisterClient.updateUser(user);
     }
 
     private void updateUserResource(UserResource user, String email, String mobile) {
@@ -117,19 +83,9 @@ public class ClientService {
         }
     }
 
-    private HttpEntity<Object> createHttpEntity() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Client-Id", "Idporten");
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(ACCEPT_MEDIA_TYPES);
-        return new HttpEntity<>(headers);
-    }
-
-    private HttpEntity<Object> createHttpEntity(UserResource userDetail) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Client-Id", "Idporten");
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(ACCEPT_MEDIA_TYPES);
-        return new HttpEntity<>(userDetail, headers);
+    private UserResource createNewUserResource(String fnr) {
+        UserResource userResource = new UserResource();
+        userResource.setSsn(fnr);
+        return userResource;
     }
 }

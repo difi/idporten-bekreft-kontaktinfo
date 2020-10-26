@@ -17,19 +17,19 @@ import java.util.List;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class ContactAPI {
+public class KontaktinfoEndpoint {
     public static List<MediaType> ACCEPT_MEDIA_TYPES = Collections.singletonList(MediaType.APPLICATION_JSON);
 
     @Autowired
     ClientService clientService;
 
     @GetMapping("/kontaktinfo/{fnr}")
-    public PersonResource getContactInfo(@PathVariable String fnr) {
-        return clientService.getPersonForFnr(fnr);
+    public PersonResource getKontaktinfo(@PathVariable String fnr) {
+        return clientService.getKontaktinfo(fnr);
     }
 
     @PostMapping("/kontaktinfo")
-    public void updateContactInfo(@RequestBody UpdatedUserResource user) {
-        clientService.updateContactInfo(user.getFnr(), user.getEmail(), user.getMobile());
+    public void updateKontaktinfo(@RequestBody UpdatedUserResource user) {
+        clientService.updateKontaktinfo(user.getFnr(), user.getEmail(), user.getMobile());
     }
 }

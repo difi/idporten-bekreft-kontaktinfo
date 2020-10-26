@@ -128,7 +128,7 @@ public class ContactInfoController {
         PersonResource personResource;
 
         try {
-            personResource = clientService.getPersonForFnr(fnr);
+            personResource = clientService.getKontaktinfo(fnr);
         } catch (Exception e) {
 
             // TODO: is this because user is not created in KRR, or because connection to KRR failed

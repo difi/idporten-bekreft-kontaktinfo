@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-public class ContactAPITest {
+public class KontaktinfoEndpointTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -39,7 +38,7 @@ public class ContactAPITest {
     public void testGetUser() throws Exception {
         String email = "new@email.com";
         String mobile = "22224444";
-        when(clientService.getPersonForFnr(fnr)).thenReturn(createPersonResource(email, mobile));
+        when(clientService.getKontaktinfo(fnr)).thenReturn(createPersonResource(email, mobile));
         MvcResult mvcResult = mockMvc.perform(get("/api/kontaktinfo/" + fnr))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(email)))
