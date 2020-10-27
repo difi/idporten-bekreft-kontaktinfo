@@ -32,6 +32,11 @@ public class ClientService {
     public PersonResource getKontaktinfo(String fnr) {
         UserDetailResource userDetailResource = kontaktregisterClient.getUser(fnr);
 
+        if (userDetailResource == null) {
+            log.error("could not connect to KRR");
+            return null;
+        }
+
         if (userDetailResource.getUser() != null) {
             return PersonResource.fromUserDetailResource(userDetailResource,
                     krrConfigProvider.getTipDaysUser());

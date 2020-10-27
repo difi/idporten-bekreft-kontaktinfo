@@ -37,6 +37,9 @@ public class KontaktregisterClient {
         } catch (RestClientException e) {
             log.error("failed to retrieve user from kontaktregister", e);
             return null;
+        } catch (Exception e) {
+            log.error("something is wrong with the request to KRR", e);
+            return null;
         }
     }
 

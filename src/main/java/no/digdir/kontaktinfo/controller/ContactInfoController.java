@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.io.UnsupportedEncodingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
@@ -30,33 +29,36 @@ public class ContactInfoController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/autosubmit")
-    @ResponseBody
-    public void receiveResponse(HttpServletRequest request,
-                                @RequestParam String gotoParam,
-                                HttpServletResponse response) throws URISyntaxException, IOException {
-        String url = gotoParam;
-        renderHelpingPage(response, url);
-    }
-
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
 
-        //TODO: validere request fra idporten?
-        log.error("ContactInfoController confirm " + fnr + " -" + gotoParam);
-        PersonResource personResource = getPersonResourceForFnr(fnr);
-
-        if(getRedirectPath(personResource) != null){
-            return redirectWithParam(getRedirectPath(personResource), fnr, gotoParam, locale);
-        }else{
+        if(getRedirectPath(fnr) != null){
+            return redirectWithParam(getRedirectPath(fnr), fnr, gotoParam, locale);
+        } else {
             return redirectWithGotoParam("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam);
         }
-
     }
 
-    public String getRedirectPath(PersonResource personResource) {
+    @GetMapping("/autosubmit")
+    @ResponseBody
+    public void receiveResponse(@RequestParam String gotoParam,
+                                HttpServletResponse response) throws IOException {
+        renderHelpingPage(response, gotoParam);
+    }
 
-        if (personResource == null || personResource.isNewUser()) {
+    public String getRedirectPath(String fnr){
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
+        return buildRedirectPath(personResource);
+    }
+
+    public String buildRedirectPath(PersonResource personResource) {
+
+        // abort, send user back to idporten
+        if(personResource == null){
+            return null;
+        }
+
+        if (personResource.isNewUser()) {
             return "/idporten-bekreft-kontaktinfo/create";
         }
 
@@ -121,22 +123,6 @@ public class ContactInfoController {
         }
         log.error("Redirecting: -" + redirectUri.toUriString());
         return redirect(redirectUri.toUriString());
-    }
-
-    public PersonResource getPersonResourceForFnr(String fnr){
-
-        PersonResource personResource;
-
-        try {
-            personResource = clientService.getKontaktinfo(fnr);
-        } catch (Exception e) {
-
-            // TODO: is this because user is not created in KRR, or because connection to KRR failed
-            log.error("Failed to retrieve digital contact info for user", e);
-            personResource = null;
-        }
-
-        return personResource;
     }
 
     private void renderHelpingPage(HttpServletResponse response, String url) throws IOException {
