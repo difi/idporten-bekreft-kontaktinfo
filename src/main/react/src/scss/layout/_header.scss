@@ -1,5 +1,5 @@
 .header {
-  background-color: $primary-color;
+  background-color: $secondary-color;
   color:white;
 
   &__content {
@@ -16,13 +16,19 @@
     padding:1.2857em 1.0714em;
     color:white;
     font-size: .875em;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1em;
     text-decoration: none;
     text-transform: uppercase;
 
-    img {
-      margin: 0 .5em;
+    &:hover {
+      background-color:$primary-color;
+    }
+
+    .fa-angle-left {
+      margin-right: 1em;
+      line-height: .5em;
+      font-weight: 600;
     }
 
   }

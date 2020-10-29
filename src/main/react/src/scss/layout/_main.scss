@@ -4,6 +4,7 @@ html {
 
 html, body {
   height:100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -16,6 +17,7 @@ body {
   justify-content: space-between;
   min-height:100vh;
   background-color:$primary-bg-color;
+
 }
 
 .main {
@@ -27,12 +29,22 @@ body {
   margin-top: 3em;
   margin-bottom: 3em;
 
+  @media (max-width: 600px) {
+    margin-top:0;
+  }
+
   .app {
     max-width:500px;
     margin:auto;
     padding:0;
     border: 1px solid $color-alto;
+
+    @media (max-width: 600px) {
+      border:none;
+    }
+
     background-color:white;
+    border-radius: 2px;
   }
 }
 

@@ -12,6 +12,7 @@ const styles = (theme) => ({
         color: "white",
         padding: "0 2rem",
         margin: "0 1rem 1rem 1rem",
+
         whiteSpace: "nowrap",
         height: "4.5em",
         alignItems: "center",
@@ -34,7 +35,12 @@ const styles = (theme) => ({
             marginLeft: 0,
         },
         '&:only-child': {
-            margin:"0em 0 0 17em",
+            margin: "0em 0 0 17em",
+
+        [theme.breakpoints.down('sm')]: {
+                margin: 0,
+        }
+
         },
         '&[data-grey=true]': {
             color: "#5e6b77",

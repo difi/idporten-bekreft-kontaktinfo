@@ -1,22 +1,23 @@
 .footer {
-  background-color: $primary-color;
+  background-color: $secondary-color;
   width:100%;
   color:white;
   margin-top:auto;
 
   &__content {
     display:flex;
+    width:100%;
     justify-content: space-between;
     max-width:600px;
     margin:0 auto;
     font-size: .8125em;
-    padding: 2.3em .7682em 10.9em .7682em;
+    padding: 2.8em .7682em 10.4em .7682em;
   }
 
   &__logo {
     width:30px;
     height:30px;
-    margin: 15px 15px 0 0;
+    margin: 8px 15px 0 0;
     background: url(../../images/svg/eid-icon.svg) no-repeat top right;
   }
 
@@ -26,6 +27,8 @@
     padding:.5em;
     font-size: 1em;
     text-decoration: none;
+    line-height: 1.5em;
+    letter-spacing: .1px;
 
     &--provider {
       &::before{
@@ -37,12 +40,14 @@
   @media (max-width: 600px) {
 
     .footer__content {
+      justify-content: flex-start;
       padding-bottom: 9em;
       width:auto;
     }
 
     .footer__info {
-      margin:auto;
+      margin:unset;
+      float:left;
 
       .footer__link {
         float: left;
