@@ -9,6 +9,7 @@ import {createMuiTheme} from "@material-ui/core";
 import {ThemeProvider} from "@material-ui/styles";
 import {SnackbarProvider} from "notistack";
 import MainStore from "./stores/MainStore";
+import axios from "axios";
 
 import './i18n';
 
@@ -23,6 +24,9 @@ export const API_BASE_URL = SERVER_API_URL + apiPath;
 
 // Only import dev tools if we are outside production build, else just use Fragment
 // const DevTools = (process.env.NODE_ENV === 'development') ? require('mobx-react-devtools').default : Fragment;
+
+// default options for axios
+axios.defaults.withCredentials = true;
 
 // theme
 const breakpointValues = {xs: 0, sm: 576, md: 768, lg: 992, xl: 1200};
