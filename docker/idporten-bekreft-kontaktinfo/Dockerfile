@@ -24,7 +24,7 @@ RUN dpkg -i filebeat-5.6.13-amd64.deb
 RUN rm filebeat-5.6.13-amd64.deb
 
 ARG APPLICATION=idporten-bekreft-kontaktinfo
-ARG ARTIFACT_ID=idporten-bekreft-kontaktinfo
+ARG ARTIFACT_ID=idporten-bekreft-kontaktinfo-web
 
 COPY --from=config /etc/filebeat/ /etc/filebeat/
 COPY --from=config /etc/opt/${APPLICATION}/ /etc/opt/${APPLICATION}/

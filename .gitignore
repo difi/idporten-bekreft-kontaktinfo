@@ -8,7 +8,7 @@
 .settings
 .springBeans
 
-
+idporten-bekreft-kontaktinfo-web/target
 target/
 /docker/idporten-bekreft-kontaktinfo/puppet_hiera/*/
 /docker/idporten-bekreft-kontaktinfo/puppet_modules/*/
@@ -23,20 +23,6 @@ src/main/react/build/
 src/main/react/node_modules/
 src/main/resources/config/application-dev.yml
 /logs/**
-/minidonthefly-web/dist/
-/docker/minidonthefly-api/puppet_hiera/*/
-/docker/minidonthefly-api/puppet_modules/*/
-/docker/minidonthefly-api/jar/*.jar
-/docker/minidonthefly-backend/puppet_hiera/*/
-/docker/minidonthefly-backend/puppet_modules/*/
-/docker/minidonthefly-backend/jar/*.jar
-/docker/minidonthefly-passport-backend/jar/*.jar
-/docker/minidonthefly-passport-backend/puppet_hiera/*/
-/docker/minidonthefly-passport-backend/puppet_modules/*/
-/docker/minidonthefly-passport-web/jar/*.jar
-/docker/minidonthefly-passport-web/puppet_hiera/*/
-/docker/minidonthefly-passport-web/puppet_modules/*/
-
 
 ######################
 # Project Specific

@@ -196,6 +196,21 @@ services:
       placement:
         constraints:
           - node.labels.atest == true
+  selenium:
+    image: selenium/standalone-firefox:3.14.0-europium
+    volumes:
+      - /dev/shm:/dev/shm
+    ports:
+      - 4444
+    networks:
+      atest:
+        aliases:
+          - selenium_host
+    dns: 8.8.8.8
+    deploy:
+      placement:
+        constraints:
+          - node.labels.atest == true
 networks:
   atest:
     driver: overlay

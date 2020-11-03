@@ -9,7 +9,7 @@ class idporten_bekreft_kontaktinfo::params {
   $log_level                                  = 'WARN'
   $application                                = 'idporten-bekreft-kontaktinfo'
   $service_name                               = 'idporten-bekreft-kontaktinfo'
-  $artifact_id                                = 'idporten-bekreft-kontaktinfo'
+  $artifact_id                                = 'idporten-bekreft-kontaktinfo-web'
   $group_id                                   = 'no.digdir'
   $krr_backend_url                            = hiera('kontaktinfo_backend::url')
   $krr_backend_read_timeout                   = 10000

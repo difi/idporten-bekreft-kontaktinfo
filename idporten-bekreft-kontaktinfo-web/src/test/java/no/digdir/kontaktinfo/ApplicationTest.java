@@ -1,4 +1,4 @@
-package no.digdir.minidpassportadmin;
+package no.digdir.kontaktinfo;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -16,7 +16,7 @@ build() {
     cp -r puppet_modules docker/idporten-bekreft-kontaktinfo/ || return 1
     cp -r puppet_hiera docker/idporten-bekreft-kontaktinfo/ || return 1
     echo Skal kopiere til jar
-    cp target/idporten-bekreft-kontaktinfo.jar docker/idporten-bekreft-kontaktinfo/jar/idporten-bekreft-kontaktinfo.jar || return 1
+    cp idporten-bekreft-kontaktinfo-web/target/idporten-bekreft-kontaktinfo-web.jar docker/idporten-bekreft-kontaktinfo/jar/idporten-bekreft-kontaktinfo-web.jar || return 1
     buildImage ${registry} idporten-bekreft-kontaktinfo ${version} "${pull}" || return 1
 }
 
