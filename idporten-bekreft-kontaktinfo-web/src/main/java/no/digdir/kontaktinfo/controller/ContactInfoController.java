@@ -1,6 +1,7 @@
 package no.digdir.kontaktinfo.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import no.digdir.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,30 +33,29 @@ public class ContactInfoController {
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
 
-        if(getRedirectPath(fnr) != null){
-            return redirectWithParam(getRedirectPath(fnr), fnr, gotoParam, locale);
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
+        
+        // check if user should be redirected to front-end application
+        if(buildRedirectPath(personResource) != null){
+
+            //TODO: save fnr in cache
+            //TODO: save uuid (key) to contactInfoResource
+
+            return redirectWithParam(
+                    buildRedirectPath(personResource),
+                    ContactInfoResource.fromPersonResource(personResource),
+                    gotoParam,
+                    locale);
         } else {
+            // nothing to do, return to idporten
             return redirectWithGotoParam("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam);
         }
     }
 
-    @GetMapping("/autosubmit")
-    @ResponseBody
-    public void receiveResponse(@RequestParam String gotoParam,
-                                HttpServletResponse response) throws IOException {
-        renderHelpingPage(response, gotoParam);
-    }
-
-    public String getRedirectPath(String fnr){
-        PersonResource personResource = clientService.getKontaktinfo(fnr);
-        return buildRedirectPath(personResource);
-    }
-
     public String buildRedirectPath(PersonResource personResource) {
 
-        // abort, send user back to idporten
         if(personResource == null){
-            return null;
+            return null; // abort
         }
 
         if (personResource.isNewUser()) {
@@ -91,17 +91,16 @@ public class ContactInfoController {
                 .build();
     }
 
-    public ResponseEntity<Void> redirectWithParam(String location, String fnr, String gotoParam, String locale){
-
+    public ResponseEntity<Void> redirectWithParam(String location, ContactInfoResource contactInfoResource, String gotoParam, String locale){
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
-
-                    // i18n uses 'lng' param to set locale automagic
-                    .queryParam("lng", locale)
+                    .queryParam("lng", locale)  // i18n uses 'lng' param to set language automagic
                     .queryParam("goto", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
-                    .queryParam("fnr", fnr)
+                    .queryParam("uuid", contactInfoResource.getUuid())
+                    .queryParam("email", contactInfoResource.getEmail())
+                    .queryParam("mobile", contactInfoResource.getMobile())
                     .build();
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
@@ -125,26 +124,9 @@ public class ContactInfoController {
         return redirect(redirectUri.toUriString());
     }
 
-    private void renderHelpingPage(HttpServletResponse response, String url) throws IOException {
-        StringBuilder result = new StringBuilder();
-        result.append(top(url));
-        result.append(footer());
-        response.setContentType(getContentType());
-        response.getWriter().append(result);
-    }
-    private String top(String url) {
-        return "<html>" +
-                "<head><title>Bekreft Kontaktinformasjon</title></head>" +
-                "<body onload=\"javascript:document.forms[0].submit()\">" +
-                "<form target=\"_parent\" method=\"post\" action=\"" + url + "\">";
-    }
-    private String footer() {
-        return "<noscript><input type=\"submit\" value=\"Click to redirect\"></noscript>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
-    }
-    private String getContentType() {
-        return "text/html";
+    // function for jUnit
+    public String getRedirectPath(String fnr){
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
+        return buildRedirectPath(personResource);
     }
 }

@@ -16,15 +16,15 @@ import Validator from "../components/Validator";
 @inject("kontaktinfoStore")
 @observer
 class MissingEmail extends Component {
-    @observable error = null;
+    @observable errorMessage = null;
 
     @autobind
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateEmail(current)
+        this.errorMessage = Validator.validateEmail(current)
 
-        if(!this.error){
+        if(!this.errorMessage){
             this.props.history.push('/kontaktinfo');
         }
     }
@@ -45,7 +45,7 @@ class MissingEmail extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_email"/>
 
-                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
+                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
                 <ContentInfoBox content="info.manglendeEpostVarsel"  />
                 <ContentInfo content="info.manglendeEpostLabel" />
@@ -56,7 +56,7 @@ class MissingEmail extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.input.CONTACTINFO_EMAIL"
                         name="idporten.input.CONTACTINFO_EMAIL"
                         source={current}
@@ -66,7 +66,7 @@ class MissingEmail extends Component {
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                         source={current}

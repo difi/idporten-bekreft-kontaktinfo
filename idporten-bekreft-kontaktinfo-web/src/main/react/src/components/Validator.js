@@ -47,10 +47,7 @@ class Validator extends Component {
         }
     }
 
-
-
     preventUserFromDeletingAllContactInfo(current){
-
         if(current.history.email.length > 0 || current.history.mobile.length > 0) {
             if(current.email.length === 0 && current.mobile.length === 0){
                 return this.ALL_CONTACT_INFO_REMOVED;

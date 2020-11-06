@@ -16,15 +16,15 @@ import Validator from "../components/Validator";
 @inject("kontaktinfoStore")
 @observer
 class MissingMobile extends Component {
-    @observable error = null;
+    @observable errorMessage = null;
 
     @autobind
     handleCommit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateMobile(current)
+        this.errorMessage = Validator.validateMobile(current)
 
-        if(!this.error){
+        if(!this.errorMessage){
             this.props.history.push('/kontaktinfo');
         }
     }
@@ -46,7 +46,7 @@ class MissingMobile extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
+                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
                 <ContentInfoBox content="info.manglendeMobilVarsel"  />
                 <ContentInfo content="info.manglendeMobilLabel" />
@@ -54,7 +54,7 @@ class MissingMobile extends Component {
                 <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                     <SynchedInput
                         tabIndex="1"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -64,7 +64,7 @@ class MissingMobile extends Component {
                         
                     <SynchedInput
                         tabIndex="2"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}

@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.idporten.domain.user.PersonNumber;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -78,7 +77,7 @@ public class PersonResource {
         final UserResource userResource = userDetailResource.getUser();
         boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);
 
-        PersonResource personResource = PersonResource.builder()
+        return PersonResource.builder()
                 .personIdentifikator(userResource.getSsn())
                 .email(userResource.getEmail())
                 .emailLastUpdated(userResource.getEmailLastUpdated())
@@ -91,8 +90,6 @@ public class PersonResource {
                 .shouldUpdateKontaktinfo(shouldUpdateKontaktinfo(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
                 .newUser(false)
                 .build();
-
-        return personResource;
     }
 
     public static boolean shouldUpdateKontaktinfo(Date lastUpdated, Integer tipDaysUser) {
@@ -100,9 +97,7 @@ public class PersonResource {
             return true;
         }
         LocalDate lastUpdatedDate = lastUpdated.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        boolean value = LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
-        log.error("Should update: " + value);
-        return value;
+        return LocalDate.now().minusDays(tipDaysUser).isAfter(lastUpdatedDate);
     }
 
     public static PersonResource fromPersonIdentifier(String personIdentifikator) {

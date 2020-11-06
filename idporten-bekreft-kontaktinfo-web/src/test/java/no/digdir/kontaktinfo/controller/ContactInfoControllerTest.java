@@ -28,9 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class ContactInfoControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     ClientService clientService;
 
     @Autowired

@@ -68,7 +68,7 @@ class Create extends Component {
                         source={current}
                         path="email"
                         textKey="field.email"
-                        error={this.errorEmail}/>
+                        error={this.errorEmail != null}/>
 
                     <SynchedInput
                         tabIndex="2"
@@ -77,7 +77,7 @@ class Create extends Component {
                         source={current}
                         path="emailConfirmed"
                         textKey="field.emailConfirmed"
-                        error={this.errorEmail}/>
+                        error={this.errorEmail != null}/>
 
                     <SynchedInput
                         tabIndex="3"
@@ -86,7 +86,7 @@ class Create extends Component {
                         source={current}
                         path="mobile"
                         textKey="field.mobile"
-                        error={this.errorMobile}/>
+                        error={this.errorMobile != null}/>
 
                     <SynchedInput
                         tabIndex="4"
@@ -95,7 +95,7 @@ class Create extends Component {
                         source={current}
                         path="mobileConfirmed"
                         textKey="field.mobileConfirmed"
-                        error={this.errorMobile}/>
+                        error={this.errorMobile != null}/>
 
                     <DigdirButtons>
                         <DigdirButton

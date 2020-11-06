@@ -15,22 +15,24 @@ import Validator from "../components/Validator";
 @inject("kontaktinfoStore")
 @observer
 class EditMobile extends Component {
-    @observable error = null;
+    @observable errorMessage = null;
     @observable warning = null;
 
     @autobind
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.error = Validator.validateMobile(current)
+        this.errorMessage = Validator.validateMobile(current)
 
         if(this.warning){
             this.warning=null;
-        } else if(!this.error) {
+        } else if(!this.errorMessage) {
             this.warning = Validator.isMobileRemoved(current)
         }
 
-        if(!this.error && !this.warning){
+        console.log(this.errorMessage)
+        console.log(this.warning)
+        if(!this.errorMessage && !this.warning){
             this.props.kontaktinfoStore.current.history.mobile = current.mobile;
             this.props.history.push('/kontaktinfo');
         }
@@ -53,7 +55,7 @@ class EditMobile extends Component {
             <React.Fragment>
                 <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
 
-                { this.error && <ContentInfoBox content={this.error} state="error"  /> }
+                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
                 { this.warning && <ContentInfoBox content={this.warning}  /> }
 
                 <DigdirForm
@@ -62,7 +64,7 @@ class EditMobile extends Component {
 
                     <SynchedInput
                         tabIndex="1"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.input.CONTACTINFO_MOBILE"
                         name="idporten.input.CONTACTINFO_MOBILE"
                         source={current}
@@ -72,7 +74,7 @@ class EditMobile extends Component {
 
                     <SynchedInput
                         tabIndex="2"
-                        error={this.error}
+                        error={this.errorMessage != null}
                         id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                         source={current}

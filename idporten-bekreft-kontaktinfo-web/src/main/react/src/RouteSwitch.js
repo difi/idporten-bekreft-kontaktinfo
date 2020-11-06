@@ -31,14 +31,13 @@ class RouteSwitch extends React.Component {
             kontaktinfoStore.setGotoUrl(gotoParam);
         }
 
-        if (this.props.kontaktinfoStore.code === "" || this.props.kontaktinfoStore.code == null) {
-            const personIdentifikator = new URLSearchParams(this.props.location.search).get("fnr");
-            kontaktinfoStore.setCode(personIdentifikator);
+        const data = {
+            uuid:new URLSearchParams(this.props.location.search).getAll("uuid").toString(),
+            email:new URLSearchParams(this.props.location.search).getAll("email").toString(),
+            mobile:new URLSearchParams(this.props.location.search).getAll("mobile").toString(),
         }
 
-        if (!kontaktinfoStore.current.fnr && this.props.kontaktinfoStore.code) {
-            kontaktinfoStore.fetchKontaktinfo(this.props.kontaktinfoStore.code);
-        }
+        kontaktinfoStore.setKontaktinfo(data);
     }
 
     render() {

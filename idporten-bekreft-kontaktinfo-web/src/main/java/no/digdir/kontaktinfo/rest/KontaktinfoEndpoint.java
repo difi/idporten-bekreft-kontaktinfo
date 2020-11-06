@@ -3,7 +3,7 @@ package no.digdir.kontaktinfo.rest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.PersonResource;
-import no.digdir.kontaktinfo.domain.UpdatedUserResource;
+import no.digdir.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -23,13 +23,14 @@ public class KontaktinfoEndpoint {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/kontaktinfo/{fnr}")
-    public PersonResource getKontaktinfo(@PathVariable String fnr) {
-        return clientService.getKontaktinfo(fnr);
-    }
-
     @PostMapping("/kontaktinfo")
-    public void updateKontaktinfo(@RequestBody UpdatedUserResource user) {
-        clientService.updateKontaktinfo(user.getFnr(), user.getEmail(), user.getMobile());
+    public void updateKontaktinfo(@RequestBody ContactInfoResource resource) {
+
+        //TODO: get fnr from cache using uuid as key
+        String fnr = resource.getUuid();
+
+        //TODO: if cache did not return any fnr; return 401? error handling in React
+
+        clientService.updateKontaktinfo(fnr, resource.getEmail(), resource.getMobile());
     }
 }
