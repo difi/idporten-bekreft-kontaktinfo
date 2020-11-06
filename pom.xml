@@ -42,6 +42,7 @@
         <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
         <eid.common.version>2020-06-29-1322-841ed34</eid.common.version>
         <idporten.common.version>2020-05-28-1255-7f7fe4c</idporten.common.version>
+        <infinispan-spring-boot-starter-embedded-version>2.1.7.Final</infinispan-spring-boot-starter-embedded-version>
     </properties>
 
     <!-- Version management of common dependencies. -->
@@ -60,6 +61,12 @@
                 <groupId>no.difi.common</groupId>
                 <artifactId>idporten-lib-common-pojo</artifactId>
                 <version>${idporten.common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-spring-boot-starter-embedded</artifactId>
+                <version>${infinispan-spring-boot-starter-embedded-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -12,7 +12,13 @@ class idporten_bekreft_kontaktinfo (
   Integer $krr_backend_connect_timeout                 = $idporten_bekreft_kontaktinfo::params::krr_backend_connect_timeout,
   Integer $krr_tip_days_user                           = $idporten_bekreft_kontaktinfo::params::krr_tip_days_user,
   String $tomcat_tmp_dir                               = $idporten_bekreft_kontaktinfo::params::tomcat_tmp_dir,
-  String $health_show_details                          = $idporten_bekreft_kontaktinfo::params::health_show_details
+  String $health_show_details                          = $idporten_bekreft_kontaktinfo::params::health_show_details,
+  Integer $cache_local_ttl_in_s                        = $idporten_bekreft_kontaktinfo::params::cache_local_ttl_in_s,
+  Integer $cache_cluster_ttl_in_s                      = $idporten_bekreft_kontaktinfo::params::cache_cluster_ttl_in_s,
+  Integer $par_cache_ttl_in_s                          = $idporten_bekreft_kontaktinfo::params::par_cache_ttl_in_s,
+  String $cache_transport_file_location                = $idporten_bekreft_kontaktinfo::params::cache_transport_file_location,
+  Integer $cache_groups_udp_mcast_port                 = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_mcast_port,
+  String $cache_groups_udp_bind_addr                   = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_bind_addr,
 
 ) inherits idporten_bekreft_kontaktinfo::params {
 

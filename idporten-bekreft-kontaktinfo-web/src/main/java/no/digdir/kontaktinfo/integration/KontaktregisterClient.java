@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.cache.annotation.CacheResult;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class KontaktregisterClient {
         this.krrConfigProvider = krrConfigProvider;
     }
 
+    @CacheResult(cacheName = "user-detail")
     public UserDetailResource getUser(String fnr) {
         String url = krrConfigProvider.getUrl() + "/kontaktregister/users/userDetail?ssn={ssn}";
         try {

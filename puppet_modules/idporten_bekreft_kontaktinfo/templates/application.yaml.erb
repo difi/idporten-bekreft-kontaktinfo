@@ -20,3 +20,15 @@ krr:
     connect: <%= @krr_backend_connect_timeout %>
   tip_days_user: <%= @krr_tip_days_user %>
 
+par:
+  cache:
+    ttl-in-s: <%= @par_cache_ttl_in_s %>
+
+cache:
+  local:
+    ttl-in-s: <%= @cache_local_ttl_in_s %>
+  cluster:
+    ttl-in-s: <%= @cache_cluster_ttl_in_s %>
+    transport:
+      file:
+        location: <%= @cache_transport_file_location %>

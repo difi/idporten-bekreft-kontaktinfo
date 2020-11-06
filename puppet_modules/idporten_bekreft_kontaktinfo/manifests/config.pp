@@ -15,6 +15,13 @@ class idporten_bekreft_kontaktinfo::config inherits idporten_bekreft_kontaktinfo
     group   => $idporten_bekreft_kontaktinfo::service_name,
     mode    => '0400',
   } ->
+  file { "${idporten_bekreft_kontaktinfo::config_root}${idporten_bekreft_kontaktinfo::application}/cache-transport.xml":
+        ensure  => 'file',
+        content => template("${module_name}/cache-transport.xml.erb"),
+        owner   => $idporten_bekreft_kontaktinfo::service_name,
+        group   => $idporten_bekreft_kontaktinfo::service_name,
+        mode    => '0644',
+  } ->
   file { "/etc/rc.d/init.d/${idporten_bekreft_kontaktinfo::service_name}":
     ensure => 'link',
     target => "${idporten_bekreft_kontaktinfo::install_dir}${idporten_bekreft_kontaktinfo::application}/${idporten_bekreft_kontaktinfo::artifact_id}.jar",
