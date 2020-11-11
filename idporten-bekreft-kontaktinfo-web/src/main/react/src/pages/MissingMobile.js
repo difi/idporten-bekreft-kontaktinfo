@@ -22,11 +22,15 @@ class MissingMobile extends Component {
     handleCommit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.errorMessage = Validator.validateMobile(current)
 
-        if(!this.errorMessage){
-            this.props.history.push('/kontaktinfo');
-        }
+        Validator.validateMobile(current).then(response => {
+            this.errorMessage = response;
+
+            if(!this.errorMessage){
+                this.props.kontaktinfoStore.current.history.mobile = current.mobile;
+                this.props.history.push('/kontaktinfo');
+            }
+        });
     }
 
     @autobind

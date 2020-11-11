@@ -22,19 +22,24 @@ class EditMobile extends Component {
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.errorMessage = Validator.validateMobile(current)
 
+        this.checkForWarnings(current);
+
+        Validator.validateMobile(current).then(response => {
+            this.errorMessage = response;
+
+            if(!this.errorMessage && !this.warning){
+                this.props.kontaktinfoStore.current.history.mobile = current.mobile;
+                this.props.history.push('/kontaktinfo');
+            }
+        });
+    }
+
+    checkForWarnings(current){
         if(this.warning){
-            this.warning=null;
-        } else if(!this.errorMessage) {
-            this.warning = Validator.isMobileRemoved(current)
-        }
-
-        console.log(this.errorMessage)
-        console.log(this.warning)
-        if(!this.errorMessage && !this.warning){
-            this.props.kontaktinfoStore.current.history.mobile = current.mobile;
-            this.props.history.push('/kontaktinfo');
+            this.warning = null;
+        } else {
+            this.warning = Validator.isMobileRemoved(current);
         }
     }
 

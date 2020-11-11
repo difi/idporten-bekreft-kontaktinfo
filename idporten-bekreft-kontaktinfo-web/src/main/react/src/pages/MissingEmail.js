@@ -22,11 +22,15 @@ class MissingEmail extends Component {
     handleSubmit() {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
-        this.errorMessage = Validator.validateEmail(current)
 
-        if(!this.errorMessage){
-            this.props.history.push('/kontaktinfo');
-        }
+        Validator.validateEmail(current).then(response => {
+            this.errorMessage = response;
+
+            if(!this.errorMessage){
+                this.props.kontaktinfoStore.current.history.email = current.email;
+                this.props.history.push('/kontaktinfo');
+            }
+        });
     }
 
     @autobind

@@ -20,29 +20,30 @@ class Create extends Component {
 
     @autobind
     handleSubmit(e) {
+        e.preventDefault();
+
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        this.errorEmail = Validator.validateEmail(current)
-        this.errorMobile = Validator.validateMobile(current)
+        Validator.validateEmail(current).then(result => {
+            this.errorEmail = result;
 
-        if(this.errorEmail){
-            e.preventDefault();
-            return false;
-        } else if (this.errorMobile) {
-            e.preventDefault();
-            return false;
-        } else {
-            const mobile = current.mobile;
-            const email = current.email;
+            Validator.validateMobile(current).then(result => {
+                this.errorMobile = result;
 
-            this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
+                if (!this.errorEmail && !this.errorMobile) {
+                    this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
 
-            // dont create user if no data is provided
-            if(mobile.length !== 0 || email.length !== 0){
-                this.props.kontaktinfoStore.updateKontaktinfo();
-            }
-        }
+                    // dont submit data to KRR if no data is provided
+                    if (current.mobile.length !== 0 || current.email.length !== 0) {
+                        this.props.kontaktinfoStore.updateKontaktinfo();
+                    }
+
+                    // submit form
+                    document.getElementById('confirmContactinfo').submit();
+                }
+            })
+        })
     }
 
     render() {

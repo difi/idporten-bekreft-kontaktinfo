@@ -61,7 +61,11 @@
             <artifactId>idporten-lib-common-pojo</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>no.difi.common</groupId>
+            <artifactId>validation</artifactId>
+            <version>${eid.common.version}</version>
+        </dependency>
 
         <!-- ****************************** -->
         <!-- * Third party dependencies   * -->

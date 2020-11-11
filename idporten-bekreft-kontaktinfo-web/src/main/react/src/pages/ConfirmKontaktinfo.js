@@ -12,14 +12,10 @@ import {Edit} from '@material-ui/icons';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import ContentHeader from "../common/ContentHeader";
-import Validator from "../components/Validator";
-import {observable} from "mobx";
 
 @inject("kontaktinfoStore")
 @observer
 class ConfirmKontaktinfo extends Component {
-
-    @observable error = null;
 
     @autobind
     handleEditEmail(e) {
@@ -39,8 +35,6 @@ class ConfirmKontaktinfo extends Component {
 
     @autobind
     handleSubmit(e) {
-        const current = this.props.kontaktinfoStore.current
-        this.error = Validator.preventUserFromDeletingAllContactInfo(current);
         this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
         this.props.kontaktinfoStore.updateKontaktinfo();
     }
@@ -48,6 +42,7 @@ class ConfirmKontaktinfo extends Component {
     render() {
         let {kontaktinfoStore} = this.props;
         let current = kontaktinfoStore.current;
+
 
         return (
             <React.Fragment>
