@@ -18,7 +18,7 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    updateGotoUrl() {
+     async updateGotoUrl() {
         let url = new URLSearchParams();
         url.append("digitalcontactregister-reserved", "");
         url.append("digitalcontactregister-postboxoperator", "");
@@ -29,7 +29,7 @@ export default class KontaktinfoStore {
 
         this.setGotoUrl(this.gotoUrl + "&" + url.toString());
 
-        return new Promise(this.gotoUrl);
+        return this.gotoUrl;
     }
 
     @action.bound
