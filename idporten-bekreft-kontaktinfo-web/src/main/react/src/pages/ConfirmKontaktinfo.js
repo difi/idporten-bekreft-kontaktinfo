@@ -35,14 +35,17 @@ class ConfirmKontaktinfo extends Component {
 
     @autobind
     handleSubmit(e) {
-        this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
-        this.props.kontaktinfoStore.updateKontaktinfo();
+        e.preventDefault();
+        this.props.kontaktinfoStore.updateGotoUrl().then(() => {
+            this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
+                document.getElementById('postForm').submit();
+            })
+        });
     }
 
     render() {
         let {kontaktinfoStore} = this.props;
         let current = kontaktinfoStore.current;
-
 
         return (
             <React.Fragment>
@@ -51,10 +54,7 @@ class ConfirmKontaktinfo extends Component {
                 { this.error && <ContentInfoBox content={this.error} state="error"  /> }
 
                 <ContentInfoBox content="info.kontaktinfo" state="warning" />
-                <DigdirForm
-                    id="bekreftKontaktinfo"
-                    action={kontaktinfoStore.gotoUrl}
-                    method="post">
+                <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
                     <SynchedInput
                         disabled={true}
@@ -97,9 +97,7 @@ class ConfirmKontaktinfo extends Component {
                                 </InputAdornment>
                             )
                         }}/>
-                </DigdirForm>
 
-                <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
                     <DigdirButtons>
                         <DigdirButton
                             tabIndex="4"

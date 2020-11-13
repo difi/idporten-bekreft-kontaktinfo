@@ -32,15 +32,16 @@ class Create extends Component {
                 this.errorMobile = result;
 
                 if (!this.errorEmail && !this.errorMobile) {
-                    this.props.kontaktinfoStore.getKontaktinfoForGotoUrl();
 
-                    // dont submit data to KRR if no data is provided
-                    if (current.mobile.length !== 0 || current.email.length !== 0) {
-                        this.props.kontaktinfoStore.updateKontaktinfo();
-                    }
+                    this.props.kontaktinfoStore.updateGotoUrl().then(() => {
+                        // dont submit data to KRR if no data is provided
+                        if (current.mobile.length !== 0 || current.email.length !== 0) {
+                            this.props.kontaktinfoStore.updateKontaktinfo();
+                        }
 
-                    // submit form
-                    document.getElementById('confirmContactinfo').submit();
+                        // submit form
+                        document.getElementById('confirmContactinfo').submit()
+                    });
                 }
             })
         })
