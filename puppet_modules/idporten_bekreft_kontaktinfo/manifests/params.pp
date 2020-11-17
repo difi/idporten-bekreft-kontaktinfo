@@ -15,6 +15,11 @@ class idporten_bekreft_kontaktinfo::params {
   $krr_backend_read_timeout                   = 10000
   $krr_backend_connect_timeout                = 10000
   $krr_tip_days_user                          = 90
+  $keystore_type                              = 'jks'
+  $keystore_location                          = 'file:/etc/opt/idporten-bekreft-kontaktinfo/keystore.jks'
+  $keystore_password                          = 'changeit'
+  $keystore_key_alias                         = 'difitest'
+  $keystore_key_password                      = 'changeit'
   $cache_local_ttl_in_s                       = 5
   $cache_cluster_ttl_in_s                     = 300
   $par_cache_ttl_in_s                         = 120

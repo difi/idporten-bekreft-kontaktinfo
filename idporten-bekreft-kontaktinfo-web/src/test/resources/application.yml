@@ -7,9 +7,19 @@ par:
 
 cache:
   local:
-    ttl-in-s: 120
+    ttl-in-s: 5
   cluster:
     ttl-in-s: 300
     transport:
       file:
         location: ./
+
+jwt:
+  iss: idporten-bekreft-kontaktinfo
+  aud: idporten
+  keystore:
+    type: JKS
+    location: classpath:./keystore.jks
+    password: changeit
+    key_alias: digdirtest
+    key_password: changeit

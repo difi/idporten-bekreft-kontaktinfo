@@ -1,62 +1,67 @@
 package no.digdir.kontaktinfo.service;
 
+import no.digdir.kontaktinfo.domain.PARRequest;
+import no.digdir.kontaktinfo.domain.PersonResource;
 import org.infinispan.Cache;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 
 @Component
 public class KontaktinfoCache {
 
     private final InfinispanCacheManager cacheManager;
-    private final String KONTAKTINFO_CACHE = "kontaktinfo";
-    private final String FNR_CACHE = "fnr";
+    private final String PERSON_RESOURCE_CACHE = "kontaktinfo";
+    private final String PID_CACHE = "pid";
     private final String PAR_REQUEST_CACHE = "parRequest";
 
     public KontaktinfoCache(InfinispanCacheManager cacheManager) {
         this.cacheManager = cacheManager;
     }
 
-    public void putFnr(String uuid, String fnr) {
-        Cache<String, String> fnrCache = cacheManager.getCache(FNR_CACHE);
-        fnrCache.put(uuid, fnr);
+    public void putPid(String uuid, String pid) {
+        Cache<String, String> pidCache = cacheManager.getCache(PID_CACHE);
+        pidCache.put(uuid, pid);
     }
 
-    public String getFnr(String uuid) {
-        Cache<String, String> fnrCache = cacheManager.getCache(FNR_CACHE);
-        return fnrCache.get(uuid);
+    public String getPid(String uuid) {
+        Cache<String, String> pidCache = cacheManager.getCache(PID_CACHE);
+        return pidCache.get(uuid);
     }
 
     public void removeUuid(String uuid) {
-        Cache<String, String> fnrCache = cacheManager.getCache(FNR_CACHE);
+        Cache<String, String> pidCache = cacheManager.getCache(PID_CACHE);
         Cache<String, Object> parRequestCache = cacheManager.getCache(PAR_REQUEST_CACHE);
-        fnrCache.remove(uuid);
+        pidCache.remove(uuid);
         parRequestCache.remove(uuid);
     }
 
-    public void putParRequest(String uuid, Object parRequest) {
-        Cache<String, Object> parRequestCache = cacheManager.getCache(PAR_REQUEST_CACHE);
+    public void putParRequest(String uuid, PARRequest parRequest) {
+        Cache<String, PARRequest> parRequestCache = cacheManager.getCache(PAR_REQUEST_CACHE);
         parRequestCache.put(uuid, parRequest);
     }
 
-    public Object getParRequest(String uuid) {
-        Cache<String, Object> parRequestCache = cacheManager.getCache(PAR_REQUEST_CACHE);
+    public PARRequest getParRequest(String uuid) {
+        Cache<String, PARRequest> parRequestCache = cacheManager.getCache(PAR_REQUEST_CACHE);
         return parRequestCache.get(uuid);
     }
 
-    public void putKontaktinfo(String uuid, Object kontaktinfo) {
-        Cache<String, Object> kontaktinfoCache = cacheManager.getCache(KONTAKTINFO_CACHE);
-        kontaktinfoCache.put(uuid, kontaktinfo);
+    public String putPersonResource(PersonResource personResource) {
+        String code = UUID.randomUUID().toString();
+        Cache<String, PersonResource> personResourceCache = cacheManager.getCache(PERSON_RESOURCE_CACHE);
+        personResourceCache.put(code, personResource);
+        return code;
     }
 
-    public Object getKontaktinfo(String uuid) {
-        Cache<String, Object> kontaktinfoCache = cacheManager.getCache(KONTAKTINFO_CACHE);
-        return kontaktinfoCache.get(uuid);
+    public PersonResource getPersonResource(String uuid) {
+        Cache<String, PersonResource> personResourceCache = cacheManager.getCache(PERSON_RESOURCE_CACHE);
+        return personResourceCache.get(uuid);
     }
 
-    public void removeKontaktinfo(String uuid) {
-        Cache<String, String> kontaktinfoCache = cacheManager.getCache(KONTAKTINFO_CACHE);
-        kontaktinfoCache.remove(uuid);
+    public void removePersonResource(String uuid) {
+        Cache<String, PersonResource> personResourceCache = cacheManager.getCache(PERSON_RESOURCE_CACHE);
+        personResourceCache.remove(uuid);
     }
 
 }

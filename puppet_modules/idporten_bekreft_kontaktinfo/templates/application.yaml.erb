@@ -32,3 +32,13 @@ cache:
     transport:
       file:
         location: <%= @cache_transport_file_location %>
+
+jwt:
+  iss: <%= @issuer %>
+  aud: <%= @audience %>
+  keystore:
+    type: <%= @keystore_type %>
+    location: <%= @keystore_location %>
+    password: <%= @keystore_password %>
+    key_alias: <%= @keystore_key_alias %>
+    key_password: <%= @keystore_key_password %>

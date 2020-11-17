@@ -2,6 +2,9 @@ package no.digdir.kontaktinfo.rest;
 
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.service.ClientService;
+import no.digdir.kontaktinfo.service.KontaktinfoCache;
+import no.digdir.kontaktinfo.service.KontaktinfoCacheTest;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +16,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import java.util.UUID;
+
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -32,48 +34,51 @@ public class KontaktinfoEndpointTest {
     @MockBean
     ClientService clientService;
 
+    @Autowired
+    KontaktinfoCache kontaktinfoCache;
+
     String fnr = "23079410594";
-
-    /*
-    @Test
-    public void testGetUser() throws Exception {
-        String email = "new@email.com";
-        String mobile = "22224444";
-        when(clientService.getKontaktinfo(fnr)).thenReturn(createPersonResource(email, mobile));
-        MvcResult mvcResult = mockMvc.perform(get("/api/kontaktinfo/" + fnr))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString(email)))
-                .andExpect(content().string(containsString(mobile)))
-                .andReturn();
-    }
-
-     */
+    String email = "test@domain.com";
+    String mobile = "95959595";
 
     @Test
-    public void testPostUser() throws Exception {
+    public void testPostUserAndResponse() throws Exception {
+        PersonResource personResource = createPersonResource(fnr,email,mobile);
+        String code = kontaktinfoCache.putPersonResource(personResource);
+        personResource.setCode(code);
+
         MvcResult mvcResult = mockMvc.perform(post("/api/kontaktinfo")
-                .content("{\"fnr\": \"23079421936\", \"email\": \"noone@nowhere.com\", \"mobile\": \"22224444\"}")
+                .content("{\"uuid\": \""+code+"\", \"email\": \"test@domain.com\", \"mobile\": \"22224444\"}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andReturn();
+
+        JSONObject response = new JSONObject(mvcResult.getResponse().getContentAsString());
+
+        assertEquals(response.get("uuid"),personResource.getCode());
+        assertNotNull(response.get("code"));
     }
 
     @Test
-    public void testPostUserWithEmptyMobile() throws Exception {
+    public void testPostUserNotInCache() throws Exception {
+        PersonResource personResource = createPersonResource(fnr,email,mobile);
+        String code = UUID.randomUUID().toString();
+        personResource.setCode(code);
+
         MvcResult mvcResult = mockMvc.perform(post("/api/kontaktinfo")
-                .content("{\"fnr\": \"23079421936\", \"email\": \"noone@nowhere.com\", \"mobile\": \"\"}")
+                .content("{\"uuid\": \""+code+"\", \"email\": \"test@domain.com\", \"mobile\": \"22224444\"}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf()))
-                .andExpect(status().isOk())
+                .andExpect(status().isForbidden())
                 .andReturn();
     }
 
-    private PersonResource createPersonResource(String email, String mobile) {
+    private PersonResource createPersonResource(String fnr, String email, String mobile) {
         return PersonResource.builder().
+                personIdentifikator(fnr).
                 email(email).
                 mobile(mobile).
                 build();
     }
-
 }

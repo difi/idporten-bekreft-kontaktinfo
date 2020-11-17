@@ -36,8 +36,8 @@ class ConfirmKontaktinfo extends Component {
     @autobind
     handleSubmit(e) {
         e.preventDefault();
-        this.props.kontaktinfoStore.updateGotoUrl().then(() => {
-            this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
+        this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
+            this.props.kontaktinfoStore.updateGotoUrl().then(() => {
                 document.getElementById('postForm').submit();
             })
         });

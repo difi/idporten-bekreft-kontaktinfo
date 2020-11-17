@@ -73,6 +73,8 @@ public class PersonResource {
 
     private Boolean newUser;
 
+    private String code;
+
     public static PersonResource fromUserDetailResource(UserDetailResource userDetailResource, Integer tipDaysUser) {
         final UserResource userResource = userDetailResource.getUser();
         boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);

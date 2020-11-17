@@ -6,6 +6,7 @@ export default class KontaktinfoStore {
     @observable kontaktinfo = {};
     @observable error = {};
     @observable gotoUrl = "";
+    @observable code = "";
     @observable current = new Kontaktinfo();
 
     constructor(mainStore) {
@@ -26,6 +27,7 @@ export default class KontaktinfoStore {
 
         url.append("digitalcontactregister-email", this.current.email || "");
         url.append("digitalcontactregister-mobile", this.current.mobile || "");
+        url.append("code", this.code || "");
 
         this.setGotoUrl(this.gotoUrl + "&" + url.toString());
 
@@ -33,10 +35,14 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    updateKontaktinfo() {
-        return axios.post(API_BASE_URL + "/kontaktinfo",
+    async updateKontaktinfo() {
+        let response = await axios.post(API_BASE_URL + "/kontaktinfo",
             {uuid: this.current.uuid, email: this.current.email, mobile: this.current.mobile})
             .catch((error) => this.handleUpdateError(error));
+
+        if(response){
+            this.code = response.data.code;
+        }
     }
 
     @action.bound

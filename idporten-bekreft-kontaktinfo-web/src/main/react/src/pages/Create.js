@@ -33,18 +33,24 @@ class Create extends Component {
 
                 if (!this.errorEmail && !this.errorMobile) {
 
-                    this.props.kontaktinfoStore.updateGotoUrl().then(() => {
-                        // dont submit data to KRR if no data is provided
-                        if (current.mobile.length !== 0 || current.email.length !== 0) {
-                            this.props.kontaktinfoStore.updateKontaktinfo();
-                        }
-
-                        // submit form
-                        document.getElementById('confirmContactinfo').submit()
-                    });
+                    if (current.mobile.length !== 0 || current.email.length !== 0) {
+                        this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
+                            this.submit()
+                        });
+                    }
+                } else {
+                    this.submit()
                 }
             })
         })
+    }
+
+    @autobind()
+    submit(){
+        this.props.kontaktinfoStore.updateGotoUrl().then(() => {
+            // dont submit data to KRR if no data is provided
+            document.getElementById('confirmContactinfo').submit()
+        });
     }
 
     render() {

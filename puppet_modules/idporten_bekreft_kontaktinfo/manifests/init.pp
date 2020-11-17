@@ -7,6 +7,11 @@ class idporten_bekreft_kontaktinfo (
   String $group_id                                     = $idporten_bekreft_kontaktinfo::params::group_id,
   String $artifact_id                                  = $idporten_bekreft_kontaktinfo::params::artifact_id,
   Integer $server_port                                 = $idporten_bekreft_kontaktinfo::params::server_port,
+  String $keystore_type                                = $idporten_bekreft_kontaktinfo::params::keystore_type,
+  String $keystore_location                            = $idporten_bekreft_kontaktinfo::params::keystore_location,
+  String $keystore_password                            = $idporten_bekreft_kontaktinfo::params::keystore_password,
+  String $keystore_key_alias                           = $idporten_bekreft_kontaktinfo::params::keystore_key_alias,
+  String $keystore_key_password                        = $idporten_bekreft_kontaktinfo::params::keystore_key_password,
   String $krr_backend_url                              = $idporten_bekreft_kontaktinfo::params::krr_backend_url,
   Integer $krr_backend_read_timeout                    = $idporten_bekreft_kontaktinfo::params::krr_backend_read_timeout,
   Integer $krr_backend_connect_timeout                 = $idporten_bekreft_kontaktinfo::params::krr_backend_connect_timeout,
@@ -29,6 +34,7 @@ class idporten_bekreft_kontaktinfo (
   class { '::idporten_bekreft_kontaktinfo::install': } ->
   class { '::idporten_bekreft_kontaktinfo::deploy': } ->
   class { '::idporten_bekreft_kontaktinfo::config': } ~>
+  class { '::idporten_bekreft_kontaktinfo::test_setup': } ~>
   class { '::idporten_bekreft_kontaktinfo::service': } ->
   anchor { 'idporten_bekreft_kontaktinfo::end': }
 

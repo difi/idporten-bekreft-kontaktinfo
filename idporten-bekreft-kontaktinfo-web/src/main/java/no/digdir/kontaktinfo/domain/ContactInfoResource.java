@@ -18,12 +18,16 @@ public class ContactInfoResource {
     @JsonProperty
     private String mobile;
 
+    @JsonProperty
+    private String code;
+
+    @JsonProperty
+    private String error;
+
     public static ContactInfoResource fromPersonResource(PersonResource personResource){
         try {
             return ContactInfoResource.builder()
-
-                    //TODO: replace with session id as uuid
-                    .uuid(personResource.getPersonIdentifikator())
+                    .uuid(personResource.getCode())
                     .email(personResource.getEmail())
                     .mobile(personResource.getMobile())
                     .build();

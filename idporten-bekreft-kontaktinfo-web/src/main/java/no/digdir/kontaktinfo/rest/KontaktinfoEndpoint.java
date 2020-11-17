@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.kontaktinfo.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import no.digdir.kontaktinfo.service.KontaktinfoCache;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,17 +20,35 @@ import java.util.List;
 public class KontaktinfoEndpoint {
     public static List<MediaType> ACCEPT_MEDIA_TYPES = Collections.singletonList(MediaType.APPLICATION_JSON);
 
-    @Autowired
-    ClientService clientService;
+    private final ClientService clientService;
+    private final KontaktinfoCache kontaktinfoCache;
 
     @PostMapping("/kontaktinfo")
-    public void updateKontaktinfo(@RequestBody ContactInfoResource resource) {
+    public ResponseEntity<ContactInfoResource> updateKontaktinfo(@RequestBody ContactInfoResource resource) {
 
-        //TODO: get fnr from cache using uuid as key
-        String fnr = resource.getUuid();
+        PersonResource personResource = kontaktinfoCache.getPersonResource(resource.getUuid());
 
-        //TODO: if cache did not return any fnr; return 401? error handling in React
+        if (personResource == null){
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
 
-        clientService.updateKontaktinfo(fnr, resource.getEmail(), resource.getMobile());
+        try {
+            clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), resource.getEmail(), resource.getMobile());
+        } catch (Exception e){
+            log.error("failed to update user");
+            resource.setError("error message");
+            resource = ContactInfoResource.fromPersonResource(clientService.getKontaktinfo(personResource.getPersonIdentifikator()));
+        }
+
+        PersonResource newPersonResource = PersonResource.builder().
+                personIdentifikator(personResource.getPersonIdentifikator()).
+                email(resource.getEmail()).
+                mobile(resource.getMobile()).
+                build();
+
+        String code = kontaktinfoCache.putPersonResource(newPersonResource);
+        resource.setCode(code);
+
+        return new ResponseEntity<ContactInfoResource>(resource, HttpStatus.OK);
     }
 }

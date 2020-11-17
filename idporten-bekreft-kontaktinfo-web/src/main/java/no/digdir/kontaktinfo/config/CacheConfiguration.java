@@ -43,7 +43,7 @@ public class CacheConfiguration {
     public GlobalConfiguration globalConfiguration() {
         return GlobalConfigurationBuilder.defaultClusteredBuilder()
                 .transport().addProperty("configurationFile", location + "cache-transport.xml")
-                .clusterName("oidc-provider-cache-cluster")
+                .clusterName("kontaktinfo-cluster")
                 .build();
     }
 
