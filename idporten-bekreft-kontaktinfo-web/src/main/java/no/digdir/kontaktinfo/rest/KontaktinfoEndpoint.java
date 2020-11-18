@@ -24,31 +24,29 @@ public class KontaktinfoEndpoint {
     private final KontaktinfoCache kontaktinfoCache;
 
     @PostMapping("/kontaktinfo")
-    public ResponseEntity<ContactInfoResource> updateKontaktinfo(@RequestBody ContactInfoResource resource) {
+    public ResponseEntity<ContactInfoResource> updateKontaktinfo(@RequestBody ContactInfoResource updatedResource) {
 
-        PersonResource personResource = kontaktinfoCache.getPersonResource(resource.getUuid());
+        PersonResource personResource = kontaktinfoCache.getPersonResource(updatedResource.getCode());
 
         if (personResource == null){
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
 
-        try {
-            clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), resource.getEmail(), resource.getMobile());
-        } catch (Exception e){
-            log.error("failed to update user");
-            resource.setError("error message");
-            resource = ContactInfoResource.fromPersonResource(clientService.getKontaktinfo(personResource.getPersonIdentifikator()));
-        }
+        // TODO: feilhåndtering hvis oppdatering feiler
+        clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), updatedResource.getEmail(), updatedResource.getMobile());
 
-        PersonResource newPersonResource = PersonResource.builder().
-                personIdentifikator(personResource.getPersonIdentifikator()).
-                email(resource.getEmail()).
-                mobile(resource.getMobile()).
-                build();
-
-        String code = kontaktinfoCache.putPersonResource(newPersonResource);
-        resource.setCode(code);
-
-        return new ResponseEntity<ContactInfoResource>(resource, HttpStatus.OK);
+        ContactInfoResource responseResource = prepareAndCacheResponseResource(updatedResource,personResource);
+        return new ResponseEntity<ContactInfoResource>(responseResource, HttpStatus.OK);
     }
+
+    private ContactInfoResource prepareAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource){
+        personResource.setEmail(updatedResource.getEmail());
+        personResource.setMobile(updatedResource.getMobile());
+
+        String code = kontaktinfoCache.putPersonResource(personResource);
+        personResource.setCode(code);
+
+        return ContactInfoResource.fromPersonResource(personResource);
+    }
+
 }

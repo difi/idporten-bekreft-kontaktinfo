@@ -10,9 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ContactInfoResource {
     @JsonProperty
-    private String uuid;
-
-    @JsonProperty
     private String email;
 
     @JsonProperty
@@ -27,7 +24,7 @@ public class ContactInfoResource {
     public static ContactInfoResource fromPersonResource(PersonResource personResource){
         try {
             return ContactInfoResource.builder()
-                    .uuid(personResource.getCode())
+                    .code(personResource.getCode())
                     .email(personResource.getEmail())
                     .mobile(personResource.getMobile())
                     .build();

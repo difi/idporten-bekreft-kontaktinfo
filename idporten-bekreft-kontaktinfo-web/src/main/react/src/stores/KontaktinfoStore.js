@@ -37,7 +37,7 @@ export default class KontaktinfoStore {
     @action.bound
     async updateKontaktinfo() {
         let response = await axios.post(API_BASE_URL + "/kontaktinfo",
-            {uuid: this.current.uuid, email: this.current.email, mobile: this.current.mobile})
+            {code: this.current.code, email: this.current.email, mobile: this.current.mobile})
             .catch((error) => this.handleUpdateError(error));
 
         if(response){
@@ -64,8 +64,6 @@ export default class KontaktinfoStore {
 }
 
 class Kontaktinfo {
-    @observable uuid = "";
-
     @observable email = "";
     @observable mobile = "";
 
@@ -82,7 +80,7 @@ class Kontaktinfo {
             return;
         }
 
-        this.uuid = data.uuid || "";
+        this.code = data.code || "";
         this.email = data.email || "";
         this.mobile = data.mobile || "";
 

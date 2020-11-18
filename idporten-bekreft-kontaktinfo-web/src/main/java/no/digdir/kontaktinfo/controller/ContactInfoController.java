@@ -2,13 +2,9 @@ package no.digdir.kontaktinfo.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.ContactInfoResource;
-import no.digdir.kontaktinfo.domain.PARRequest;
-import no.digdir.kontaktinfo.domain.PARResponse;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import no.digdir.kontaktinfo.service.KontaktinfoCache;
-import no.digdir.kontaktinfo.service.PARService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,41 +22,19 @@ import java.nio.charset.StandardCharsets;
 public class ContactInfoController {
 
     private final ClientService clientService;
-    private final PARService parService;
     private final KontaktinfoCache kontaktinfoCache;
 
-    @Value("${par.cache.ttl-in-s:120}")
-    private int ttl;
+    private final static String LOCALE_PARAM = "lng";
+    private final static String EMAIL_PARAM = "email";
+    private final static String MOBILE_PARAM = "mobile";
+    private final static String CODE_PARAM = "code";
 
-    public ContactInfoController(ClientService clientService, PARService parService, KontaktinfoCache kontaktinfoCache) {
+    private final static String FRONTEND_GOTO_PARAM = "goto";
+    private final static String IDPORTEN_GOTO_PARAM = "gotoParam";
+
+    public ContactInfoController(ClientService clientService,KontaktinfoCache kontaktinfoCache) {
         this.clientService = clientService;
-        this.parService = parService;
         this.kontaktinfoCache = kontaktinfoCache;
-    }
-
-    @PostMapping("/par")
-    @ResponseBody
-    public ResponseEntity<PARResponse> par(@RequestBody PARRequest parRequest) {
-        String requestUri = parService.generateRequestUri();
-        kontaktinfoCache.putParRequest(requestUri, parRequest);
-        kontaktinfoCache.putPid(requestUri, parRequest.getPid());
-        PARResponse response = new PARResponse(requestUri, ttl);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @GetMapping("/authorize")
-    public Object authorize(@PathVariable String requestUri) {
-        String uuid = requestUri;
-        PARRequest parRequest = kontaktinfoCache.getParRequest(uuid);
-        return confirm(kontaktinfoCache.getPid(uuid), parRequest.getGotoParam(), parRequest.getLocale());
-    }
-
-    @PostMapping("/token")
-    public Object token(@RequestBody String code) {
-        PersonResource kontaktinfo = kontaktinfoCache.getPersonResource(code);
-        String jwt = parService.makeJwt(kontaktinfo.getPersonIdentifikator(), kontaktinfo.getEmail(), kontaktinfo.getMobile());
-        kontaktinfoCache.removePersonResource(code);
-        return jwt;
     }
 
     @GetMapping("/user/{fnr}/confirm")
@@ -70,13 +44,13 @@ public class ContactInfoController {
 
         // check if user should be redirected to front-end application
         if(buildRedirectPath(personResource) != null){
-            return redirectWithParam(
+            return redirectToFrontEnd(
                     buildRedirectPath(personResource),
                     ContactInfoResource.fromPersonResource(personResource),
                     gotoParam,
                     locale);
         } else {
-            return redirectWithGotoParam("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam, personResource.getCode());
+            return redirectToIdporten("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam, personResource.getCode());
         }
     }
 
@@ -119,16 +93,16 @@ public class ContactInfoController {
                 .build();
     }
 
-    public ResponseEntity<Void> redirectWithParam(String location, ContactInfoResource contactInfoResource, String gotoParam, String locale){
+    public ResponseEntity<Void> redirectToFrontEnd(String location, ContactInfoResource contactInfoResource, String gotoParam, String locale){
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
-                    .queryParam("lng", locale)  // i18n uses 'lng' param to set language automagic
-                    .queryParam("goto", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
-                    .queryParam("uuid", contactInfoResource.getUuid())
-                    .queryParam("email", contactInfoResource.getEmail())
-                    .queryParam("mobile", contactInfoResource.getMobile())
+                    .queryParam(LOCALE_PARAM, locale)  // i18n uses 'lng' param to set language automagic
+                    .queryParam(FRONTEND_GOTO_PARAM, URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
+                    .queryParam(CODE_PARAM, contactInfoResource.getCode())
+                    .queryParam(EMAIL_PARAM, contactInfoResource.getEmail())
+                    .queryParam(MOBILE_PARAM, contactInfoResource.getMobile())
                     .build();
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
@@ -137,14 +111,14 @@ public class ContactInfoController {
         return redirect(redirectUri.toUriString());
     }
 
-    public ResponseEntity<Void> redirectWithGotoParam(String location, String gotoParam, String code){
+    public ResponseEntity<Void> redirectToIdporten(String location, String gotoParam, String code){
 
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
-                    .queryParam("gotoParam", URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
-                    .queryParam("code", code)
+                    .queryParam(IDPORTEN_GOTO_PARAM, URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
+                    .queryParam(CODE_PARAM, code)
                     .build();
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");

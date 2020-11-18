@@ -32,7 +32,7 @@ class RouteSwitch extends React.Component {
         }
 
         const data = {
-            uuid:new URLSearchParams(this.props.location.search).getAll("uuid").toString(),
+            code:new URLSearchParams(this.props.location.search).getAll("code").toString(),
             email:new URLSearchParams(this.props.location.search).getAll("email").toString(),
             mobile:new URLSearchParams(this.props.location.search).getAll("mobile").toString(),
         }
