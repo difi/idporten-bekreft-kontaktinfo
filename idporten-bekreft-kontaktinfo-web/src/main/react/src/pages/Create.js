@@ -38,14 +38,12 @@ class Create extends Component {
                             this.submit()
                         });
                     }
-                } else {
                     this.submit()
                 }
             })
         })
     }
-
-    @autobind()
+    
     submit(){
         this.props.kontaktinfoStore.updateGotoUrl().then(() => {
             // dont submit data to KRR if no data is provided
