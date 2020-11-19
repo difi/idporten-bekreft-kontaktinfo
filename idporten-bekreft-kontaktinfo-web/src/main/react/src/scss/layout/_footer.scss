@@ -1,60 +1,75 @@
-.footer {
-  background-color: $secondary-color;
-  width:100%;
-  color:white;
-  margin-top:auto;
+/*
+* Styles for pagre header
+*
+* ECSS naming convention for classes is used: .[namespace][-ModuleOrComponent][_ChildNode][-variant]
+* For more information: http://ecss.io
+*
+* Namespace: f (footer)
+*/
 
-  &__content {
-    display:flex;
-    width:100%;
-    justify-content: space-between;
-    max-width:600px;
-    margin:0 auto;
-    font-size: .8125em;
-    padding: 2.8em .7682em 10.4em .7682em;
+.f-Main {
+  width: 100%;
+  background-color: $ca_footer-bg;
+  color: $ca_footer-text;
+  margin-top: auto;
+
+}
+
+.f-Main_Content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: $ta_footer-text;
+  padding: 2.3em 0.7682em 10.9em 0.7682em;
+
+  @include mobile {
+    justify-content: flex-start;
+    padding-bottom: 9em;
+    width: auto;
   }
+}
 
-  &__logo {
-    width:30px;
-    height:30px;
-    margin: 8px 15px 0 0;
-    background: url(../../images/svg/eid-icon.svg) no-repeat top right;
+.f-Main_Content-singleLine {
+  justify-content: center;
+}
+
+.f-Main_Logo {
+  width: 30px;
+  height: 30px;
+  margin: 15px 15px 0 0;
+  background: url("../../images/svg/eid.svg") no-repeat top right;
+
+  @include mobile {
+    width: 26px;
+    height: 26px;
   }
+}
 
-  &__link {
-    color: white;
-    position:relative;
-    padding:.5em;
-    font-size: 1em;
-    text-decoration: none;
-    line-height: 1.5em;
-    letter-spacing: .1px;
-
-    &--provider {
-      &::before{
-        content:"Driftet av:  "
-      }
-    }
+.f-Main_Info {
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    line-height: 2.5em;
   }
+  p {
+    margin: 0 5px;
+  }
+  a {
+    @include text-link($ca_footer-text, $c_white, $ca_footer_link-hover, $ca_footer-text, $t_size_basis, 0.5em);
+  }
+  .f-Main_Content-singleLine & {
+    align-self: flex-end;
+  }
+}
 
-  @media (max-width: 600px) {
+.f-Main_Link {
+  display: inline-block;
+  color: $ca_footer-text;
+  text-decoration: none;
 
-    .footer__content {
-      justify-content: flex-start;
-      padding-bottom: 9em;
-      width:auto;
-    }
-
-    .footer__info {
-      margin:unset;
-      float:left;
-
-      .footer__link {
-        float: left;
-        padding: 12px;
-        clear: both;
-      }
-    }
-
+  &[href^="tel:"] {
+    @include text-link($ca_footer-text, transparent, $ca_footer_link-hover, $ca_footer-text, $t_size_basis, 0.5em);
   }
 }

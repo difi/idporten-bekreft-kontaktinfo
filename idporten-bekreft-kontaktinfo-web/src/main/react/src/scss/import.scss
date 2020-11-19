@@ -1,11 +1,11 @@
-// variables
-@import 'src/scss/variables/variables';
-
-// typography
-@import 'src/scss/typography/font-awesome';
+// directory
+@import 'abstract/_abstract-dir';
+@import 'mixin/_mixin-dir';
 
 // layout
-@import 'src/scss/layout/header';
-@import 'src/scss/layout/footer';
-@import 'src/scss/layout/main';
+@import 'layout/header';
+@import 'layout/main';
+@import 'layout/footer';
 
+// vendor
+@import 'vendor/font-awesome';

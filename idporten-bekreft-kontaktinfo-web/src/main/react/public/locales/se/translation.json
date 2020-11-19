@@ -8,7 +8,8 @@
     "skip": "Njuike",
     "next": "Boahtte",
     "save": "Vurke",
-    "reset": "Reset"
+    "reset": "Reset",
+    "back" : "RUOVTTOLUOTTA"
   },
   "page_title": {
     "confirm": "Du dieđut",
@@ -37,5 +38,12 @@
     "emailConfirmed": "Gearddut e-poasta:",
     "mobile": "Mobilnummar:",
     "mobileConfirmed": "Gearddut nummar:"
+  },
+  "misc": {
+    "contact-form": "Oktavuođaváldinskovvi",
+    "phone": "Tlf",
+    "login-help": "Veahkki sisaloggemii",
+    "security-and-privacy": "Persovdnasuodjalus",
+    "Hálddahus": "Provided by"
   }
 }

@@ -80,7 +80,7 @@ class ContentHeader extends Component {
                 <div className={classes.main} >
                     <h2 className={classes.h2} dangerouslySetInnerHTML={{__html: `<div> ${t_title} </div>`}}/>
                     <div className={classes.providerBox}>
-                        <img className={classes.providerImage} src={require("../images/eid-logo.gif")} alt="Bekreft kontaktinformasjon" />
+                        <img className={classes.providerImage} src={require("../images/eid-logo.gif")} alt="eid-icon" />
                     </div>
                 </div>
                 <div className={classes.sub} >

@@ -8,7 +8,8 @@
     "skip": "Hopp over",
     "next": "Neste",
     "save": "Lagre",
-    "reset": "Tilbakestill"
+    "reset": "Tilbakestill",
+    "back" : "Tilbake"
   },
   "page_title": {
     "confirm": "Kontaktopplysingar",
@@ -39,5 +40,12 @@
     "emailConfirmed": "Gjenta e-post",
     "mobile": "Mobilnummer",
     "mobileConfirmed": "Gjenta mobilnummer"
+  },
+  "misc": {
+    "contact-form": "Kontaktskjema",
+    "phone": "Tlf",
+    "login-help": "Hjelp til innlogging",
+    "security-and-privacy": "Sikkerhet og personvern",
+    "provided-by": "Driftet av"
   }
 }
