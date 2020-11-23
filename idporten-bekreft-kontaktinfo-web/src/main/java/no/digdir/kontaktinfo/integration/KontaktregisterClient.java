@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.digdir.kontaktinfo.config.KrrConfigProvider;
+import no.digdir.kontaktinfo.rest.exception.ResourceNotFoundException;
+import no.digdir.kontaktinfo.rest.exception.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -36,11 +38,8 @@ public class KontaktregisterClient {
         try {
             ResponseEntity<UserDetailResource> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, UserDetailResource.class, fnr);
             return responseEntity.getBody();
-        } catch (RestClientException e) {
-            log.error("failed to retrieve user from kontaktregister", e);
-            return null;
         } catch (Exception e) {
-            log.error("something is wrong with the request to KRR", e);
+            log.error("could not get user from kontaktregister");
             return null;
         }
     }
@@ -50,7 +49,8 @@ public class KontaktregisterClient {
         try {
             restTemplate.postForObject(url, createHttpEntity(user), UserResource.class);
         } catch (RestClientException e) {
-            log.error("failed to create user in kontaktregister", e);
+            log.error("failed to create user", e);
+            throw new SQLException("Bad Request");
         }
     }
 
@@ -58,10 +58,9 @@ public class KontaktregisterClient {
         String url = krrConfigProvider.getUrl() + "/kontaktregister/users/{uuid}";
         try {
             restTemplate.exchange(url, HttpMethod.PUT, createHttpEntity(user), UserResource.class, user.getUuid());
-        } catch (RestClientException e) {
-            log.error("failed to update user in kontaktregister", e);
         } catch (Exception e) {
-            log.error("something went wrong", e);
+            log.error("failed to update user", e);
+            throw new SQLException("Bad Request");
         }
     }
 

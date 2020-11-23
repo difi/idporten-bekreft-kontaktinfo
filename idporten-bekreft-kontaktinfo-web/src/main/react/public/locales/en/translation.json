@@ -15,7 +15,8 @@
     "confirm": "Confirm contact information",
     "edit_email": "Change email address",
     "edit_mobile": "Change mobile phone number",
-    "create": "Create contact information"
+    "create": "Create contact information",
+    "error": "Something went wrong!"
   },
   "error": {
     "mobileError": "<strong>Error:</strong> Your mobile phone number is not valid.",
@@ -33,7 +34,8 @@
     "manglendeMobilLabel" : "If you have a foreign number, remember to enter the country code (<b> +46 </b> or <b> 0046 </b> for Sweden).",
     "digitalPostkasseOverskrift": "Your digital mailbox",
     "digitalPostkasseTekst": "You can now receive letters from the state and municipality digitally in a secure mailbox online. Do you want more information?",
-    "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile."
+    "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile.",
+    "errorpage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
   },
   "field": {
     "email": "Email",

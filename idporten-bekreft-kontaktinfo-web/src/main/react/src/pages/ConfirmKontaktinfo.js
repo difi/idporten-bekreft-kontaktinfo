@@ -40,6 +40,8 @@ class ConfirmKontaktinfo extends Component {
             this.props.kontaktinfoStore.updateGotoUrl().then(() => {
                 document.getElementById('postForm').submit();
             })
+        }).catch((error) => {
+            this.setState(() => { throw error; });
         });
     }
 

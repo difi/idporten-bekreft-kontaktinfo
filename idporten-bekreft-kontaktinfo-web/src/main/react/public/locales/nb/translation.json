@@ -15,14 +15,16 @@
     "confirm": "Kontaktinformasjon",
     "edit_email": "Din e-postadresse",
     "edit_mobile": "Ditt mobilnummer",
-    "create": "Opprett kontaktinformasjon"
+    "create": "Opprett kontaktinformasjon",
+    "error": "Det har oppstått en feil"
   },
   "error": {
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
     "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret ble ikke gjentatt korrekt.",
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
     "emailRepeatError": "<strong>Feil:</strong> E-postadressen ble ikke korrekt gjentatt.",
-    "allContactInfoIsRemoved": "For å fullføre registreringen må du skrive inn enten mobilnummer, e-post eller begge deler."
+    "allContactInfoIsRemoved": "For å fullføre registreringen må du skrive inn enten mobilnummer, e-post eller begge deler.",
+    "error": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
 
   },
   "info": {
@@ -34,7 +36,8 @@
     "manglendeMobilLabel" : "Dersom du har et utelandsk nummer, husk å oppgi landskode (eks. <b>+46</b> eller <b>0046</b> for Sverige).",
     "digitalPostkasseOverskrift": "Din digitale postkasse",
     "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
-    "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil."
+    "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
+    "errorpage": "Something went wrong"
   },
   "field": {
     "email": "E-post",

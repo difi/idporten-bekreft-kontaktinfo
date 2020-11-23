@@ -32,6 +32,8 @@ public class ContactInfoController {
     private final static String FRONTEND_GOTO_PARAM = "goto";
     private final static String IDPORTEN_GOTO_PARAM = "gotoParam";
 
+    private final static String AUTOSUBMIT_PAGE = "/idporten-bekreft-kontaktinfo/api/autosubmit";
+
     public ContactInfoController(ClientService clientService,KontaktinfoCache kontaktinfoCache) {
         this.clientService = clientService;
         this.kontaktinfoCache = kontaktinfoCache;
@@ -40,9 +42,14 @@ public class ContactInfoController {
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
         PersonResource personResource = clientService.getKontaktinfo(fnr);
+
+        if(personResource == null){
+            //TODO: handle no person resource returning in idporten
+            return redirectToIdporten(AUTOSUBMIT_PAGE, gotoParam, null);
+        }
+
         personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
 
-        // check if user should be redirected to front-end application
         if(buildRedirectPath(personResource) != null){
             return redirectToFrontEnd(
                     buildRedirectPath(personResource),
@@ -50,36 +57,35 @@ public class ContactInfoController {
                     gotoParam,
                     locale);
         } else {
-            return redirectToIdporten("/idporten-bekreft-kontaktinfo/api/autosubmit", gotoParam, personResource.getCode());
+            return redirectToIdporten(AUTOSUBMIT_PAGE, gotoParam, personResource.getCode());
         }
     }
 
     public String buildRedirectPath(PersonResource personResource) {
 
-        if(personResource == null){
-            return null; // abort
-        }
+        if (personResource != null){
 
-        if (personResource.isNewUser()) {
-            return "/idporten-bekreft-kontaktinfo/create";
-        }
-
-        if (personResource.getShouldUpdateKontaktinfo()) {
-
-            if(personResource.getEmail() == null && personResource.getMobile() == null){
+            if (personResource.isNewUser()) {
                 return "/idporten-bekreft-kontaktinfo/create";
             }
 
-            if (personResource.getEmail() == null) {
-                return "/idporten-bekreft-kontaktinfo/createEmail";
-            }
+            if (personResource.getShouldUpdateKontaktinfo()) {
 
-            if (personResource.getMobile() == null) {
-                return "/idporten-bekreft-kontaktinfo/createMobile";
-            }
+                if(personResource.getEmail() == null && personResource.getMobile() == null){
+                    return "/idporten-bekreft-kontaktinfo/create";
+                }
 
-            // user should confirm / update contact info
-            return "/idporten-bekreft-kontaktinfo";
+                if (personResource.getEmail() == null) {
+                    return "/idporten-bekreft-kontaktinfo/createEmail";
+                }
+
+                if (personResource.getMobile() == null) {
+                    return "/idporten-bekreft-kontaktinfo/createMobile";
+                }
+
+                // user should confirm / update contact info
+                return "/idporten-bekreft-kontaktinfo";
+            }
         }
 
         // user should be redirected back to idporten

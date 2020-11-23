@@ -6,6 +6,7 @@ import no.difi.kontaktregister.dto.UserResource;
 import no.digdir.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.integration.KontaktregisterClient;
+import no.digdir.kontaktinfo.rest.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,6 @@ public class ClientService {
             return PersonResource.fromUserDetailResource(userDetailResource,
                     krrConfigProvider.getTipDaysUser());
         } else {
-            // user does not exist in KRR, create local PersonResource
             return PersonResource.builder()
                     .personIdentifikator(fnr).newUser(true).build();
         }
@@ -50,6 +50,10 @@ public class ClientService {
 
     public void updateKontaktinfo(String fnr, String email, String mobile) {
         UserDetailResource userDetail = kontaktregisterClient.getUser(fnr);
+
+        if (userDetail == null) {
+            throw new ResourceNotFoundException("could not get response from kontaktregisteret");
+        }
 
         if (userDetail.getUser() != null) {
             updateUser(userDetail.getUser(), email, mobile);

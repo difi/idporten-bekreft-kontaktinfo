@@ -3,6 +3,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import DigdirLoading from "../common/DigdirLoading";
+import ErrorBoundary from "./ErrorBoundary";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>
@@ -20,9 +21,11 @@ class Application extends Component {
                 <Header/>
                 <div className="main">
                     <div className="box">
-                        <Router basename={`${process.env.PUBLIC_URL}`}>
-                            <RouteSwitch/>
-                        </Router>
+                        <ErrorBoundary>
+                            <Router basename={`${process.env.PUBLIC_URL}`}>
+                                <RouteSwitch/>
+                            </Router>
+                        </ErrorBoundary>
                     </div>
                 </div>
                 <Footer/>

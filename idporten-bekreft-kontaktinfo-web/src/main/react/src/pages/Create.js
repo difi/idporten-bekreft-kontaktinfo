@@ -36,9 +36,13 @@ class Create extends Component {
                     if (current.mobile.length !== 0 || current.email.length !== 0) {
                         this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
                             this.submit()
+                        }).catch((error) => {
+                            this.setState(() => { throw error; });
                         });
+                    } else {
+                        this.submit()
                     }
-                    this.submit()
+
                 }
             })
         })

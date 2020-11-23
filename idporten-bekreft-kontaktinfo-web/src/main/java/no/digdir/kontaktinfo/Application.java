@@ -12,7 +12,6 @@ import org.springframework.core.io.ResourceLoader;
 
 @SpringBootApplication
 @EnableConfigurationProperties({KrrConfigProvider.class})
-
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

@@ -38,7 +38,6 @@ export default class KontaktinfoStore {
     async updateKontaktinfo() {
         let response = await axios.post(API_BASE_URL + "/kontaktinfo",
             {code: this.current.code, email: this.current.email, mobile: this.current.mobile})
-            .catch((error) => this.handleUpdateError(error));
 
         if(response){
             this.code = response.data.code;

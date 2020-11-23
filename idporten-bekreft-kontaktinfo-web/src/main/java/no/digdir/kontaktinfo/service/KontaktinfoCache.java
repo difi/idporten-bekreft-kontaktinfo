@@ -2,6 +2,8 @@ package no.digdir.kontaktinfo.service;
 
 import no.digdir.kontaktinfo.domain.PARRequest;
 import no.digdir.kontaktinfo.domain.PersonResource;
+import no.digdir.kontaktinfo.rest.exception.ResourceNotFoundException;
+import no.digdir.kontaktinfo.rest.exception.UnauthorizedException;
 import org.infinispan.Cache;
 import org.springframework.stereotype.Component;
 
@@ -55,8 +57,12 @@ public class KontaktinfoCache {
     }
 
     public PersonResource getPersonResource(String uuid) {
-        Cache<String, PersonResource> personResourceCache = cacheManager.getCache(PERSON_RESOURCE_CACHE);
-        return personResourceCache.get(uuid);
+        try {
+            Cache<String, PersonResource> personResourceCache = cacheManager.getCache(PERSON_RESOURCE_CACHE);
+            return personResourceCache.get(uuid);
+        } catch (Exception e){
+            return null;
+        }
     }
 
     public void removePersonResource(String uuid) {

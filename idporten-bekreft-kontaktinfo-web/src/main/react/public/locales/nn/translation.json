@@ -15,14 +15,16 @@
     "confirm": "Kontaktopplysingar",
     "edit_email": "Din e-post",
     "edit_mobile": "Ditt mobilnummer",
-    "create": "Registrere kontaktinformasjon"
+    "create": "Registrere kontaktinformasjon",
+    "error": "Det har oppstått ein feil"
   },
   "error": {
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
     "mobileRepeatError": "<strong>Feil:</strong> Mobilnummeret blei ikkje gjenteke korrekt.",
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
     "emailRepeatError": "<strong>Feil:</strong> E-postadressa blei ikkje gjenteke korrekt.",
-    "allContactInfoIsRemoved": "For å fullføre registreringa må du skrive inn mobilnummer, e-post eller begge deler."
+    "allContactInfoIsRemoved": "For å fullføre registreringa må du skrive inn mobilnummer, e-post eller begge deler.",
+    "error": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
   },
   "info": {
     "kontaktinfo": "Informasjonen nedanfor blir lagra i eit felles kontaktregister som stat og kommune skal bruke når dei kontaktar deg. <a href=\"https://eid.difi.no/nn/kommunikasjon-pa-nett-som-hovudregel\" target=\"_blank\">Les meir</a>",
@@ -33,7 +35,8 @@
     "manglendeMobilLabel" : "Dersom du har eit utanlandsk nummer, må du hugse å skrive inn landskode (f.eks.  <strong>+46</strong> eller <strong>0046</strong> for Sverige)",
     "digitalPostkasseOverskrift": "Din digitale postkasse",
     "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
-    "sletteMobilVarsel": "Dersom du fjernar mobilnummeret kan du ikkje lenger motta eingangskode frå MinID eller kommunikasjon frå stat og kommune til din mobil."
+    "sletteMobilVarsel": "Dersom du fjernar mobilnummeret kan du ikkje lenger motta eingangskode frå MinID eller kommunikasjon frå stat og kommune til din mobil.",
+    "errorpage": "Something went wrong"
   },
   "field": {
     "email": "E-post",
