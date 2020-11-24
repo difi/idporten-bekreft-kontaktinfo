@@ -3,8 +3,10 @@ package no.digdir.kontaktinfo.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class PARRequest {
+public class PARRequest implements Serializable {
 
     @JsonProperty(value = "response_type")
     private String responseType;

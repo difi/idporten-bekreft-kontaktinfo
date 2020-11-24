@@ -5,13 +5,17 @@ import no.digdir.kontaktinfo.controller.ContactInfoController;
 import no.digdir.kontaktinfo.domain.PARRequest;
 import no.digdir.kontaktinfo.domain.PARResponse;
 import no.digdir.kontaktinfo.domain.PersonResource;
-import no.digdir.kontaktinfo.service.ClientService;
 import no.digdir.kontaktinfo.service.KontaktinfoCache;
 import no.digdir.kontaktinfo.service.PARService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Slf4j
