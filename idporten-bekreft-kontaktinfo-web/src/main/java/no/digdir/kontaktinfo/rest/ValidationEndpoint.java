@@ -20,7 +20,6 @@ public class ValidationEndpoint {
 
     @GetMapping("/mobile/{mobileNumber}")
     public String validateMobile(@PathVariable String mobileNumber) throws JSONException {
-        mobileNumber = MobileValidator.numberCleaner(mobileNumber);
         return jsonResponse(MobileValidator.isValid(mobileNumber));
     }
 

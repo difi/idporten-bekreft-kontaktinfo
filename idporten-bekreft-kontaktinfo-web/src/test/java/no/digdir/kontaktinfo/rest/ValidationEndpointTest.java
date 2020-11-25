@@ -39,16 +39,15 @@ public class ValidationEndpointTest {
 
     @Test
     public void testValidateMobileEndpoint() throws Exception {
-        assertTrue(validate(MOBILE,"45127723")); // regular starting with 4
-        assertTrue(validate(MOBILE,"95127723")); // regular starting with 9
-        assertTrue(validate(MOBILE,"+4795127723")); // +47
-        assertTrue(validate(MOBILE,"004785127723")); // 0047
+        assertTrue("starting with 4",validate(MOBILE,"45127723"));
+        assertTrue("starting with 9",validate(MOBILE,"95127723"));
+        assertTrue("contains +47",validate(MOBILE,"+4795127723"));
+        assertTrue("contains 0047",validate(MOBILE,"004795127723"));
+        assertTrue("9 digits",validate(MOBILE, "121212121"));
 
-        assertFalse(validate(MOBILE,"XX127723")); // letters
-        assertFalse(validate(MOBILE,"9512772")); // less than 8 digits
-
-        // this is allowed but should not be
-        //assertFalse(validateMobileNumber("12121212")); // does not start with 4 or 9
+        assertFalse("contains letters",validate(MOBILE,"XX127723")); // letters
+        assertFalse("less than 8 digits",validate(MOBILE,"9512772"));
+        assertFalse("does not start with 4 or 9", validate(MOBILE,"12121212"));
     }
 
     private Boolean validate(String type,String value) throws Exception {
