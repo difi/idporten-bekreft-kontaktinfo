@@ -39,7 +39,7 @@ class Error extends Component {
                             name="idporten.inputbutton.CONTINUE_CONFIRM"
                             form="postForm"
                             type="submit"
-                            textKey="button.confirm"
+                            textKey="button.continue"
                         />
 
                     </DigdirButtons>
