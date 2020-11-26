@@ -21,9 +21,6 @@ import static org.junit.Assert.assertNull;
 public class CacheTest {
 
     @Autowired
-    private WebApplicationContext springContext;
-
-    @Autowired
     ClientService clientService;
 
     @Autowired

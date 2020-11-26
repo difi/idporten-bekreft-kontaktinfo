@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.kontaktinfo.rest.exception.ResourceNotFoundException;
+import no.digdir.kontaktinfo.rest.exception.ServiceUnavailableException;
 import no.digdir.kontaktinfo.rest.exception.UnauthorizedException;
 import no.digdir.kontaktinfo.service.ClientService;
 import no.digdir.kontaktinfo.service.KontaktinfoCache;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,15 +38,15 @@ public class KontaktinfoEndpoint {
         clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), updatedResource.getEmail(), updatedResource.getMobile());
         ContactInfoResource responseResource = prepareAndCacheResponseResource(updatedResource,personResource);
         return new ResponseEntity<ContactInfoResource>(responseResource, HttpStatus.OK);
-
     }
-
+    /*
     @GetMapping("/kontaktinfo")
     public ResponseEntity<ContactInfoResource> getKontaktinfo(){
         PersonResource personResource = clientService.getKontaktinfo("24079424184");
         personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
         return new ResponseEntity<ContactInfoResource>(ContactInfoResource.fromPersonResource(personResource), HttpStatus.OK);
     }
+     */
 
     private ContactInfoResource prepareAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource){
         personResource.setEmail(updatedResource.getEmail());

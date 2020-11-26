@@ -5,6 +5,7 @@ import no.digdir.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.kontaktinfo.domain.PersonResource;
 import no.digdir.kontaktinfo.service.ClientService;
 import no.digdir.kontaktinfo.service.KontaktinfoCache;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,14 @@ public class ContactInfoController {
     private final static String FRONTEND_GOTO_PARAM = "goto";
     private final static String IDPORTEN_GOTO_PARAM = "gotoParam";
 
-    private final static String AUTOSUBMIT_PAGE = "/idporten-bekreft-kontaktinfo/api/autosubmit";
+    public final static String AUTOSUBMIT_PAGE = "/idporten-bekreft-kontaktinfo/api/autosubmit";
+    public final static String CREATE_PAGE = "/idporten-bekreft-kontaktinfo/create";
+    public final static String CREATE_EMAIL_PAGE = "/idporten-bekreft-kontaktinfo/createEmail";
+    public final static String CREATE_MOBILE_PAGE = "/idporten-bekreft-kontaktinfo/createMobile";
+    public final static String CONFIRM_PAGE = "/idporten-bekreft-kontaktinfo";
+
+    @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
+    private Boolean bekreftKontaktinfoEnabled;
 
     public ContactInfoController(ClientService clientService,KontaktinfoCache kontaktinfoCache) {
         this.clientService = clientService;
@@ -41,24 +49,12 @@ public class ContactInfoController {
 
     @GetMapping("/user/{fnr}/confirm")
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
-        PersonResource personResource = clientService.getKontaktinfo(fnr);
 
-        if(personResource == null){
-            //TODO: handle no person resource returning in idporten
-            return redirectToIdporten(AUTOSUBMIT_PAGE, gotoParam, null);
+        if(!bekreftKontaktinfoEnabled){
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, null);
         }
 
-        personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
-
-        if(buildRedirectPath(personResource) != null){
-            return redirectToFrontEnd(
-                    buildRedirectPath(personResource),
-                    ContactInfoResource.fromPersonResource(personResource),
-                    gotoParam,
-                    locale);
-        } else {
-            return redirectToIdporten(AUTOSUBMIT_PAGE, gotoParam, personResource.getCode());
-        }
+        return redirectUser(fnr,gotoParam,locale);
     }
 
     public String buildRedirectPath(PersonResource personResource) {
@@ -66,25 +62,25 @@ public class ContactInfoController {
         if (personResource != null){
 
             if (personResource.isNewUser()) {
-                return "/idporten-bekreft-kontaktinfo/create";
+                return CREATE_PAGE;
             }
 
             if (personResource.getShouldUpdateKontaktinfo()) {
 
                 if(personResource.getEmail() == null && personResource.getMobile() == null){
-                    return "/idporten-bekreft-kontaktinfo/create";
+                    return CREATE_PAGE;
                 }
 
                 if (personResource.getEmail() == null) {
-                    return "/idporten-bekreft-kontaktinfo/createEmail";
+                    return CREATE_EMAIL_PAGE;
                 }
 
                 if (personResource.getMobile() == null) {
-                    return "/idporten-bekreft-kontaktinfo/createMobile";
+                    return CREATE_MOBILE_PAGE;
                 }
 
                 // user should confirm / update contact info
-                return "/idporten-bekreft-kontaktinfo";
+                return CONFIRM_PAGE;
             }
         }
 
@@ -117,7 +113,7 @@ public class ContactInfoController {
         return redirect(redirectUri.toUriString());
     }
 
-    public ResponseEntity<Void> redirectToIdporten(String location, String gotoParam, String code){
+    public ResponseEntity<Void> redirectToDestination(String location, String gotoParam, String code){
 
         UriComponents redirectUri;
         try {
@@ -137,5 +133,27 @@ public class ContactInfoController {
     public String getRedirectPath(String fnr){
         PersonResource personResource = clientService.getKontaktinfo(fnr);
         return buildRedirectPath(personResource);
+    }
+
+
+    private ResponseEntity<Void> redirectUser(String fnr, String gotoParam, String locale){
+        PersonResource personResource = clientService.getKontaktinfo(fnr);
+
+        if(personResource == null){
+            //TODO: handle no person resource returning in idporten
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, null);
+        }
+
+        personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
+
+        if(buildRedirectPath(personResource) != null){
+            return redirectToFrontEnd(
+                    buildRedirectPath(personResource),
+                    ContactInfoResource.fromPersonResource(personResource),
+                    gotoParam,
+                    locale);
+        } else {
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, personResource.getCode());
+        }
     }
 }

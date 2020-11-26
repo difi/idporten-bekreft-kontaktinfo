@@ -24,6 +24,7 @@ class idporten_bekreft_kontaktinfo (
   String $cache_transport_file_location                = $idporten_bekreft_kontaktinfo::params::cache_transport_file_location,
   Integer $cache_groups_udp_mcast_port                 = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_mcast_port,
   String $cache_groups_udp_bind_addr                   = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_bind_addr,
+  Boolean $featureswitch_bekreft_kontaktinfo           = $idporten_bekreft_kontaktinfo::params::featureswitch_bekreft_kontaktinfo,
 
 ) inherits idporten_bekreft_kontaktinfo::params {
 

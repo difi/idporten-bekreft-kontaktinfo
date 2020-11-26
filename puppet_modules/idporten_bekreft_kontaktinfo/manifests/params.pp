@@ -30,4 +30,5 @@ class idporten_bekreft_kontaktinfo::params {
   $health_show_details                        = 'always'
   $server_port                                = 8080
   $java_home                                  = hiera('platform::java_home')
+  $featureswitch_bekreft_kontaktinfo           = true
 }

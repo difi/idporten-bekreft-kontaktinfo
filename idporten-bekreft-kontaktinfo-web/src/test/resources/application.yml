@@ -23,3 +23,6 @@ jwt:
     password: changeit
     key_alias: digdirtest
     key_password: changeit
+
+featureswitch:
+  bekreft_kontaktinfo_enabled: true
