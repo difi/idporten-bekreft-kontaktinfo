@@ -16,7 +16,7 @@
     "edit_email": "Din e-postadresse",
     "edit_mobile": "Ditt mobilnummer",
     "create": "Opprett kontaktinformasjon",
-    "error": "Det har oppstått en feil"
+    "error": "Tjenesten er for tiden ikke tilgjengelig"
   },
   "error": {
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
@@ -24,7 +24,7 @@
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
     "emailRepeatError": "<strong>Feil:</strong> E-postadressen ble ikke korrekt gjentatt.",
     "allContactInfoIsRemoved": "For å fullføre registreringen må du skrive inn enten mobilnummer, e-post eller begge deler.",
-    "error": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
+    "error": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
 
   },
   "info": {
@@ -37,7 +37,7 @@
     "digitalPostkasseOverskrift": "Din digitale postkasse",
     "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
     "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
-    "errorpage": "Something went wrong"
+    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
   },
   "field": {
     "email": "E-post",

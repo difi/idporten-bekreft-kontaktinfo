@@ -16,7 +16,7 @@
     "edit_email": "Din e-post",
     "edit_mobile": "Ditt mobilnummer",
     "create": "Registrere kontaktinformasjon",
-    "error": "Det har oppstått ein feil"
+    "error": "Tjenesten er ikkje tilgjengeleg for augneblinken"
   },
   "error": {
     "mobileError": "<strong>Feil:</strong> Mobilnummeret er ugyldig.",
@@ -24,7 +24,7 @@
     "emailError": "<strong>Feil:</strong> E-postadressen er ugyldig.",
     "emailRepeatError": "<strong>Feil:</strong> E-postadressa blei ikkje gjenteke korrekt.",
     "allContactInfoIsRemoved": "For å fullføre registreringa må du skrive inn mobilnummer, e-post eller begge deler.",
-    "error": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
+    "error": "Bekreft kontaktinfo er ikkje tilgjengeleg for augneblinken. Vi beklagar dette og jobbar med å løyse problemet. Ver vennleg å prøve igjen seinare."
   },
   "info": {
     "kontaktinfo": "Informasjonen nedanfor blir lagra i eit felles kontaktregister som stat og kommune skal bruke når dei kontaktar deg. <a href=\"https://eid.difi.no/nn/kommunikasjon-pa-nett-som-hovudregel\" target=\"_blank\">Les meir</a>",
@@ -36,7 +36,7 @@
     "digitalPostkasseOverskrift": "Din digitale postkasse",
     "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
     "sletteMobilVarsel": "Dersom du fjernar mobilnummeret kan du ikkje lenger motta eingangskode frå MinID eller kommunikasjon frå stat og kommune til din mobil.",
-    "errorpage": "Something went wrong"
+    "errorpage": "Bekreft kontaktinfo er ikkje tilgjengeleg for augneblinken. Vi beklagar dette og jobbar med å løyse problemet. Ver vennleg å prøve igjen seinare."
   },
   "field": {
     "email": "E-post",

@@ -16,7 +16,7 @@
     "edit_email": "Change email address",
     "edit_mobile": "Change mobile phone number",
     "create": "Create contact information",
-    "error": "Something went wrong!"
+    "error": "Service is unavailable at the moment"
   },
   "error": {
     "mobileError": "<strong>Error:</strong> Your mobile phone number is not valid.",
@@ -35,7 +35,7 @@
     "digitalPostkasseOverskrift": "Your digital mailbox",
     "digitalPostkasseTekst": "You can now receive letters from the state and municipality digitally in a secure mailbox online. Do you want more information?",
     "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile.",
-    "errorpage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
+    "errorpage": "Confirm contact information is not available for the moment. We apologise for the inconvenience and are working to solve the problem. Please try again later."
   },
   "field": {
     "email": "Email",

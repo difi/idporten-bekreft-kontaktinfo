@@ -16,15 +16,15 @@
     "edit_email": "Rievdat e-poastaadreasse",
     "edit_mobile": "Rievdat mobilnummar",
     "create": "",
-    "error": "Something went wrong!"
+    "error": "Tjenesten er for tiden ikke tilgjengelig"
   },
   "error": {
     "mobileError": "Mobiltelefonnummar ii dohkálaš.",
     "mobileRepeatError": "Mobilnummar",
     "emailError": "E-poastaadreassa ii leat dohkálaš.",
     "emailRepeatError": "E-poastaadreassa ii geardduhuvvon riekta.",
-    "allContactInfoIsRemoved": "To complete the registration, you must enter either a mobile number, e-mail or both.",
-    "error": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit. "
+    "allContactInfoIsRemoved": "For å fullføre registreringen må du skrive inn enten mobilnummer, e-post eller begge deler.",
+    "error": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
   },
   "info": {
     "kontaktinfo": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
@@ -33,8 +33,8 @@
     "manglendeEpostLabel": "Berret geavahit iežat priváhta e-poastta, vai oktage eará ii oainne du persuvnnalaš ID.",
     "manglendeMobilVarsel": "Jus anát MiniID:a, de sáhttát válljet SMS:a bokte oažžut ovttahávvasaš kodaid. Dálle it dárbbaš PIN-kodareivve.",
     "manglendeMobilLabel" : "Jus dus lea olgoritnummar, muitte čállit riikkakoda (omd. Ruota <strong>+46</strong> dahje <strong>0046</strong>)",
-    "sletteMobilVarsel": "If you remove the mobile number, you can no longer receive one-time codes from MinID or communication from the state and municipality to your mobile.",
-    "errorpage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend tortor nibh, ac euismod eros lacinia hendrerit."
+    "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
+    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
   },
   "field": {
     "email": "E-poasta:",
