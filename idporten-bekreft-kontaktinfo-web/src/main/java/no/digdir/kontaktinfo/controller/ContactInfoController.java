@@ -97,19 +97,25 @@ public class ContactInfoController {
 
     public ResponseEntity<Void> redirectToFrontEnd(String location, ContactInfoResource contactInfoResource, String gotoParam, String locale){
         UriComponents redirectUri;
+        String mobileNumber = contactInfoResource.getMobile();
+
         try {
+            if(mobileNumber != null) {
+                mobileNumber = URLEncoder.encode(mobileNumber, StandardCharsets.UTF_8.toString());
+            }
+
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
                     .queryParam(LOCALE_PARAM, locale)  // i18n uses 'lng' param to set language automagic
                     .queryParam(FRONTEND_GOTO_PARAM, URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
                     .queryParam(CODE_PARAM, contactInfoResource.getCode())
                     .queryParam(EMAIL_PARAM, contactInfoResource.getEmail())
-                    .queryParam(MOBILE_PARAM, contactInfoResource.getMobile())
+                    .queryParam(MOBILE_PARAM, mobileNumber)
                     .build();
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
         }
-        log.error("Redirecting: -" + redirectUri.toUriString());
+        log.debug("Redirecting: -" + redirectUri.toUriString());
         return redirect(redirectUri.toUriString());
     }
 
@@ -125,7 +131,7 @@ public class ContactInfoController {
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
         }
-        log.error("Redirecting: -" + redirectUri.toUriString());
+        log.debug("Redirecting: -" + redirectUri.toUriString());
         return redirect(redirectUri.toUriString());
     }
 
