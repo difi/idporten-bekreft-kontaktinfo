@@ -51,10 +51,10 @@ public class ContactInfoController {
     public Object confirm(@PathVariable("fnr") String fnr, @RequestParam(value = "goto") String gotoParam, @RequestParam(value = "locale") String locale) {
 
         if(!bekreftKontaktinfoEnabled){
-            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, null);
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam);
         }
 
-        return redirectUser(fnr,gotoParam,locale);
+        return redirectUser(fnr, gotoParam, locale);
     }
 
     public String buildRedirectPath(PersonResource personResource) {
@@ -88,7 +88,7 @@ public class ContactInfoController {
         return null;
     }
 
-    public ResponseEntity<Void> redirect(String location){
+    public static ResponseEntity<Void> redirect(String location){
         return ResponseEntity
                 .status(302)
                 .location(URI.create(location))
@@ -119,14 +119,13 @@ public class ContactInfoController {
         return redirect(redirectUri.toUriString());
     }
 
-    public ResponseEntity<Void> redirectToDestination(String location, String gotoParam, String code){
+    public ResponseEntity<Void> redirectToDestination(String location, String gotoParam){
 
         UriComponents redirectUri;
         try {
             redirectUri = UriComponentsBuilder.newInstance()
                     .uri(new URI(location))
                     .queryParam(IDPORTEN_GOTO_PARAM, URLEncoder.encode(gotoParam, StandardCharsets.UTF_8.toString()))
-                    .queryParam(CODE_PARAM, code)
                     .build();
         } catch (URISyntaxException | UnsupportedEncodingException e) {
             throw new RuntimeException("Couldn't build redirect-uri");
@@ -147,7 +146,7 @@ public class ContactInfoController {
 
         if(personResource == null){
             //TODO: handle no person resource returning in idporten
-            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, null);
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam);
         }
 
         personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
@@ -159,7 +158,13 @@ public class ContactInfoController {
                     gotoParam,
                     locale);
         } else {
-            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam, personResource.getCode());
+            String gotoParamWithCode = new StringBuffer(gotoParam)
+                    .append("&")
+                    .append(CODE_PARAM)
+                    .append("=")
+                    .append(personResource.getCode())
+                    .toString();
+            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParamWithCode);
         }
     }
 }
