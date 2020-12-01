@@ -40,7 +40,7 @@ class RouteSwitch extends React.Component {
         kontaktinfoStore.setKontaktinfo(data);
 
         if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
-            throw Error("no session")
+            throw Error("no_session")
         }
 
     }

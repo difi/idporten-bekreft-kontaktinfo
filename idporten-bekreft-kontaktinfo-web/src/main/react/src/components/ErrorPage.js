@@ -22,30 +22,46 @@ class ErrorPage extends Component {
     }
 
     render () {
-        const {kontaktinfoStore} = this.props;
-        const current = kontaktinfoStore.current;
-        let errorMessage = "info.errorpage"
-
-        if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
-            errorMessage = "info.errorNoSession"
-        }
-
         return (
             <div>
                 <ContentHeader title="title" sub_title="page_title.error"/>
-                <ContentInfoBox content={errorMessage.toString()} state="warning" />
-                <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
-                    <DigdirButtons>
-                        <DigdirButton
-                            tabIndex="4"
-                            id="idporten.inputbutton.CONTINUE_CONFIRM"
-                            name="idporten.inputbutton.CONTINUE_CONFIRM"
-                            form="postForm"
-                            type="submit"
-                            textKey="button.continue"
-                        />
-                    </DigdirButtons>
-                </DigdirForm>
+
+                {this.props.errorMessage === "no_session" &&
+                    <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
+                    ||
+                    <ContentInfoBox content="info.errorpage" state="warning" />
+                }
+
+                {this.props.errorMessage === "no_session" &&
+                        <DigdirButtons>
+                            <DigdirButton
+                                id="cancel-button"
+                                tabIndex="4"
+                                textKey="button.back"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.location.href='http://digdir.no';
+                                }}
+                            />
+                        </DigdirButtons>
+                }
+
+                {this.props.errorMessage !== "no_session" &&
+                    <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl}
+                                onSubmit={this.handleSubmit}>
+                        <DigdirButtons>
+                            <DigdirButton
+                                tabIndex="4"
+                                id="idporten.inputbutton.CONTINUE_CONFIRM"
+                                name="idporten.inputbutton.CONTINUE_CONFIRM"
+                                form="postForm"
+                                type="submit"
+                                textKey="button.continue"
+                            />
+                        </DigdirButtons>
+                    </DigdirForm>
+                }
+
             </div>
         );
     }
