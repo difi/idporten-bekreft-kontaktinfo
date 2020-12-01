@@ -26,16 +26,10 @@ class ErrorPage extends Component {
         return (
             <React.Fragment>
                 <ContentHeader page_title="page_title.error"/>
-
                 <PageWrapper>
                     {this.props.errorMessage === "no_session" &&
-                        <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
-                        ||
-                        <ContentInfoBox content="info.errorpage" state="warning" />
-                    }
-
-                    {this.props.errorMessage === "no_session" &&
                         <DigdirForm>
+                            <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
                             <DigdirButtons>
                                 <DigdirButton
                                     id="cancel-button"
@@ -49,10 +43,10 @@ class ErrorPage extends Component {
                             </DigdirButtons>
                         </DigdirForm>
                     }
-
                     {this.props.errorMessage !== "no_session" &&
                         <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl}
                                     onSubmit={this.handleSubmit}>
+                            <ContentInfoBox content="info.errorpage" state="warning" />
                             <DigdirButtons>
                                 <DigdirButton
                                     tabIndex="4"
