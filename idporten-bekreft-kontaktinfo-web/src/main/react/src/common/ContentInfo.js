@@ -4,7 +4,6 @@ import {withTranslation} from "react-i18next";
 
 const styles = (theme) => ({
     root: {
-        margin: "2em 2.2857em",
         position: "relative",
         fontSize: "14px",
     },

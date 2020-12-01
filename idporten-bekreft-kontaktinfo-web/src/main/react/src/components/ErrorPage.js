@@ -9,6 +9,7 @@ import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import {inject} from "mobx-react";
 import autobind from "autobind-decorator";
+import PageWrapper from "../common/Page";
 
 @inject("kontaktinfoStore")
 class ErrorPage extends Component {
@@ -23,46 +24,49 @@ class ErrorPage extends Component {
 
     render () {
         return (
-            <div>
-                <ContentHeader title="title" sub_title="page_title.error"/>
+            <React.Fragment>
+                <ContentHeader page_title="page_title.error"/>
 
-                {this.props.errorMessage === "no_session" &&
-                    <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
-                    ||
-                    <ContentInfoBox content="info.errorpage" state="warning" />
-                }
+                <PageWrapper>
+                    {this.props.errorMessage === "no_session" &&
+                        <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
+                        ||
+                        <ContentInfoBox content="info.errorpage" state="warning" />
+                    }
 
-                {this.props.errorMessage === "no_session" &&
-                        <DigdirButtons>
-                            <DigdirButton
-                                id="cancel-button"
-                                tabIndex="4"
-                                textKey="button.back"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    window.location.href='http://digdir.no';
-                                }}
-                            />
-                        </DigdirButtons>
-                }
+                    {this.props.errorMessage === "no_session" &&
+                        <DigdirForm>
+                            <DigdirButtons>
+                                <DigdirButton
+                                    id="cancel-button"
+                                    tabIndex="4"
+                                    textKey="button.back"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href='http://digdir.no';
+                                    }}
+                                />
+                            </DigdirButtons>
+                        </DigdirForm>
+                    }
 
-                {this.props.errorMessage !== "no_session" &&
-                    <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl}
-                                onSubmit={this.handleSubmit}>
-                        <DigdirButtons>
-                            <DigdirButton
-                                tabIndex="4"
-                                id="idporten.inputbutton.CONTINUE_CONFIRM"
-                                name="idporten.inputbutton.CONTINUE_CONFIRM"
-                                form="postForm"
-                                type="submit"
-                                textKey="button.continue"
-                            />
-                        </DigdirButtons>
-                    </DigdirForm>
-                }
-
-            </div>
+                    {this.props.errorMessage !== "no_session" &&
+                        <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl}
+                                    onSubmit={this.handleSubmit}>
+                            <DigdirButtons>
+                                <DigdirButton
+                                    tabIndex="4"
+                                    id="idporten.inputbutton.CONTINUE_CONFIRM"
+                                    name="idporten.inputbutton.CONTINUE_CONFIRM"
+                                    form="postForm"
+                                    type="submit"
+                                    textKey="button.continue"
+                                />
+                            </DigdirButtons>
+                        </DigdirForm>
+                    }
+                </PageWrapper>
+            </React.Fragment>
         );
     }
 }

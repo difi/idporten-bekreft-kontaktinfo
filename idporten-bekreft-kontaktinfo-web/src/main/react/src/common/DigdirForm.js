@@ -7,7 +7,6 @@ import autobind from "autobind-decorator";
 const styles = (theme) => ({
     root: {
         backgroundColor: "#fff",
-        padding: "0 2rem",
         display: "flex",
         flexDirection: "column",
         '& .MuiTextField-root': {

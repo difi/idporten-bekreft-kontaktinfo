@@ -11,6 +11,7 @@ import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
 import {observable} from "mobx";
 import Validator from "../components/Validator";
+import PageWrapper from "../common/Page";
 
 @inject("kontaktinfoStore")
 @observer
@@ -61,59 +62,62 @@ class Create extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title="title" sub_title="page_title.create"/>
+                <ContentHeader page_title="page_title.create"/>
+                <PageWrapper>
 
-                { this.errorEmail && <ContentInfoBox content={this.errorEmail} state="error"  /> }
-                { this.errorMobile && <ContentInfoBox content={this.errorMobile} state="error"  /> }
 
-                <ContentInfoBox content="info.manglendeInformasjon"  />
+                    { this.errorEmail && <ContentInfoBox content={this.errorEmail} state="error"  /> }
+                    { this.errorMobile && <ContentInfoBox content={this.errorMobile} state="error"  /> }
 
-                <DigdirForm id="confirmContactinfo"
-                            method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
+                    <ContentInfoBox content="info.manglendeInformasjon"  />
 
-                    <SynchedInput
-                        tabIndex="1"
-                        id="idporten.input.CONTACTINFO_EMAIL"
-                        name="idporten.input.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="email"
-                        textKey="field.email"
-                        error={this.errorEmail != null}/>
+                    <DigdirForm id="confirmContactinfo"
+                                method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
-                    <SynchedInput
-                        tabIndex="2"
-                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="emailConfirmed"
-                        textKey="field.emailConfirmed"
-                        error={this.errorEmail != null}/>
+                        <SynchedInput
+                            tabIndex="1"
+                            id="idporten.input.CONTACTINFO_EMAIL"
+                            name="idporten.input.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="email"
+                            textKey="field.email"
+                            error={this.errorEmail != null}/>
 
-                    <SynchedInput
-                        tabIndex="3"
-                        id="idporten.input.CONTACTINFO_MOBILE"
-                        name="idporten.input.CONTACTINFO_MOBILE"
-                        source={current}
-                        path="mobile"
-                        textKey="field.mobile"
-                        error={this.errorMobile != null}/>
+                        <SynchedInput
+                            tabIndex="2"
+                            id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="emailConfirmed"
+                            textKey="field.emailConfirmed"
+                            error={this.errorEmail != null}/>
 
-                    <SynchedInput
-                        tabIndex="4"
-                        id="idporten.inputrepeat.CONTACTINFO_MOBILE"
-                        name="idporten.inputrepeat.CONTACTINFO_MOBILE"
-                        source={current}
-                        path="mobileConfirmed"
-                        textKey="field.mobileConfirmed"
-                        error={this.errorMobile != null}/>
+                        <SynchedInput
+                            tabIndex="3"
+                            id="idporten.input.CONTACTINFO_MOBILE"
+                            name="idporten.input.CONTACTINFO_MOBILE"
+                            source={current}
+                            path="mobile"
+                            textKey="field.mobile"
+                            error={this.errorMobile != null}/>
 
-                    <DigdirButtons>
-                        <DigdirButton
-                            tabIndex="5"
-                            type="submit"
-                            textKey="button.next"/>
-                    </DigdirButtons>
-                </DigdirForm>
+                        <SynchedInput
+                            tabIndex="4"
+                            id="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                            name="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                            source={current}
+                            path="mobileConfirmed"
+                            textKey="field.mobileConfirmed"
+                            error={this.errorMobile != null}/>
+
+                        <DigdirButtons>
+                            <DigdirButton
+                                tabIndex="5"
+                                type="submit"
+                                textKey="button.next"/>
+                        </DigdirButtons>
+                    </DigdirForm>
+                </PageWrapper>
             </React.Fragment>
         );
     }

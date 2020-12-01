@@ -7,7 +7,6 @@ const styles = (theme) => ({
         display: "flex",
         justifyContent: "space-between",
         paddingTop: "2rem",
-        paddingBottom: "1rem",
         flexWrap: "wrap",
         alignItems: "flex-end",
         '& button:first-child': {

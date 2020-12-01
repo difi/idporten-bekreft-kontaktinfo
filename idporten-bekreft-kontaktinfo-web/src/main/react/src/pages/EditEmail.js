@@ -11,6 +11,8 @@ import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import Validator from "../components/Validator"
+import PageWrapper from "../common/Page";
+import Page from "../common/Page";
 
 @inject("kontaktinfoStore")
 @observer
@@ -45,55 +47,57 @@ class EditEmail extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title="title" sub_title="page_title.edit_email"/>
+                <ContentHeader page_title="page_title.edit_email"/>
 
-                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                <PageWrapper>
+                    { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
-                <DigdirForm
-                    id="confirmContactinfo"
-                    onSubmitCallback={this.handleSubmit}>
+                    <DigdirForm
+                        id="confirmContactinfo"
+                        onSubmitCallback={this.handleSubmit}>
 
-                    <SynchedInput
-                        tabIndex="1"
-                        error={this.errorMessage != null}
-                        id="idporten.input.CONTACTINFO_EMAIL"
-                        name="idporten.input.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="email"
-                        textKey="field.email"
-                        />
+                        <SynchedInput
+                            tabIndex="1"
+                            error={this.errorMessage != null}
+                            id="idporten.input.CONTACTINFO_EMAIL"
+                            name="idporten.input.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="email"
+                            textKey="field.email"
+                            />
 
-                    <SynchedInput
-                        tabIndex="2"
-                        error={this.errorMessage != null}
-                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="emailConfirmed"
-                        textKey="field.emailConfirmed"
-                        />
+                        <SynchedInput
+                            tabIndex="2"
+                            error={this.errorMessage != null}
+                            id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="emailConfirmed"
+                            textKey="field.emailConfirmed"
+                            />
 
-                    <DigdirButtons>
-                        <DigdirButton
-                            tabIndex="3"
-                            id="idporten.inputbutton.SAVE"
-                            name="idporten.inputbutton.SAVE"
-                            type="submit"
-                            value="submit"
-                            textKey="button.save" />
+                        <DigdirButtons>
+                            <DigdirButton
+                                tabIndex="3"
+                                id="idporten.inputbutton.SAVE"
+                                name="idporten.inputbutton.SAVE"
+                                type="submit"
+                                value="submit"
+                                textKey="button.save" />
 
-                        <DigdirButton
-                            tabIndex="4"
-                            id="idporten.inputbutton.CANCEL_SAVE"
-                            name="idporten.inputbutton.CANCEL_SAVE"
-                            type="submit"
-                            value="cancel"
-                            data-white="true"
-                            onClick={this.handleCancel}
-                            textKey="button.cancel" />
+                            <DigdirButton
+                                tabIndex="4"
+                                id="idporten.inputbutton.CANCEL_SAVE"
+                                name="idporten.inputbutton.CANCEL_SAVE"
+                                type="submit"
+                                value="cancel"
+                                data-white="true"
+                                onClick={this.handleCancel}
+                                textKey="button.cancel" />
 
-                    </DigdirButtons>
-                </DigdirForm>
+                        </DigdirButtons>
+                    </DigdirForm>
+                </PageWrapper>
             </React.Fragment>
         );
     }

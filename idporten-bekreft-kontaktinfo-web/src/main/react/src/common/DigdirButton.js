@@ -11,7 +11,7 @@ const styles = (theme) => ({
         backgroundColor: "#006cff",
         color: "white",
         padding: "0 2rem",
-        margin: "0 1rem 1rem 1rem",
+        margin: "0 1rem 0 1rem",
 
         whiteSpace: "nowrap",
         height: "4.5em",
