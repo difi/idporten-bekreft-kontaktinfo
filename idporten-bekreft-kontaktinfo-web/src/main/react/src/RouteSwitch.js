@@ -7,7 +7,6 @@ import kontaktinfoStore from "./stores/KontaktinfoStore";
 import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
-import ErrorNoSession from "./components/ErrorNoSession";
 import {inject} from "mobx-react";
 //import Validator from "./components/Validator";
 
@@ -41,9 +40,7 @@ class RouteSwitch extends React.Component {
         kontaktinfoStore.setKontaktinfo(data);
 
         if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
-            this.props.history.push({
-                pathname: '/errornosession',
-            });
+            throw Error("no session")
         }
 
     }
@@ -51,7 +48,6 @@ class RouteSwitch extends React.Component {
     render() {
         return (
             <Switch>
-                <PrivateRoute path={"/errornosession"} component={ErrorNoSession}/>
                 <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
                 <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
                 <PrivateRoute path={"/create"} component={Create}/>

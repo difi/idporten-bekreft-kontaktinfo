@@ -11,7 +11,7 @@ import {inject} from "mobx-react";
 import autobind from "autobind-decorator";
 
 @inject("kontaktinfoStore")
-class Error extends Component {
+class ErrorPage extends Component {
 
     @autobind
     handleSubmit(e) {
@@ -24,14 +24,17 @@ class Error extends Component {
     render () {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
+        let errorMessage = "info.errorpage"
+
+        if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
+            errorMessage = "info.errorNoSession"
+        }
 
         return (
             <div>
                 <ContentHeader title="title" sub_title="page_title.error"/>
-                <ContentInfoBox content="info.errorpage" state="warning" />
-
+                <ContentInfoBox content={errorMessage.toString()} state="warning" />
                 <DigdirForm id="postForm" method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
-
                     <DigdirButtons>
                         <DigdirButton
                             tabIndex="4"
@@ -41,7 +44,6 @@ class Error extends Component {
                             type="submit"
                             textKey="button.continue"
                         />
-
                     </DigdirButtons>
                 </DigdirForm>
             </div>
@@ -50,4 +52,4 @@ class Error extends Component {
 }
 
 const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
-export default compose(withTranslation())(Error);
+export default compose(withTranslation())(ErrorPage);
