@@ -7,8 +7,9 @@ import kontaktinfoStore from "./stores/KontaktinfoStore";
 import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
+import ErrorNoSession from "./components/ErrorNoSession";
 import {inject} from "mobx-react";
-import Validator from "./components/Validator";
+//import Validator from "./components/Validator";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>
@@ -26,8 +27,8 @@ class RouteSwitch extends React.Component {
     componentDidMount(){
         const {kontaktinfoStore} = this.props;
 
-        if(this.props.kontaktinfoStore.gotoUrl === "" || this.props.kontaktinfoStore.gotoUrl == null) {
-            let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto");
+        let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto").toString();
+        if(!kontaktinfoStore.gotoUrl && gotoParam) {
             kontaktinfoStore.setGotoUrl(gotoParam);
         }
 
@@ -38,17 +39,25 @@ class RouteSwitch extends React.Component {
         }
 
         kontaktinfoStore.setKontaktinfo(data);
+
+        if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
+            this.props.history.push({
+                pathname: '/errornosession',
+            });
+        }
+
     }
 
     render() {
         return (
             <Switch>
-                <PrivateRoute path={"/createEmail"} component={MissingEmail} />
-                <PrivateRoute path={"/createMobile"} component={MissingMobile} />
-                <PrivateRoute path={"/create"} component={Create} />
-                <PrivateRoute path={"/editMobile"} component={EditMobile} />
-                <PrivateRoute path={"/editEmail"} component={EditEmail} />
-                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo} />
+                <PrivateRoute path={"/errornosession"} component={ErrorNoSession}/>
+                <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
+                <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
+                <PrivateRoute path={"/create"} component={Create}/>
+                <PrivateRoute path={"/editMobile"} component={EditMobile}/>
+                <PrivateRoute path={"/editEmail"} component={EditEmail}/>
+                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo}/>
                 {/*<DefaultLayout component={NotFound} />*/}
             </Switch>
         );
