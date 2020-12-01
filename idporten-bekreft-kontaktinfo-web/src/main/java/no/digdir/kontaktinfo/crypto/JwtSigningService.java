@@ -5,21 +5,15 @@ import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.RSASSASigner;
-import com.nimbusds.jose.crypto.factories.DefaultJWSVerifierFactory;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.security.PublicKey;
-import java.text.ParseException;
 
 @Service
 public class JwtSigningService {
 
-    private KeyProvider keyProvider;
+    private final KeyProvider keyProvider;
 
-    @Autowired
     public JwtSigningService(KeyProvider keyProvider) {
         this.keyProvider = keyProvider;
     }

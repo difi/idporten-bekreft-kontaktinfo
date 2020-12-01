@@ -17,8 +17,8 @@ import java.util.UUID;
 public class PARService {
     public static final String PAR_REQUEST_URI_PREFIX = "urn:kontaktinfo:";
 
-    private JwtConfigProvider jwtConfigProvider;
-    private JwtSigningService jwtSigningService;
+    private final JwtConfigProvider jwtConfigProvider;
+    private final JwtSigningService jwtSigningService;
 
     public boolean isValidRequestUri(String uri) {
         return uri != null && uri.matches("^" + PAR_REQUEST_URI_PREFIX + ".+$");
