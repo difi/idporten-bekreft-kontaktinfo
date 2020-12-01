@@ -58,16 +58,28 @@ const styles = (theme) => ({
 
 class ContentInfoBox extends Component {
     render() {
-        const { classes, content, t } = this.props;
+        const { classes, content, header, t } = this.props;
         const t_content = t(content);
+        const t_header = t(header);
+
+        function createMarkup() {
+            let markup;
+            if(t_header) {
+                markup = `<div style="font-weight: bold"> ${t_header} </div><div> ${t_content} </div>`;
+            }else{
+                markup = `<div> ${t_content} </div>`;
+            }
+
+            return {__html: markup};
+        };
 
         if(this.props.state === 'error'){
             return (
-                <div className={classes.error} dangerouslySetInnerHTML={{__html: `<div> ${t_content} </div>`}} />
+                <div className={classes.error} dangerouslySetInnerHTML={createMarkup()} />
             );
         } else {
             return (
-                <div className={classes.warning} dangerouslySetInnerHTML={{__html: `<div> ${t_content} </div>`}} />
+                <div className={classes.warning} dangerouslySetInnerHTML={createMarkup()} />
             );
         }
     }

@@ -21,7 +21,7 @@ class ErrorNoSession extends Component {
         return (
             <div>
                 <ContentHeader title="title" sub_title="page_title.error"/>
-                <ContentInfoBox content="info.errorOccurredPage" state="warning" />
+                <ContentInfoBox header="info.errorNoSessionHeader" content="info.errorNoSession" state="warning" />
 
                     <DigdirButtons>
                         <DigdirButton
