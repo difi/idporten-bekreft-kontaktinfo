@@ -12,6 +12,7 @@ import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
 import Validator from "../components/Validator";
+import PageWrapper from "../common/Page";
 
 @inject("kontaktinfoStore")
 @observer
@@ -47,58 +48,60 @@ class MissingEmail extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title="title" sub_title="page_title.edit_email"/>
+                <ContentHeader page_title="page_title.edit_email"/>
 
-                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                <PageWrapper>
+                    { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
-                <ContentInfoBox content="info.manglendeEpostVarsel"  />
-                <ContentInfo content="info.manglendeEpostLabel" />
+                    <ContentInfoBox content="info.manglendeEpostVarsel"  />
+                    <ContentInfo content="info.manglendeEpostLabel" />
 
-                <DigdirForm
-                    id="confirmContactinfo"
-                    onSubmitCallback={this.handleCommit}>
+                    <DigdirForm
+                        id="confirmContactinfo"
+                        onSubmitCallback={this.handleCommit}>
 
-                    <SynchedInput
-                        tabIndex="1"
-                        error={this.errorMessage != null}
-                        id="idporten.input.CONTACTINFO_EMAIL"
-                        name="idporten.input.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="email"
-                        textKey="field.email"
-                        />
+                        <SynchedInput
+                            tabIndex="1"
+                            error={this.errorMessage != null}
+                            id="idporten.input.CONTACTINFO_EMAIL"
+                            name="idporten.input.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="email"
+                            textKey="field.email"
+                            />
 
-                    <SynchedInput
-                        tabIndex="2"
-                        error={this.errorMessage != null}
-                        id="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        name="idporten.inputrepeat.CONTACTINFO_EMAIL"
-                        source={current}
-                        path="emailConfirmed"
-                        textKey="field.emailConfirmed"
-                        />
+                        <SynchedInput
+                            tabIndex="2"
+                            error={this.errorMessage != null}
+                            id="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            name="idporten.inputrepeat.CONTACTINFO_EMAIL"
+                            source={current}
+                            path="emailConfirmed"
+                            textKey="field.emailConfirmed"
+                            />
 
-                    <DigdirButtons>
-                        <DigdirButton
-                            tabIndex="3"
-                            id="idporten.inputbutton.NEXT"
-                            name="idporten.inputbutton.NEXT"
-                            onClick={this.handleSubmit}
-                            type="submit"
-                            value="submit"
-                            textKey="button.next" />
+                        <DigdirButtons>
+                            <DigdirButton
+                                tabIndex="3"
+                                id="idporten.inputbutton.NEXT"
+                                name="idporten.inputbutton.NEXT"
+                                onClick={this.handleSubmit}
+                                type="submit"
+                                value="submit"
+                                textKey="button.next" />
 
-                        <DigdirButton
-                            tabIndex="4"
-                            id="idporten.inputbutton.SKIP"
-                            name="idporten.inputbutton.SKIP"
-                            type="submit"
-                            value="skip"
-                            data-white="true"
-                            onClick={this.handleCancel} textKey="button.skip" />
+                            <DigdirButton
+                                tabIndex="4"
+                                id="idporten.inputbutton.SKIP"
+                                name="idporten.inputbutton.SKIP"
+                                type="submit"
+                                value="skip"
+                                data-white="true"
+                                onClick={this.handleCancel} textKey="button.skip" />
 
-                    </DigdirButtons>
-                </DigdirForm>
+                        </DigdirButtons>
+                    </DigdirForm>
+                </PageWrapper>
             </React.Fragment>
         );
     }

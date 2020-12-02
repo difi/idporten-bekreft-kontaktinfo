@@ -71,20 +71,13 @@ const styles = (theme) => ({
 class ContentHeader extends Component {
 
     render() {
-        const { classes, title, t, sub_title } = this.props;
-        const t_title = t(title);
-        const t_sub_title = t(sub_title);
+        const { classes, t, page_title } = this.props;
+        const t_page_title = t(page_title);
 
         return (
             <React.Fragment>
-                <div className={classes.main} >
-                    <h2 className={classes.h2} dangerouslySetInnerHTML={{__html: `<div> ${t_title} </div>`}}/>
-                    <div className={classes.providerBox}>
-                        <img className={classes.providerImage} src={require("../images/eid-logo.gif")} alt="eid-icon" />
-                    </div>
-                </div>
                 <div className={classes.sub} >
-                    <h1 className={classes.h1} dangerouslySetInnerHTML={{__html: `<div> ${t_sub_title} </div>`}}/>
+                    <h1 className={classes.h1} dangerouslySetInnerHTML={{__html: `<div> ${t_page_title} </div>`}}/>
                 </div>
             </React.Fragment>
 

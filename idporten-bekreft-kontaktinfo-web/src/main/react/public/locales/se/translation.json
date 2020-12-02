@@ -34,7 +34,9 @@
     "manglendeMobilVarsel": "Jus anát MiniID:a, de sáhttát válljet SMS:a bokte oažžut ovttahávvasaš kodaid. Dálle it dárbbaš PIN-kodareivve.",
     "manglendeMobilLabel" : "Jus dus lea olgoritnummar, muitte čállit riikkakoda (omd. Ruota <strong>+46</strong> dahje <strong>0046</strong>)",
     "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
-    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
+    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere.",
+    "errorNoSessionHeader": "Lea šaddan boastuvuohta",
+    "errorNoSession": "Eat nákce du doaimmahit bálvalussii Gidde neahttalohkki ja geahččal ođđasis. Almmolaš sisačállima ii sáhte rahpat favorihtta/girjemearkan."
   },
   "field": {
     "email": "E-poasta:",

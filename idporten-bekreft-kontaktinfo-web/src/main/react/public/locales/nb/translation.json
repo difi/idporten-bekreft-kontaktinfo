@@ -37,7 +37,9 @@
     "digitalPostkasseOverskrift": "Din digitale postkasse",
     "digitalPostkasseTekst": "Du kan nå motta brev fra stat og kommune digitalt i en sikker postkasse på nettet. Ønsker du mer informasjon?",
     "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
-    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
+    "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere.",
+    "errorNoSessionHeader": "En feil har oppstått",
+    "errorNoSession": "Vi klarer ikke å sende deg til tjenesten. Vennligst avslutt nettleseren og prøv på nytt. Vær obs på at ID-porten ikke kan åpnes som favorittlenke/bokmerke."
   },
   "field": {
     "email": "E-post",

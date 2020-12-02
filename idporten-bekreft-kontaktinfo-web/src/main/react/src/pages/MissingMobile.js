@@ -12,6 +12,7 @@ import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
 import Validator from "../components/Validator";
+import PageWrapper from "../common/Page";
 
 @inject("kontaktinfoStore")
 @observer
@@ -48,55 +49,57 @@ class MissingMobile extends Component {
 
         return (
             <React.Fragment>
-                <ContentHeader title="title" sub_title="page_title.edit_mobile"/>
+                <ContentHeader page_title="page_title.edit_mobile"/>
 
-                { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
+                <PageWrapper>
+                    { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
-                <ContentInfoBox content="info.manglendeMobilVarsel"  />
-                <ContentInfo content="info.manglendeMobilLabel" />
+                    <ContentInfoBox content="info.manglendeMobilVarsel"  />
+                    <ContentInfo content="info.manglendeMobilLabel" />
 
-                <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
-                    <SynchedInput
-                        tabIndex="1"
-                        error={this.errorMessage != null}
-                        id="idporten.input.CONTACTINFO_MOBILE"
-                        name="idporten.input.CONTACTINFO_MOBILE"
-                        source={current}
-                        path="mobile"
-                        textKey="field.mobile"
-                        />
-                        
-                    <SynchedInput
-                        tabIndex="2"
-                        error={this.errorMessage != null}
-                        id="idporten.inputrepeat.CONTACTINFO_MOBILE"
-                        name="idporten.inputrepeat.CONTACTINFO_MOBILE"
-                        source={current}
-                        path="mobileConfirmed"
-                        textKey="field.mobileConfirmed"
-                        />
+                    <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
+                        <SynchedInput
+                            tabIndex="1"
+                            error={this.errorMessage != null}
+                            id="idporten.input.CONTACTINFO_MOBILE"
+                            name="idporten.input.CONTACTINFO_MOBILE"
+                            source={current}
+                            path="mobile"
+                            textKey="field.mobile"
+                            />
 
-                    <DigdirButtons>
-                        <DigdirButton
-                            tabIndex="3"
-                            onClick={this.handleSubmit}
-                            type="submit"
-                            value="submit"
-                            textKey="button.next"
-                            id="idporten.inputbutton.NEXT"
-                            name="idporten.inputbutton.NEXT"/>
+                        <SynchedInput
+                            tabIndex="2"
+                            error={this.errorMessage != null}
+                            id="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                            name="idporten.inputrepeat.CONTACTINFO_MOBILE"
+                            source={current}
+                            path="mobileConfirmed"
+                            textKey="field.mobileConfirmed"
+                            />
 
-                        <DigdirButton
-                            tabIndex="4"
-                            type="submit"
-                            value="skip"
-                            data-white="true"
-                            onClick={this.handleCancel}
-                            textKey="button.skip"
-                            id="idporten.inputbutton.SKIP"
-                            name="idporten.inputbutton.SKIP"/>
-                    </DigdirButtons>
-                </DigdirForm>
+                        <DigdirButtons>
+                            <DigdirButton
+                                tabIndex="3"
+                                onClick={this.handleSubmit}
+                                type="submit"
+                                value="submit"
+                                textKey="button.next"
+                                id="idporten.inputbutton.NEXT"
+                                name="idporten.inputbutton.NEXT"/>
+
+                            <DigdirButton
+                                tabIndex="4"
+                                type="submit"
+                                value="skip"
+                                data-white="true"
+                                onClick={this.handleCancel}
+                                textKey="button.skip"
+                                id="idporten.inputbutton.SKIP"
+                                name="idporten.inputbutton.SKIP"/>
+                        </DigdirButtons>
+                    </DigdirForm>
+                </PageWrapper>
             </React.Fragment>
         );
     }
