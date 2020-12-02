@@ -26,8 +26,8 @@
     "allContactInfoIsRemoved": "To complete the registration, you must enter either a mobile number, e-mail or both."
   },
   "info": {
-    "kontaktinfo": "The information below is stored in a common contact register that the state and municipality will use when they contact you. <a href=\"http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret\" target=\"_blank\">Read more</a>",
-    "manglendeInformasjon": "The information below is stored in a common contact register that the state and municipality will use when they contact you. <a href=\"http://eid.difi.no/nb/kontakt-og-reservasjonsregisteret\" target=\"_blank\">Read more</a><br><br> You can choose to proceed without entering contact information.",
+    "kontaktinfo": "The information below is stored in a common contact register that the state and municipality will use when they contact you. <a href=\"https://eid.difi.no/en/common-contact-register\" target=\"_blank\">Read more</a>",
+    "manglendeInformasjon": "The information below is stored in a common contact register that the state and municipality will use when they contact you. <a href=\"https://eid.difi.no/en/common-contact-register\" target=\"_blank\">Read more</a><br><br> You can choose to proceed without entering contact information.",
     "manglendeEpostVarsel": "You have not registered an email address. The e-mail address is used as a notification address when the state or municipality is to notify you that they have sent you important letters and decisions online. If you use MinID to log in to public services online, the e-mail address can also be used to send you one-time codes, if you have forgotten your password.",
     "manglendeEpostLabel": "You should use your private e-mail address to ensure that no one else has access to your personal ID.",
     "manglendeMobilVarsel": "You have not registered a mobile number. The mobile number is used as a notification address when the state or municipality is to notify you that they have sent you important letters and decisions online. If you use MinID to log in to public services online, the mobile number can also be used to send you one-time codes via SMS.",
@@ -55,6 +55,11 @@
     "phone": "Tel",
     "login-help": "Help to log in",
     "security-and-privacy": "Security and privacy",
-    "provided-by": "Operated by the"
+    "provided-by": "Operated by the Norwegian Digitalisation Agency"
+  },
+  "url": {
+    "contact-form-url": "https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IDPortenLevel3List&pageid=lvl3",
+    "login-help-url": "https://eid.difi.no/en/id-porten",
+    "security-and-privacy-url": "https://eid.difi.no/en/security-and-privacy"
   }
 }
