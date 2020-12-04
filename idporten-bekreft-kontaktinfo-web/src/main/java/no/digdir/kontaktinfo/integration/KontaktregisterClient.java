@@ -4,14 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.digdir.kontaktinfo.config.KrrConfigProvider;
-import no.digdir.kontaktinfo.rest.exception.ResourceNotFoundException;
 import no.digdir.kontaktinfo.rest.exception.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import javax.cache.annotation.CacheResult;
 import java.util.Collections;
 import java.util.List;
@@ -61,17 +59,6 @@ public class KontaktregisterClient {
         } catch (Exception e) {
             log.error("failed to update user", e);
             throw new SQLException("Bad Request");
-        }
-    }
-
-    public boolean isAlive() {
-        String url = krrConfigProvider.getUrl() + "/smoketest";
-
-        try {
-            ResponseEntity<String> responseEntity = restTemplate.getForEntity(url + "smoketest/", String.class);
-            return !responseEntity.getBody().contains("FAILED") && !responseEntity.getBody().contains("\"status\": \"DOWN\"");
-        } catch (Exception e) {
-            return false;
         }
     }
 

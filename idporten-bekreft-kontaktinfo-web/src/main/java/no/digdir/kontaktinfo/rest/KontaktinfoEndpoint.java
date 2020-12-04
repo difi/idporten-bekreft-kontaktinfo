@@ -39,14 +39,6 @@ public class KontaktinfoEndpoint {
         ContactInfoResource responseResource = prepareAndCacheResponseResource(updatedResource,personResource);
         return new ResponseEntity<ContactInfoResource>(responseResource, HttpStatus.OK);
     }
-    /*
-    @GetMapping("/kontaktinfo")
-    public ResponseEntity<ContactInfoResource> getKontaktinfo(){
-        PersonResource personResource = clientService.getKontaktinfo("24079424184");
-        personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
-        return new ResponseEntity<ContactInfoResource>(ContactInfoResource.fromPersonResource(personResource), HttpStatus.OK);
-    }
-     */
 
     private ContactInfoResource prepareAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource){
         personResource.setEmail(updatedResource.getEmail());
