@@ -211,3 +211,10 @@ yarn-error.log*
 
 /src/main/react/build
 
+/codecept-tests/output/*.png
+/codecept-tests/output/*.html
+/codecept-tests/output/*.xml
+/codecept-tests/output/*.log
+/codecept-tests/node_modules
+/codecept-tests/node
+/docker/codeceptjs-with-tests/tests/*/

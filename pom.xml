@@ -18,7 +18,6 @@
     <version>DEV-SNAPSHOT</version>
 
     <modules>
-        <module>system-tests</module>
         <module>idporten-bekreft-kontaktinfo-web</module>
     </modules>
 
@@ -35,11 +34,11 @@
         <problem-spring.version>0.25.2</problem-spring.version>
         <logstash.logback.version>5.2</logstash.logback.version>
         <!-- frontend build tools -->
-        <node.version>v14.4.0</node.version>
-        <npm.version>6.14.5</npm.version>
-        <yarn.version>v1.22.4</yarn.version>
+        <node.version>v14.15.0</node.version>
+        <npm.version>6.14.8</npm.version>
+        <yarn.version>v1.22.5</yarn.version>
         <spring-security-test.version>5.3.1.RELEASE</spring-security-test.version>
-        <frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+        <frontend-maven-plugin.version>1.10.3</frontend-maven-plugin.version>
         <eid.common.version>2020-06-29-1322-841ed34</eid.common.version>
         <idporten.common.version>2020-05-28-1255-7f7fe4c</idporten.common.version>
         <infinispan-spring-boot-starter-embedded-version>2.1.7.Final</infinispan-spring-boot-starter-embedded-version>

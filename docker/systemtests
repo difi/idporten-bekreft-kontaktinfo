@@ -7,12 +7,13 @@ run() {
     idpPort=$(getPort ${deployStackName} 'idporten-openam')
     seleniumPort=$(getPort ${deployStackName} 'selenium')
     dbPort=$(getPort ${deployStackName} 'db')
+    idportenOidcClientPort=$(getPort ${deployStackName} 'idporten-oidc-client')
 
     mvn verify -pl system-tests -PsystemTests -B\
     -DadminDirectBaseURL=http://${deployHostName}:${adminPort}/idporten-admin/\
     -DminIDOnTheFlyUrl=http://${deployHostName}:${idpPort}/minid_filegateway/\
     -DseleniumUrl=http://${deployHostName}:${seleniumPort}/wd/hub\
-    -DdatabaseUrl=${deployHostName}:${dbPort}
+    -DdatabaseUrl=${deployHostName}:${dbPort} -DidportenOidcClientUrl=http://${deployHostName}:${idportenOidcClientPort}/idporten-oidc-client/
 }
 
 getPort() {
