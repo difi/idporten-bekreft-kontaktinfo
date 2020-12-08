@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>no.digdir</groupId>
+        <groupId>no.digdir.krr.bekreft</groupId>
         <artifactId>idporten-bekreft-kontaktinfo</artifactId>
         <version>DEV-SNAPSHOT</version>
     </parent>

@@ -26,3 +26,6 @@ jwt:
 
 featureswitch:
   bekreft_kontaktinfo_enabled: true
+
+security:
+  contentsecuritypolicy_url: "https://localhost:8080"

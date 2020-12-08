@@ -11,7 +11,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>no.digdir</groupId>
+    <groupId>no.digdir.krr.bekreft</groupId>
     <artifactId>idporten-bekreft-kontaktinfo</artifactId>
     <packaging>pom</packaging>
     <name>ID-porten bekreft kontaktinfo</name>
