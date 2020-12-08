@@ -10,7 +10,7 @@ class idporten_bekreft_kontaktinfo::params {
   $application                                = 'idporten-bekreft-kontaktinfo'
   $service_name                               = 'idporten-bekreft-kontaktinfo'
   $artifact_id                                = 'idporten-bekreft-kontaktinfo-web'
-  $group_id                                   = 'no.digdir'
+  $group_id                                   = 'no.digdir.krr.bekreft'
   $krr_backend_url                            = hiera('kontaktinfo_backend::url')
   $krr_backend_read_timeout                   = 10000
   $krr_backend_connect_timeout                = 10000
