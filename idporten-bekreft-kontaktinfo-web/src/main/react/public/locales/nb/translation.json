@@ -55,7 +55,7 @@
     "provided-by": "Driftet av Digitaliseringsdirektoratet"
   },
   "url": {
-    "contact-form-url": "https://eid-atest-web01.dmz.local/opensso/support.jsp?service=IDPortenLevel3List&pageid=lvl3",
+    "contact-form-url": "https://eid.difi.no/kontakt-brukerstotte",
     "login-help-url": "https://eid.difi.no/nb/id-porten",
     "security-and-privacy-url": "https://eid.difi.no/nb/sikkerhet-og-personvern"
   }
