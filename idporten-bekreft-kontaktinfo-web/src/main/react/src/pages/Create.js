@@ -75,7 +75,6 @@ class Create extends Component {
                                 method="post" action={this.props.kontaktinfoStore.gotoUrl} onSubmit={this.handleSubmit}>
 
                         <SynchedInput
-                            tabIndex="1"
                             id="idporten.input.CONTACTINFO_EMAIL"
                             name="idporten.input.CONTACTINFO_EMAIL"
                             source={current}
@@ -84,7 +83,6 @@ class Create extends Component {
                             error={this.errorEmail != null}/>
 
                         <SynchedInput
-                            tabIndex="2"
                             id="idporten.inputrepeat.CONTACTINFO_EMAIL"
                             name="idporten.inputrepeat.CONTACTINFO_EMAIL"
                             source={current}
@@ -93,7 +91,6 @@ class Create extends Component {
                             error={this.errorEmail != null}/>
 
                         <SynchedInput
-                            tabIndex="3"
                             id="idporten.input.CONTACTINFO_MOBILE"
                             name="idporten.input.CONTACTINFO_MOBILE"
                             source={current}
@@ -102,7 +99,6 @@ class Create extends Component {
                             error={this.errorMobile != null}/>
 
                         <SynchedInput
-                            tabIndex="4"
                             id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                             name="idporten.inputrepeat.CONTACTINFO_MOBILE"
                             source={current}
@@ -112,7 +108,7 @@ class Create extends Component {
 
                         <DigdirButtons>
                             <DigdirButton
-                                tabIndex="5"
+                                tabIndex="80"
                                 type="submit"
                                 textKey="button.next"/>
                         </DigdirButtons>

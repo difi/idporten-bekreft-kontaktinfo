@@ -7,6 +7,7 @@ export default class KontaktinfoStore {
     @observable error = {};
     @observable gotoUrl = "";
     @observable code = "";
+    @observable language = "";
     @observable current = new Kontaktinfo();
 
     constructor(mainStore) {
@@ -16,6 +17,12 @@ export default class KontaktinfoStore {
     @action.bound
     setGotoUrl(gotoUrlParam) {
         this.gotoUrl = gotoUrlParam;
+    }
+
+    @action.bound
+    async setLanguage(lng) {
+        this.language = lng;
+        return this.language
     }
 
     @action.bound

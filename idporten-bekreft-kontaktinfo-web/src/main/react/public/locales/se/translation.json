@@ -27,8 +27,8 @@
     "error": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere."
   },
   "info": {
-    "kontaktinfo": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
-    "manglendeInformasjon": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
+    "kontaktinfo": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a tabindex=\"99\" href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
+    "manglendeInformasjon": "Vulobeale dieđut biddjojit oktasaš oktavuođaváldinregistarii man stáhta ja gielda galget geavahit go váldet oktavuođa duinna. <a tabindex=\"99\" href=\"https://eid.difi.no/se/gulahallan-neahtas-valdonjuolggadussan\" target=\"_blank\">LOGA EANET</a>",
     "manglendeEpostVarsel": "Jus iežat e- boastta čujuhusa registreret, de lea dutnje álki ráhkadit ođđa beassansáni MiniID:ii, jus vajálduhttát iežat beassansáni.",
     "manglendeEpostLabel": "Berret geavahit iežat priváhta e-poastta, vai oktage eará ii oainne du persuvnnalaš ID.",
     "manglendeMobilVarsel": "Jus anát MiniID:a, de sáhttát válljet SMS:a bokte oažžut ovttahávvasaš kodaid. Dálle it dárbbaš PIN-kodareivve.",

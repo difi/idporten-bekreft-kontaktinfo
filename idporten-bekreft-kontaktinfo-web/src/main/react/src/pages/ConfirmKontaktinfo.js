@@ -70,7 +70,7 @@ class ConfirmKontaktinfo extends Component {
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
-                                            tabIndex="2"
+                                            tabIndex="1"
                                             aria-label="Endre e-post"
                                             id="idporten.inputbutton.CHANGE_EMAIL"
                                             name="idporten.inputbutton.CHANGE_EMAIL"
@@ -91,7 +91,7 @@ class ConfirmKontaktinfo extends Component {
                                 endAdornment: (
                                     <InputAdornment position="end">
                                         <IconButton
-                                            tabIndex="3"
+                                            tabIndex="2"
                                             aria-label="Endre mobil"
                                             id="idporten.inputbutton.CHANGE_MOBILE"
                                             name="idporten.inputbutton.CHANGE_MOBILE"
@@ -103,7 +103,7 @@ class ConfirmKontaktinfo extends Component {
 
                         <DigdirButtons>
                             <DigdirButton
-                                tabIndex="4"
+                                tabIndex="80"
                                 id="idporten.inputbutton.CONTINUE_CONFIRM"
                                 name="idporten.inputbutton.CONTINUE_CONFIRM"
                                 form="postForm"

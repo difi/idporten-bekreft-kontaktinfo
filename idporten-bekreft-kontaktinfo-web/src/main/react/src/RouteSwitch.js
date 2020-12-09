@@ -8,6 +8,7 @@ import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import {inject} from "mobx-react";
+import {Helmet} from "react-helmet";
 //import Validator from "./components/Validator";
 
 const load = (Component: any) => (props: any) => (
@@ -46,16 +47,27 @@ class RouteSwitch extends React.Component {
     }
 
     render() {
+        let {kontaktinfoStore} = this.props;
+
+        let language = new URLSearchParams(this.props.location.search).getAll("lng").toString();
+        if(!kontaktinfoStore.language) {
+            kontaktinfoStore.setLanguage(language)
+        }
+
         return (
-            <Switch>
-                <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
-                <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
-                <PrivateRoute path={"/create"} component={Create}/>
-                <PrivateRoute path={"/editMobile"} component={EditMobile}/>
-                <PrivateRoute path={"/editEmail"} component={EditEmail}/>
-                <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo}/>
-                {/*<DefaultLayout component={NotFound} />*/}
-            </Switch>
+            <React.Fragment>
+                <Helmet htmlAttributes={{ lang: kontaktinfoStore.language }}>
+                </Helmet>
+                <Switch>
+                    <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
+                    <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
+                    <PrivateRoute path={"/create"} component={Create}/>
+                    <PrivateRoute path={"/editMobile"} component={EditMobile}/>
+                    <PrivateRoute path={"/editEmail"} component={EditEmail}/>
+                    <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo}/>
+                    {/*<DefaultLayout component={NotFound} />*/}
+                </Switch>
+            </React.Fragment>
         );
     }
 }

@@ -70,7 +70,6 @@ class EditMobile extends Component {
                         onSubmitCallback={this.handleSubmit}>
 
                         <SynchedInput
-                            tabIndex="1"
                             error={this.errorMessage != null}
                             id="idporten.input.CONTACTINFO_MOBILE"
                             name="idporten.input.CONTACTINFO_MOBILE"
@@ -80,7 +79,6 @@ class EditMobile extends Component {
                             />
 
                         <SynchedInput
-                            tabIndex="2"
                             error={this.errorMessage != null}
                             id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                             name="idporten.inputrepeat.CONTACTINFO_MOBILE"
@@ -91,7 +89,7 @@ class EditMobile extends Component {
 
                         <DigdirButtons>
                             <DigdirButton
-                                tabIndex="3"
+                                tabIndex="80"
                                 id="idporten.inputbutton.SAVE"
                                 name="idporten.inputbutton.SAVE"
                                 type="submit"
@@ -100,7 +98,7 @@ class EditMobile extends Component {
                             />
 
                             <DigdirButton
-                                tabIndex="4"
+                                tabIndex="81"
                                 id="idporten.inputbutton.CANCEL_SAVE"
                                 name="idporten.inputbutton.CANCEL_SAVE"
                                 type="submit"

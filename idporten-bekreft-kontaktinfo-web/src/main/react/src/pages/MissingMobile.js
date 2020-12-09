@@ -59,7 +59,6 @@ class MissingMobile extends Component {
 
                     <DigdirForm id="editMobilnr" onSubmitCallback={this.handleCommit}>
                         <SynchedInput
-                            tabIndex="1"
                             error={this.errorMessage != null}
                             id="idporten.input.CONTACTINFO_MOBILE"
                             name="idporten.input.CONTACTINFO_MOBILE"
@@ -69,7 +68,6 @@ class MissingMobile extends Component {
                             />
 
                         <SynchedInput
-                            tabIndex="2"
                             error={this.errorMessage != null}
                             id="idporten.inputrepeat.CONTACTINFO_MOBILE"
                             name="idporten.inputrepeat.CONTACTINFO_MOBILE"
@@ -80,7 +78,7 @@ class MissingMobile extends Component {
 
                         <DigdirButtons>
                             <DigdirButton
-                                tabIndex="3"
+                                tabIndex="80"
                                 onClick={this.handleSubmit}
                                 type="submit"
                                 value="submit"
@@ -89,7 +87,7 @@ class MissingMobile extends Component {
                                 name="idporten.inputbutton.NEXT"/>
 
                             <DigdirButton
-                                tabIndex="4"
+                                tabIndex="81"
                                 type="submit"
                                 value="skip"
                                 data-white="true"

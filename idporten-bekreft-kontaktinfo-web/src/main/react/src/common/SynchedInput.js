@@ -79,6 +79,10 @@ class SynchedInput extends Component {
         const {source, path, onChangeCallback, validateCallback, textKey, t, tReady, ...rest} = this.props;
         const text = t(textKey);
 
+        const inputProps = {
+            tabIndex: 1,
+         };
+
         return (
             <TextField inputRef={this.inputRef}
                        value={this.value}
@@ -88,6 +92,7 @@ class SynchedInput extends Component {
                        onBlur={this.onValidate}
                        onInvalid={this.onInvalid}
                        autoComplete="off"
+                       inputProps={inputProps}
                        {...rest}
             />
         );

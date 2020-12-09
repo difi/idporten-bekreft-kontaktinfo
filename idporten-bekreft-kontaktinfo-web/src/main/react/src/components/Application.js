@@ -6,6 +6,8 @@ import DigdirLoading from "../common/DigdirLoading";
 import ErrorBoundary from "./ErrorBoundary";
 import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
+import kontaktinfoStore from "../stores/KontaktinfoStore";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>
@@ -67,7 +69,6 @@ class Application extends Component {
                 <Header/>
                 <div className="main">
                     <div className="box">
-
                         <div className={classes.main} >
                             <h2 className={classes.h2} dangerouslySetInnerHTML={{__html: `<div> ${t_title} </div>`}}/>
                             <div className={classes.providerBox}>

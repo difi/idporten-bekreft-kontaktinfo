@@ -75,11 +75,11 @@ class ContentInfoBox extends Component {
 
         if(this.props.state === 'error'){
             return (
-                <div className={classes.error} dangerouslySetInnerHTML={createMarkup()} />
+                <div role="alert" className={classes.error} dangerouslySetInnerHTML={createMarkup()} />
             );
         } else {
             return (
-                <div className={classes.warning} dangerouslySetInnerHTML={createMarkup()} />
+                <div role="alert" className={classes.warning} dangerouslySetInnerHTML={createMarkup()} />
             );
         }
     }
