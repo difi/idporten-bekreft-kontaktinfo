@@ -1,8 +1,10 @@
 package no.digdir.krr.bekreft.kontaktinfo.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import no.digdir.krr.bekreft.kontaktinfo.logging.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
+import no.digdir.krr.bekreft.kontaktinfo.logging.event.EventService;
 import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,9 +24,6 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/api")
 public class ContactInfoController {
 
-    private final ClientService clientService;
-    private final KontaktinfoCache kontaktinfoCache;
-
     private final static String LOCALE_PARAM = "lng";
     private final static String EMAIL_PARAM = "email";
     private final static String MOBILE_PARAM = "mobile";
@@ -41,10 +40,15 @@ public class ContactInfoController {
 
     @Value("${featureswitch.bekreft_kontaktinfo_enabled}")
     private Boolean bekreftKontaktinfoEnabled;
+    
+    private final ClientService clientService;
+    private final KontaktinfoCache kontaktinfoCache;
+    private final EventService eventService;
 
-    public ContactInfoController(ClientService clientService,KontaktinfoCache kontaktinfoCache) {
+    public ContactInfoController(ClientService clientService, KontaktinfoCache kontaktinfoCache, EventService eventService) {
         this.clientService = clientService;
         this.kontaktinfoCache = kontaktinfoCache;
+        this.eventService = eventService;
     }
 
     @GetMapping("/user/{fnr}/confirm")
@@ -152,12 +156,14 @@ public class ContactInfoController {
         personResource.setCode(kontaktinfoCache.putPersonResource(personResource));
 
         if(buildRedirectPath(personResource) != null){
+            eventService.logUserNeedsToConfirm(fnr);
             return redirectToFrontEnd(
                     buildRedirectPath(personResource),
                     ContactInfoResource.fromPersonResource(personResource),
                     gotoParam,
                     locale);
         } else {
+            eventService.logUserContinueToDestination(fnr);
             String gotoParamWithCode = new StringBuffer(gotoParam)
                     .append("&")
                     .append(CODE_PARAM)

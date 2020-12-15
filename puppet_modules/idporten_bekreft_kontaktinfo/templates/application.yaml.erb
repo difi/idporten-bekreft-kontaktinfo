@@ -43,6 +43,14 @@ jwt:
     key_alias: <%= @keystore_key_alias %>
     key_password: <%= @keystore_key_password %>
 
+log:
+    auditlog:
+      dir: <%= @auditlog_dir %>
+      file: <%= @auditlog_file %>
+    event:
+      jmsUrl: <%= @eventlog_jms_url %>
+      jmsQueue: <%= @eventlog_jms_queuename %>
+
 featureswitch:
     bekreft_kontaktinfo_enabled: <%= @featureswitch_bekreft_kontaktinfo %>
 

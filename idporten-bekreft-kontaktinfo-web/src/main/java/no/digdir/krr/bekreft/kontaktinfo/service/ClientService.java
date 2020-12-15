@@ -3,6 +3,7 @@ package no.digdir.krr.bekreft.kontaktinfo.service;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
+import no.digdir.krr.bekreft.kontaktinfo.logging.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
 import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterClient;
@@ -25,10 +26,13 @@ public class ClientService {
     private final KrrConfigProvider krrConfigProvider;
     private final KontaktregisterClient kontaktregisterClient;
 
+    private AuditService auditService;
+
     @Autowired
-    public ClientService(KrrConfigProvider krrConfigProvider, KontaktregisterClient kontaktregisterClient) {
+    public ClientService(KrrConfigProvider krrConfigProvider, KontaktregisterClient kontaktregisterClient, AuditService auditService) {
         this.krrConfigProvider = krrConfigProvider;
         this.kontaktregisterClient = kontaktregisterClient;
+        this.auditService = auditService;
     }
 
     public PersonResource getKontaktinfo(String fnr) {
@@ -65,11 +69,13 @@ public class ClientService {
     private void createUser(UserResource user, String email, String mobile) {
         updateUserResource(user, email, mobile);
         kontaktregisterClient.createUser(user);
+        auditService.auditContactInfoCreate(user.getSsn(),email,mobile);
     }
 
     private void updateUser(UserResource user, String email, String mobile) {
         updateUserResource(user, email, mobile);
         kontaktregisterClient.updateUser(user);
+        auditService.auditContactInfoConfirm(user.getSsn(),email,mobile);
     }
 
     private void updateUserResource(UserResource user, String email, String mobile) {
@@ -78,13 +84,16 @@ public class ClientService {
         mobile = ((mobile.equals("")) ? null : mobile);
 
         if (!Objects.equals(user.getEmail(), email)) {
+            auditService.auditContactInfoUpdateEmail(user.getSsn(),user.getEmail(),email);
             user.setEmail(email);
             user.setEmailLastUpdated(new Date());
         }
         if (!Objects.equals(user.getMobile(), mobile)) {
+            auditService.auditContactInfoUpdateMobile(user.getSsn(),user.getMobile(),mobile);
             user.setMobile(mobile);
             user.setMobileLastUpdated(new Date());
         }
+
         if (user.getEmail() != null) {
             user.setEmailVerifiedDate(new Date());
         }

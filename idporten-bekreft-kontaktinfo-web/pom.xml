@@ -58,6 +58,18 @@
 
         <dependency>
             <groupId>no.difi.common</groupId>
+            <artifactId>idporten-lib-logging</artifactId>
+            <version>${eid.common.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.activemq</groupId>
+                    <artifactId>activemq-client</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>no.difi.common</groupId>
             <artifactId>idporten-lib-common-pojo</artifactId>
         </dependency>
 
@@ -75,6 +87,18 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>${activemq.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>javax.jms-api</artifactId>
+            <version>${javax.jms-api.version}</version>
         </dependency>
 
         <dependency>

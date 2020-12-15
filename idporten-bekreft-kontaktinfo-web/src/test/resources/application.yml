@@ -24,6 +24,14 @@ jwt:
     key_alias: digdirtest
     key_password: changeit
 
+log:
+  auditlog:
+    dir: c:/tmp
+    file: testauditfile.log
+  event:
+    jmsUrl: jms
+    jmsQueue: jms-queue
+
 featureswitch:
   bekreft_kontaktinfo_enabled: true
 
