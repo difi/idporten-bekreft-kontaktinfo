@@ -4,7 +4,7 @@ services:
   codeceptjs:
     image: ${REGISTRY}/codeceptjs-with-tests:${VERSION}
     environment:
-      - CODECEPT_ARGS=--reporter mocha-multi
+      - CODECEPT_ARGS=--reporter mocha-multi --steps --verbose
     entrypoint: bash -c "/codecept/docker/run.sh; /codecept/bin/http-server /tests"
     ports:
       - 8080

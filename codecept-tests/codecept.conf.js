@@ -32,6 +32,9 @@ exports.config = {
         BankIdHelper: {
             require: './src/helpers/bankid_helper.js',
         },
+        MySQLHelper: {
+            require: './src/helpers/mysql_helper.js',
+        },
         Mochawesome: {
             uniqueScreenshotNames: true,
             disableScreenshots: false

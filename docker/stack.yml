@@ -47,6 +47,20 @@ services:
       placement:
         constraints:
           - node.labels.atest == true
+  eventlog-db:
+    image: eid-jenkins02.dmz.local:8082/eventlog-db:latest
+    ports:
+      - 3306
+    extra_hosts:
+      - "eid-logstash-app01.dmz.local:10.243.220.151"
+    networks:
+      atest:
+    command: --sql_mode=""
+    dns: 8.8.8.8
+    deploy:
+      placement:
+        constraints:
+          - node.labels.atest == true
   oidc-db:
     image: eid-jenkins02.dmz.local:8082/oidc-db:latest
     configs:

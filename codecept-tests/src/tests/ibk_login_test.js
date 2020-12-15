@@ -2,6 +2,8 @@ Feature('ibk login test');
 
 Before(({ I }) => {
 
+    I.resetLastUpdatedOfUser();
+
     I.amOnPage(process.env.IBK_HOST);
     I.seeInCurrentUrl('/idporten-oidc-client/');
     I.seeInTitle("ID-porten OpenID Connect klient");
@@ -20,6 +22,6 @@ Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => 
     I.loginWithMinID();
 
     I.waitForNavigation();
-    I.click('Hent tokens-FAIL-ON-PURPOSE');
+
 
 });
