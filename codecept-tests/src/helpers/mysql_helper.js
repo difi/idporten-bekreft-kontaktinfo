@@ -30,14 +30,9 @@ class MySQLHelper extends Helper {
 
   _beforeSuite() {
 
-    this.conn.query("delete from user where ssn='24079497513'", function (err, result) {
+    this.conn.query("delete from user where ssn='"+process.env.IBK_USERNAME+"'", function (err, result) {
       if (err) throw err;
       console.log("*** delete from user where ssn='24079497513'", result);
-    });
-
-    this.conn.query("insert into user (uuid, ssn, email, mobile) values(uuid(), '24079497513','24079497513@difi.no','+4799999999')", function (err, result) {
-      if (err) throw err;
-      console.log("*** insert into user (ssn) values('24079497513')", result);
     });
 
   }
@@ -58,7 +53,7 @@ class MySQLHelper extends Helper {
     RESERVED_LAST_UPDATED
      */
 
-    this.conn.query("update user set last_updated = str_to_date('2018-03-01', '%Y-%m-%d'), PREFERRED_LANGUAGE_LAST_UPDATED = str_to_date('2018-03-01', '%Y-%m-%d'),  MOBILE_LAST_UPDATED = str_to_date('2018-03-01', '%Y-%m-%d'), mobile='+4799999999' where ssn='24079497513'", function (err, result) {
+    this.conn.query("update user set last_updated = str_to_date('2018-03-01', '%Y-%m-%d'), PREFERRED_LANGUAGE_LAST_UPDATED = str_to_date('2018-03-01', '%Y-%m-%d'),  MOBILE_LAST_UPDATED = str_to_date('2018-03-01', '%Y-%m-%d') where ssn='24079497513'", function (err, result) {
       if (err) throw err;
       console.log("update user where ssn = '24079497513'",result);
     });
@@ -68,6 +63,29 @@ class MySQLHelper extends Helper {
     });
   }
 
+  resetUser() {
+    /*
+  Delete User from KRR
+     */
+
+    this.conn.query("delete from user where ssn='24079497513'", function (err, result) {
+      if (err) throw err;
+      console.log("*** delete from user where ssn='24079497513'", result);
+    });
+  }
+
+  insertUserWithoutMobile(){
+    this.conn.query("insert into user (uuid, ssn, email, mobile) values(uuid(), '24079497513','24079497513@difi.no','')", function (err, result) {
+      if (err) throw err;
+      console.log("*** insert into user (ssn) values('24079497513')", result);
+    });
+  }
+  insertUserWithoutEmail(){
+    this.conn.query("insert into user (uuid, ssn, email, mobile) values(uuid(), '24079497513','','+4799999999')", function (err, result) {
+      if (err) throw err;
+      console.log("*** insert into user (ssn) values('24079497513')", result);
+    });
+  }
 }
 
 module.exports = MySQLHelper;

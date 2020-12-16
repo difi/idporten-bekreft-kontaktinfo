@@ -1,8 +1,8 @@
-Feature('ibk login test');
+Feature('ibk opprette KRR test');
 
 Before(({ I }) => {
 
-    I.resetLastUpdatedOfUser();
+    I.resetUser();
 
     I.amOnPage(process.env.IBK_HOST);
     I.seeInCurrentUrl('/idporten-oidc-client/');
@@ -14,18 +14,16 @@ After(({ I }) => {
 });
 
 
-Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => {
+Scenario('OPPRETT KONTAKTINFORMASJON', async ({ I, oidcClientPage }) => {
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
 
     I.loginWithMinID();
-    this.click('#continueConfirmBtn');
+    I.createKRR();
+
+    I.click('#get-tokens');
 
 
-    this.click('#continuebtn');
 
-    this.click('#get-tokens');
-    this.logoutOidcClient();
-this.click('startpage');
 });
