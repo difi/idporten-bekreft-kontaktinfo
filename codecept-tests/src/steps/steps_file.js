@@ -50,7 +50,6 @@ module.exports = function() {
     },
     createKRRWithoutMobile(){
       this.see('DINE KONTAKTOPPLYSNINGER');
-      this.see('OPPRETT KONTAKTINFORMASJON');
       this.see('Informasjonen nedenfor lagres i et felles kontaktregister som stat og kommune skal bruke når de kontakter deg.');
       I.click('#idporten.inputbutton.CONTINUE_CONFIRM');
     },

@@ -26,6 +26,4 @@ Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => 
     this.click('#continuebtn');
 
     this.click('#get-tokens');
-    this.logoutOidcClient();
-this.click('startpage');
 });
