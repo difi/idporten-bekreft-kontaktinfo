@@ -30,7 +30,7 @@ class MySQLHelper extends Helper {
 
   _beforeSuite() {
 
-    this.conn.query("delete from user where ssn='"+process.env.IBK_USERNAME+"'", function (err, result) {
+    this.conn.query("delete from user where ssn='24079497513'", function (err, result) {
       if (err) throw err;
       console.log("*** delete from user where ssn='24079497513'", result);
     });
@@ -75,7 +75,7 @@ class MySQLHelper extends Helper {
   }
 
   insertUserWithoutMobile(){
-    this.conn.query("insert into user (uuid, ssn, email, mobile) values(uuid(), '24079497513','24079497513@difi.no','')", function (err, result) {
+    this.conn.query("insert into user (uuid, ssn, email, mobile) values(uuid(), '24079497513','24079497513-test@digdir.no','')", function (err, result) {
       if (err) throw err;
       console.log("*** insert into user (ssn) values('24079497513')", result);
     });
