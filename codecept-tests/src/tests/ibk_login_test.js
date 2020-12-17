@@ -20,10 +20,10 @@ Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => 
     oidcClientPage.clickLogin();
 
     I.loginWithMinID();
-    this.click('#continueConfirmBtn');
+    I.click('#continueConfirmBtn');
 
 
-    this.click('#continuebtn');
+    I.click('#continuebtn');
 
-    this.click('#get-tokens');
+    I.click('#get-tokens');
 });

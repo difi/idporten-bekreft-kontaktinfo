@@ -11,9 +11,6 @@ VERSION=DEV-SNAPSHOT REGISTRY=local docker stack deploy -c docker/stack-codecept
 
  //loggen kan sjekke med kommondo
  
-$ docker service logs  bekreft-kontaktinfo_codeceptjs -f -t
+docker service logs  bekreft-kontaktinfo_codeceptjs -f -t
 
 
- //conosle.log og report.html ligger i codeceptjs stack
- 
-$ docker service logs  bekreft-kontaktinfo_codeceptjs -f -t
