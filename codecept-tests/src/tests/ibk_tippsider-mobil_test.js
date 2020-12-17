@@ -1,9 +1,6 @@
 Feature('ibk tippsider for uten mobil addressa test');
 
 Before(({ I }) => {
-    I.resetUser();
-    I.insertUserWithoutMobile();
-    I.resetLastUpdatedOfUser();
 
     I.amOnPage(process.env.IBK_HOST);
     I.seeInCurrentUrl('/idporten-oidc-client/');
@@ -20,9 +17,11 @@ Scenario('IBK tippsider for uten epost', async ({ I, oidcClientPage }) => {
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
+    I.resetUser();
+    I.insertUserWithoutMobile();
+    I.resetLastUpdatedOfUser();
     I.loginWithMinID();
     I.createKRRWithoutMobile();
-
     I.click('#get-tokens');
 
 
