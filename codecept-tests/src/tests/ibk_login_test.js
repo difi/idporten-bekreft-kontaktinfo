@@ -11,6 +11,7 @@ Before(({ I }) => {
 
 After(({ I }) => {
     I.logoutOidcClient();
+    I.resetUser();
 });
 
 
