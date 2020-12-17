@@ -20,9 +20,18 @@ krr:
     connect: <%= @krr_backend_connect_timeout %>
   tip_days_user: <%= @krr_tip_days_user %>
 
-par:
-  cache:
-    ttl-in-s: <%= @par_cache_ttl_in_s %>
+oidc-sdk:
+  par_lifetime_seconds: <%= @par_lifetime_seconds %>
+  authorization_lifetime_seconds: <%= @authorization_lifetime_seconds %>
+  internal_id: <%= @internal_id %>
+  issuer: <%= @issuer %>
+  acr: <%= @acr %>
+  locale: <%= @locale %>
+  clients:
+    - client_id: openam
+      clientSecret: password
+      redirect_uris: ['https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse']
+      scopes: [openid]
 
 cache:
   local:

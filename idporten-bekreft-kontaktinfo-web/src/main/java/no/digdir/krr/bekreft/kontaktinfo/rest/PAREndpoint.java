@@ -1,61 +1,92 @@
 package no.digdir.krr.bekreft.kontaktinfo.rest;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController;
-import no.digdir.krr.bekreft.kontaktinfo.domain.PARRequest;
-import no.digdir.krr.bekreft.kontaktinfo.domain.PARResponse;
-import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
-import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
-import no.digdir.krr.bekreft.kontaktinfo.service.PARService;
-import org.springframework.beans.factory.annotation.Value;
+import no.idporten.sdk.oidcserver.OAuth2Exception;
+import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
+import no.idporten.sdk.oidcserver.protocol.AuthorizationRequest;
+import no.idporten.sdk.oidcserver.protocol.ErrorResponse;
+import no.idporten.sdk.oidcserver.protocol.OpenIDProviderMetadataResponse;
+import no.idporten.sdk.oidcserver.protocol.PushedAuthorizationRequest;
+import no.idporten.sdk.oidcserver.protocol.PushedAuthorizationResponse;
+import no.idporten.sdk.oidcserver.protocol.TokenRequest;
+import no.idporten.sdk.oidcserver.protocol.TokenResponse;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.COMPLETE_AUTHORIZE_PAGE;
+import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
+
 @RestController
+@RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/api")
 public class PAREndpoint {
+    public static final String SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST = PushedAuthorizationRequest.class.getName();
     private final ContactInfoController contactInfoController;
-    private final PARService parService;
-    private final KontaktinfoCache kontaktinfoCache;
+    private final OpenIDConnectIntegration openIDConnectSdk;
 
-    @Value("${par.cache.ttl-in-s:120}")
-    private int ttl;
-
-    public PAREndpoint(PARService parService, KontaktinfoCache kontaktinfoCache, ContactInfoController contactInfoController) {
-        this.contactInfoController = contactInfoController;
-        this.parService = parService;
-        this.kontaktinfoCache = kontaktinfoCache;
+    @GetMapping(value = {"/jwk", "/jwks", "/.well-known/jwks.json"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<String> jwks() {
+        return ResponseEntity.ok(openIDConnectSdk.getPublicJWKSet().toString());
     }
 
-    @PostMapping("/par")
-    @ResponseBody
-    public ResponseEntity<PARResponse> par(@RequestBody PARRequest parRequest) {
-        String requestUri = parService.generateRequestUri();
-        kontaktinfoCache.putParRequest(requestUri, parRequest);
-        kontaktinfoCache.putPid(requestUri, parRequest.getPid());
-        PARResponse response = new PARResponse(requestUri, ttl);
-        return ResponseEntity.ok().body(response);
+    @GetMapping(value = "/.well-known/openid-configuration", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "*")
+    public ResponseEntity<OpenIDProviderMetadataResponse> openidConfiguration() {
+        return ResponseEntity.ok(openIDConnectSdk.getOpenIDProviderMetadata());
+    }
+
+    @PostMapping(
+            value = "/par",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<PushedAuthorizationResponse> par(HttpServletRequest request) {
+        return ResponseEntity.ok(openIDConnectSdk.process(new PushedAuthorizationRequest(request)));
     }
 
     @GetMapping("/authorize")
-    public Object authorize(@PathVariable String requestUri) {
-        String uuid = requestUri;
-        PARRequest parRequest = kontaktinfoCache.getParRequest(uuid);
-        return contactInfoController.confirm(kontaktinfoCache.getPid(uuid), parRequest.getGotoParam(), parRequest.getLocale());
+    public Object authorize(HttpServletRequest request) {
+        request.getSession().invalidate(); // FIXME: trengs denne?
+        try {
+            PushedAuthorizationRequest pushedAuthorizationRequest =
+                    openIDConnectSdk.process(new AuthorizationRequest(request));
+            request.getSession(true).setAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST, pushedAuthorizationRequest);
+
+            return contactInfoController.confirm(
+                    pushedAuthorizationRequest.getParameter(DIGITALCONTACTREGISTER_PID),
+                    COMPLETE_AUTHORIZE_PAGE,
+                    pushedAuthorizationRequest.getResolvedUiLocale(),
+                    request);
+        } catch (OAuth2Exception e) {
+            log.warn("Failed to process authorization request", e);
+            return "error";
+        }
     }
 
-    @PostMapping("/token")
-    public Object token(@RequestBody String code) {
-        PersonResource kontaktinfo = kontaktinfoCache.getPersonResource(code);
-        String jwt = parService.makeJwt(kontaktinfo.getPersonIdentifikator(), kontaktinfo.getEmail(), kontaktinfo.getMobile());
-        kontaktinfoCache.removePersonResource(code);
-        return jwt;
+    @PostMapping(
+            value = "/token",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<TokenResponse> token(HttpServletRequest request) {
+        return ResponseEntity.ok(openIDConnectSdk.process(new TokenRequest(request)));
+    }
+
+    @ExceptionHandler(OAuth2Exception.class)
+    public ResponseEntity<ErrorResponse> handleError(HttpSession session, OAuth2Exception exception) {
+        session.invalidate();
+        log.warn(exception.getMessage(), exception);
+        return ResponseEntity.status(exception.getHttpStatusCode()).body(exception.errorResponse());
     }
 }

@@ -2,28 +2,30 @@ package no.digdir.krr.bekreft.kontaktinfo.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
+import lombok.Data;
+import no.difi.kontaktregister.dto.PostboxResource;
 
+@Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DigitalPostResource {
 
-    private String postkasseadresse;
+    String postkasseadresse;
 
-    private String postkasseleverandoeradresse;
+    String postkasseleverandoernavn;
 
-    public String getPostkasseadresse() {
-        return postkasseadresse;
-    }
+    public static DigitalPostResource fromPostboxResource(PostboxResource postboxResource) {
+        if (postboxResource == null) {
+            return null;
+        }
 
-    public void setPostkasseadresse(String postkasseadresse) {
-        this.postkasseadresse = postkasseadresse;
-    }
+        String postboxleverandoernavn = postboxResource.getPostboxOperator() == null
+                ? null
+                : postboxResource.getPostboxOperator().getName();
 
-    public String getPostkasseleverandoeradresse() {
-        return postkasseleverandoeradresse;
-    }
-
-    public void setPostkasseleverandoeradresse(String postkasseleverandoeradresse) {
-        this.postkasseleverandoeradresse = postkasseleverandoeradresse;
+        return DigitalPostResource.builder()
+                .postkasseadresse(postboxResource.getAddress())
+                .postkasseleverandoernavn(postboxleverandoernavn)
+                .build();
     }
 }

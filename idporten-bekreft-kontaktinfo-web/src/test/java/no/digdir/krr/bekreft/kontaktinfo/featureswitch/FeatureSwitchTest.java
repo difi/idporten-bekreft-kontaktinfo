@@ -60,12 +60,8 @@ public class FeatureSwitchTest {
                 .param("locale",locale)
                 .param("goto",gotoParam)
                 .with(csrf()))
-                .andExpect(status().isFound())
+                .andExpect(status().isInternalServerError())
                 .andReturn();
-
-        String location = (String) mvcResult.getResponse().getHeaderValue("Location");
-        assertTrue(URLDecoder.decode(location).contains(ContactInfoController.AUTOSUBMIT_PAGE));
-        assertTrue(URLDecoder.decode(location).contains(gotoParam));
     }
 
     private UserDetailResource createUserDetailResource(String ssn, String email, String mobile) {
