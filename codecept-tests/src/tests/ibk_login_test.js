@@ -1,7 +1,7 @@
 Feature('ibk login test');
 
 Before(({ I }) => {
-
+    I.insertUser();
     I.resetLastUpdatedOfUser();
 
     I.amOnPage(process.env.IBK_HOST);
