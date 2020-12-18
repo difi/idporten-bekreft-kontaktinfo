@@ -20,7 +20,6 @@ Scenario('OPPRETT KONTAKTINFORMASJON', async ({ I, oidcClientPage }) => {
     oidcClientPage.clickLogin();
 
     I.resetUser();
-    I.waitForNavigation();
     I.loginWithMinID();
     I.waitForNavigation();
     I.createKRR();
