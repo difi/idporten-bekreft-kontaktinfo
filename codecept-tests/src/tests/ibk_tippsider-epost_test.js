@@ -1,8 +1,6 @@
-Feature('ibk login test');
+Feature('ibk tippsider for uten epost addressa test');
 
 Before(({ I }) => {
-    I.insertUser();
-    I.resetLastUpdatedOfUser();
 
     I.amOnPage(process.env.IBK_HOST);
     I.seeInCurrentUrl('/idporten-oidc-client/');
@@ -15,18 +13,17 @@ After(({ I }) => {
 });
 
 
-Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => {
+Scenario('IBK tippsider for uten epost', async ({ I, oidcClientPage }) => {
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
-
+    I.resetUser();
+    I.insertUserWithoutEmail();
+    I.resetLastUpdatedOfUser();
     I.loginWithMinID();
-    I.waitForNavigation();
-
-    I.click('#continueConfirmBtn');
-
-
-    I.click('#continuebtn');
+    I.createKRRWithoutEmail();
 
     I.click('#get-tokens');
+
+
 });
