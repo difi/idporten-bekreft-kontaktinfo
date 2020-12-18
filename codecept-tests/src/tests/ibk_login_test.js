@@ -21,6 +21,8 @@ Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => 
     oidcClientPage.clickLogin();
 
     I.loginWithMinID();
+    I.waitForNavigation();
+
     I.click('#continueConfirmBtn');
 
 
