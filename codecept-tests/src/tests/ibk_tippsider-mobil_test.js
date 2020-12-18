@@ -30,6 +30,4 @@ Scenario('IBK tippsider for uten epost', async ({ I, oidcClientPage }) => {
     I.waitForNavigation();
     I.click('#get-tokens');
 
-
-
 });
