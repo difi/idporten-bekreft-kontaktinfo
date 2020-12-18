@@ -23,7 +23,7 @@ Scenario('IBK tippsider for uten epost', async ({ I, oidcClientPage }) => {
     I.insertUserWithoutMobile();
     I.waitForNavigation();
     I.resetLastUpdatedOfUser();
-    I.waitForNavigation();
+
     I.loginWithMinID();
     I.waitForNavigation();
     I.createKRRWithoutMobile();
