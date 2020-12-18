@@ -19,7 +19,7 @@ Scenario('attempts login through oidc-client', async ({ I, oidcClientPage }) => 
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
-
+    I.waitForNavigation();
     I.loginWithMinID();
     I.waitForNavigation();
 
