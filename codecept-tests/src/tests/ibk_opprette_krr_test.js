@@ -18,10 +18,13 @@ Scenario('OPPRETT KONTAKTINFORMASJON', async ({ I, oidcClientPage }) => {
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
+    I.waitForNavigation();
     I.resetUser();
+    I.waitForNavigation();
     I.loginWithMinID();
+    I.waitForNavigation();
     I.createKRR();
-
+    I.waitForNavigation();
     I.click('#get-tokens');
 
 

@@ -17,12 +17,17 @@ Scenario('IBK tippsider for uten epost', async ({ I, oidcClientPage }) => {
 
     oidcClientPage.selectClientId(process.env.IBK_CLIENT_ID);
     oidcClientPage.clickLogin();
+    I.waitForNavigation();
     I.resetUser();
+    I.waitForNavigation();
     I.insertUserWithoutEmail();
+    I.waitForNavigation();
     I.resetLastUpdatedOfUser();
+    I.waitForNavigation();
     I.loginWithMinID();
+    I.waitForNavigation();
     I.createKRRWithoutEmail();
-
+    I.waitForNavigation();
     I.click('#get-tokens');
 
 
