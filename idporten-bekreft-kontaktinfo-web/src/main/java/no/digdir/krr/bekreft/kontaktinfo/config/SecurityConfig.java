@@ -31,41 +31,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .sessionManagement().sessionFixation().migrateSession()
-        .and()
-            .cors(withDefaults())
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
-            .headers()
-            .httpStrictTransportSecurity()
-            .includeSubDomains(true)
-            .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
-        .and()
-            .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
-            .contentSecurityPolicy("object-src " + contentsecuritypolicy_url + "; report-uri /csp-report-endpoint")
-        .and()
-            .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
-            .and()
-        .and()
-            .exceptionHandling()
-            .authenticationEntryPoint(problemSupport)
-            .accessDeniedHandler(problemSupport)
-        .and()
-            .authorizeRequests()
-            .anyRequest().permitAll()
-//            .antMatchers("/health", "/info", "/version").permitAll()
-        ;
-
+                .sessionManagement().sessionFixation().migrateSession()
+                .and()
+                .cors(withDefaults())
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringAntMatchers("/api/.well-known/jwks.json", "/api/.well-known/openid-configuration",
+                        "/api/jwk", "/api/jwks", "/api/par", "/api/token", "/api/authorize", "/api/completeAuthorize")
+                .and()
+                .headers()
+                .httpStrictTransportSecurity()
+                .includeSubDomains(true)
+                .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
+                .and()
+                .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
+                .contentSecurityPolicy("object-src " + contentsecuritypolicy_url + "; report-uri /csp-report-endpoint")
+                .and()
+                .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
+                .and()
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(problemSupport)
+                .accessDeniedHandler(problemSupport)
+                .and()
+                .authorizeRequests()
+                .anyRequest().permitAll();
     }
-
-//    public void configure(HttpSecurity http) throws Exception {
-//        http.csrf()
-//                .disable();
-//        http.authorizeRequests()
-//                .anyRequest().permitAll()
-//                .and()
-//                .headers().frameOptions().sameOrigin();
-//    }
 
 }

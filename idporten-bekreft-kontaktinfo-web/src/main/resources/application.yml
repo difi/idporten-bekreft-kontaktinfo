@@ -76,9 +76,18 @@ krr:
     connect: 10000
   tip_days_user: 5
 
-par:
-  cache:
-    ttl-in-s: 120
+oidc-sdk:
+  par_lifetime_seconds: 60
+  authorization_lifetime_seconds: 60
+  internal_id: kontaktinfo
+  issuer: 'https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/'
+  acr: Level3
+  locale: nb
+  clients:
+    - client_id: openam
+      clientSecret: password
+      redirect_uris: ['https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse']
+      scopes: [openid]
 
 cache:
   local:

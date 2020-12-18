@@ -5,6 +5,13 @@ classes:
 
 idporten_bekreft_kontaktinfo::component_version: 'DEV-SNAPSHOT'
 idporten_bekreft_kontaktinfo::idporten_oidc_provider_url: 'https://eid-atest-web01.dmz.local/idporten-oidc-provider'
+idporten_bekreft_kontaktinfo::clients: [
+  {
+    client_id: 'openam',
+    redirect_uri: 'https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse',
+    secret: 'password',
+    scope: 'openid'
+  }]
 
 filebeat::inputs:
   access:

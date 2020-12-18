@@ -22,7 +22,12 @@ class idporten_bekreft_kontaktinfo::params {
   $keystore_key_password                      = 'changeit'
   $cache_local_ttl_in_s                       = 5
   $cache_cluster_ttl_in_s                     = 300
-  $par_cache_ttl_in_s                         = 120
+  $par_lifetime_seconds                       = 60
+  $authorization_lifetime_seconds             = 60
+  $internal_id                                = 'kontaktinfo'
+  $issuer                                     = hiera('kontaktinfo_backend::url')
+  $acr                                        = 'Level3'
+  $locale                                     = 'nb'
   $cache_transport_file_location              = '/etc/opt/idporten-bekreft-kontaktinfo/'
   $cache_groups_udp_mcast_port                = 45588
   $cache_groups_udp_bind_addr                 = 'match-interface:eth0' # only works if all nodes on same machine. See http://www.jgroups.org/manual/index.html#Transport.

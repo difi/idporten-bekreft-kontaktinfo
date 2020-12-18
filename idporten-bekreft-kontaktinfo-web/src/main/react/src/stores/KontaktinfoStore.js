@@ -28,15 +28,10 @@ export default class KontaktinfoStore {
     @action.bound
      async updateGotoUrl() {
         let url = new URLSearchParams();
-        url.append("digitalcontactregister-reserved", "");
-        url.append("digitalcontactregister-postboxoperator", "");
-        url.append("digitalcontactregister-status", "");
-
-        url.append("digitalcontactregister-email", this.current.email || "");
-        url.append("digitalcontactregister-mobile", this.current.mobile || "");
         url.append("code", this.code || "");
+        url.append("iss", "https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/");
 
-        this.setGotoUrl(this.gotoUrl + "&" + url.toString());
+        this.setGotoUrl(this.gotoUrl + "?" + url.toString());
 
         return this.gotoUrl;
     }
