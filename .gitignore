@@ -217,4 +217,5 @@ yarn-error.log*
 /codecept-tests/output/*.log
 /codecept-tests/node_modules
 /codecept-tests/node
-/docker/codeceptjs-with-tests/tests/**
+/docker/codeceptjs-with-tests/tests/*/
+/docker/codeceptjs-with-tests/tests/
