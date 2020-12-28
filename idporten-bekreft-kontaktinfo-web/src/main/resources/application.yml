@@ -70,7 +70,7 @@ spring:
 # Application specific properties
 # ===================================================================
 krr:
-  url: 'http://eid-atest-admin01.dmz.local:10002/kontaktinfo-backend'
+  url: 'http://eid-systest-admin01.dmz.local:10002/kontaktinfo-backend'
   timeout:
     read: 10000
     connect: 10000
