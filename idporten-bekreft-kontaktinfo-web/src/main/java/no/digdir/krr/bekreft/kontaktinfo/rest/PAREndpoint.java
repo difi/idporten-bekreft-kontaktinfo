@@ -58,7 +58,7 @@ public class PAREndpoint {
 
     @GetMapping("/authorize")
     public Object authorize(HttpServletRequest request) {
-        request.getSession().invalidate(); // FIXME: trengs denne?
+        request.getSession().invalidate();
         try {
             PushedAuthorizationRequest pushedAuthorizationRequest =
                     openIDConnectSdk.process(new AuthorizationRequest(request));
