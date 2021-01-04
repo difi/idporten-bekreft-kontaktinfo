@@ -29,7 +29,6 @@ export default class KontaktinfoStore {
      async updateGotoUrl() {
         let url = new URLSearchParams();
         url.append("code", this.code || "");
-        url.append("iss", "https://eid-atest-web01.dmz.local/idporten-bekreft-kontaktinfo/api/");
 
         this.setGotoUrl(this.gotoUrl + "?" + url.toString());
 
