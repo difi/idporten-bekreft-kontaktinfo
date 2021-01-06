@@ -29,7 +29,7 @@ class idporten_bekreft_kontaktinfo::params {
   $acr                                        = 'Level3'
   $locale                                     = 'nb'
   $cache_transport_file_location              = '/etc/opt/idporten-bekreft-kontaktinfo/'
-  $cache_groups_udp_mcast_port                = 45588
+  $cache_groups_udp_mcast_port                = 45522
   $cache_groups_udp_bind_addr                 = 'match-interface:eth0' # only works if all nodes on same machine. See http://www.jgroups.org/manual/index.html#Transport.
   $tomcat_tmp_dir                             = '/opt/idporten-bekreft-kontaktinfo/tmp'
   $health_show_details                        = 'always'
