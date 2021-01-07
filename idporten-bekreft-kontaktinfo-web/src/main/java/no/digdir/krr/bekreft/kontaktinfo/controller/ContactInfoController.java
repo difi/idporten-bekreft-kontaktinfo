@@ -207,18 +207,25 @@ public class ContactInfoController {
 
     ResponseEntity<Void> createAuthorizationResponse(HttpServletRequest request, PersonResource personResource) {
         PushedAuthorizationRequest authorizationRequest = (PushedAuthorizationRequest) request.getSession().getAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST);
-        String postboxOperator = personResource.getDigitalPost() == null
+        String personIdentifikator = personResource == null ? null : personResource.getPersonIdentifikator();
+        String email =  personResource == null ? null : personResource.getEmail();
+        String mobile = personResource == null ? null : personResource.getMobile();
+        String postboxOperator = personResource == null ? null :
+                personResource.getDigitalPost() == null
                 ? null
                 : personResource.getDigitalPost().getPostkasseleverandoernavn();
+        String reserved = personResource == null ? null : String.valueOf(personResource.getReserved());
+        String status = personResource == null ? null : personResource.getStatus();
+
         Authorization authorization = Authorization.builder()
-                .pid(personResource.getPersonIdentifikator())
+                .pid(personIdentifikator)
                 .acr(authorizationRequest.getResolvedAcrValue())
                 .amr(AMR)
-                .attribute(DIGITALCONTACTREGISTER_EMAIL, personResource.getEmail())
-                .attribute(DIGITALCONTACTREGISTER_MOBILE, personResource.getMobile())
+                .attribute(DIGITALCONTACTREGISTER_EMAIL, email)
+                .attribute(DIGITALCONTACTREGISTER_MOBILE, mobile)
                 .attribute(DIGITALCONTACTREGISTER_POSTBOXOPERATOR, postboxOperator)
-                .attribute(DIGITALCONTACTREGISTER_RESERVED, String.valueOf(personResource.getReserved()))
-                .attribute(DIGITALCONTACTREGISTER_STATUS, personResource.getStatus())
+                .attribute(DIGITALCONTACTREGISTER_RESERVED, reserved)
+                .attribute(DIGITALCONTACTREGISTER_STATUS, status)
                 .build();
         AuthorizationResponse authorizationResponse = openIDConnectSdk.authorize(authorizationRequest, authorization);
 
