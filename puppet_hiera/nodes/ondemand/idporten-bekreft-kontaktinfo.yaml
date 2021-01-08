@@ -3,15 +3,23 @@ classes:
   - idporten_bekreft_kontaktinfo
   - filebeat
 
+
 idporten_bekreft_kontaktinfo::component_version: 'DEV-SNAPSHOT'
 idporten_bekreft_kontaktinfo::idporten_oidc_provider_url: 'https://eid-atest-web01.dmz.local/idporten-oidc-provider'
 idporten_bekreft_kontaktinfo::clients: [
   {
     client_id: 'openam',
-    redirect_uri: 'https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse',
+    redirect_uris: ['https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse'],
     secret: 'password',
-    scope: 'openid'
-  }]
+    scopes: ['openid']
+  },
+  {
+    client_id: 'testid',
+    redirect_uris: ['http://localhost:8888/idporten-oidc-client/authorize/response'],
+    secret: 'clientsecret',
+    scopes: ['openid']
+  }
+]
 
 filebeat::inputs:
   access:

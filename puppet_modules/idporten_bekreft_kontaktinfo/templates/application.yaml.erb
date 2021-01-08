@@ -27,11 +27,12 @@ oidc-sdk:
   issuer: <%= @issuer %>
   acr: <%= @acr %>
   locale: <%= @locale %>
-  clients:
-    - client_id: openam
-      clientSecret: password
-      redirect_uris: ['https://eid-atest-web01.dmz.local:443/opensso/UI/kontaktinforesponse']
-      scopes: [openid]
+  clients: <% @clients.each do |client| %>
+    - client_id: <%= client['client_id'] %>
+      clientSecret: <%= client['secret'] %>
+      scopes: <%= client['scopes'] %>
+      redirect_uris: <%= client['redirect_uris'] %>
+      <% end -%>
 
 cache:
   local:

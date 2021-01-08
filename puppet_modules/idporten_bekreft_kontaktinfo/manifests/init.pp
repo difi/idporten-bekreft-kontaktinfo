@@ -36,6 +36,7 @@ class idporten_bekreft_kontaktinfo (
   String $eventlog_jms_url                             = $idporten_bekreft_kontaktinfo::params::eventlog_jms_url,
   String $auditlog_dir                                 = $idporten_bekreft_kontaktinfo::params::auditlog_dir,
   String $auditlog_file                                = $idporten_bekreft_kontaktinfo::params::auditlog_file,
+  Array $clients                                       = $idporten_bekreft_kontaktinfo::params::clients,
 
 ) inherits idporten_bekreft_kontaktinfo::params {
 

@@ -42,4 +42,5 @@ class idporten_bekreft_kontaktinfo::params {
   $eventlog_jms_url                           = hiera('platform::jms_url')
   $auditlog_dir                               = "/var/log/idporten-bekreft-kontaktinfo/audit/"
   $auditlog_file                              = "audit.log"
+  $idporten_bekreft_kontaktinfo_clients       = []
 }
