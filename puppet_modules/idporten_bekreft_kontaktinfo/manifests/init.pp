@@ -20,6 +20,7 @@ class idporten_bekreft_kontaktinfo (
   String $health_show_details                          = $idporten_bekreft_kontaktinfo::params::health_show_details,
   Integer $cache_local_ttl_in_s                        = $idporten_bekreft_kontaktinfo::params::cache_local_ttl_in_s,
   Integer $cache_cluster_ttl_in_s                      = $idporten_bekreft_kontaktinfo::params::cache_cluster_ttl_in_s,
+  Integer $cache_krr_health_ttl_in_s                   = $idporten_bekreft_kontaktinfo::params::cache_krr_health_ttl_in_s,
   Integer $par_lifetime_seconds                        = $idporten_bekreft_kontaktinfo::params::par_lifetime_seconds,
   Integer $authorization_lifetime_seconds              = $idporten_bekreft_kontaktinfo::params::authorization_lifetime_seconds,
   String $internal_id                                  = $idporten_bekreft_kontaktinfo::params::internal_id,

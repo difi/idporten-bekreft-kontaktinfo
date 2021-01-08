@@ -22,6 +22,7 @@ class idporten_bekreft_kontaktinfo::params {
   $keystore_key_password                      = 'changeit'
   $cache_local_ttl_in_s                       = 5
   $cache_cluster_ttl_in_s                     = 300
+  $cache_krr_health_ttl_in_s                  = 300
   $par_lifetime_seconds                       = 60
   $authorization_lifetime_seconds             = 60
   $internal_id                                = 'kontaktinfo'

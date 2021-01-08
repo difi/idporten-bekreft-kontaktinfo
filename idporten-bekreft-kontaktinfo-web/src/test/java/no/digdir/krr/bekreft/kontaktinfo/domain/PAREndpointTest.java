@@ -5,6 +5,7 @@ import no.digdir.krr.bekreft.kontaktinfo.config.OpenIDConnectConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyProvider;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyStoreProvider;
+import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterHealth;
 import no.digdir.krr.bekreft.kontaktinfo.rest.PAREndpoint;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
@@ -25,6 +26,8 @@ public class PAREndpointTest {
 
     @MockBean
     ContactInfoController contactInfoController;
+    @MockBean
+    KontaktregisterHealth kontaktregisterHealth;
     @MockBean
     KontaktinfoCache kontaktinfoCache;
     @MockBean

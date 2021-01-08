@@ -22,6 +22,9 @@ cache:
     transport:
       file:
         location: ./
+  kontaktinfo-backend:
+    health:
+      ttl-in-s: 300
 
 jwt:
   iss: idporten-bekreft-kontaktinfo

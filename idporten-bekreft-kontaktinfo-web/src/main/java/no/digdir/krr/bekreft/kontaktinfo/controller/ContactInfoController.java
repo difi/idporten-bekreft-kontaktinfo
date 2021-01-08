@@ -108,11 +108,7 @@ public class ContactInfoController {
             HttpServletRequest request) {
 
         if (!bekreftKontaktinfoEnabled) {
-            PushedAuthorizationRequest authorizationRequest = (PushedAuthorizationRequest) request.getSession()
-                    .getAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST);
-            AuthorizationResponse authorizationResponse =
-                    openIDConnectSdk.errorResponse(authorizationRequest, "disabled", "IBK is disabled");
-            return redirectToDestination(AUTOSUBMIT_PAGE, authorizationResponse.toQueryRedirectUri().toString());
+            return buildErrorResponse(request, "IBK is disabled");
         }
 
         return confirmUserInfo(fnr, gotoParam, locale, request);
@@ -182,8 +178,7 @@ public class ContactInfoController {
         PersonResource personResource = clientService.getKontaktinfo(fnr);
 
         if (personResource == null) {
-            //TODO: handle no person resource returning in idporten
-            return redirectToDestination(AUTOSUBMIT_PAGE, gotoParam);
+            return buildErrorResponse(request, "Contact information not available");
         }
 
         String redirectPath = buildRedirectPath(personResource);
@@ -231,4 +226,13 @@ public class ContactInfoController {
 
         return redirectToDestination(AUTOSUBMIT_PAGE, authorizationResponse.toQueryRedirectUri().toString());
     }
+
+    private ResponseEntity<Void> buildErrorResponse(HttpServletRequest request, String message) {
+        PushedAuthorizationRequest authorizationRequest = (PushedAuthorizationRequest) request.getSession()
+                .getAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST);
+        AuthorizationResponse authorizationResponse =
+                openIDConnectSdk.errorResponse(authorizationRequest, "unavailable", message);
+        return redirectToDestination(AUTOSUBMIT_PAGE, authorizationResponse.toQueryRedirectUri().toString());
+    }
+
 }

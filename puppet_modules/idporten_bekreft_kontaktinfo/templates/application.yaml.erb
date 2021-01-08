@@ -41,6 +41,9 @@ cache:
     transport:
       file:
         location: <%= @cache_transport_file_location %>
+  kontaktinfo-backend:
+    health:
+      ttl-in-s: <%= @cache_krr_health_ttl_in_s %>
 
 jwt:
   iss: <%= @issuer %>

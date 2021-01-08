@@ -98,6 +98,9 @@ cache:
       file:
         location: 'c:/etc/opt/idporten-oidc-provider/' # Windows
         #location: '/etc/idporten-oidc-provider/' # Mac
+  kontaktinfo-backend:
+    health:
+      ttl-in-s: 300
 
 log:
   # Audit config
