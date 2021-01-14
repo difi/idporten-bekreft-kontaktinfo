@@ -18,7 +18,7 @@ server:
     session:
       cookie:
         secure: false
-        http-only: true
+        http-only: false
   compression:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
