@@ -31,7 +31,6 @@ class idporten_bekreft_kontaktinfo (
   Integer $cache_groups_udp_mcast_port                 = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_mcast_port,
   String $cache_groups_udp_bind_addr                   = $idporten_bekreft_kontaktinfo::params::cache_groups_udp_bind_addr,
   Boolean $featureswitch_bekreft_kontaktinfo           = $idporten_bekreft_kontaktinfo::params::featureswitch_bekreft_kontaktinfo,
-  String $contentSecurityPolicy_url                    = $idporten_bekreft_kontaktinfo::params::contentsecuritypolicy_url,
   String $eventlog_jms_queuename                       = $idporten_bekreft_kontaktinfo::params::eventlog_jms_queuename,
   String $eventlog_jms_url                             = $idporten_bekreft_kontaktinfo::params::eventlog_jms_url,
   String $auditlog_dir                                 = $idporten_bekreft_kontaktinfo::params::auditlog_dir,

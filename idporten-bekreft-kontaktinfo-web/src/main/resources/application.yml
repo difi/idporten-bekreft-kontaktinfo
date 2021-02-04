@@ -124,6 +124,3 @@ jwt:
 
 featureswitch:
   bekreft_kontaktinfo_enabled: true
-
-security:
-  contentsecuritypolicy_url: "https://eid-systest-web01.dmz.local"

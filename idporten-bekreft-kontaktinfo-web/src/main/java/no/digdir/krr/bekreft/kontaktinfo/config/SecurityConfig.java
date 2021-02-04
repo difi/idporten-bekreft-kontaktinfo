@@ -25,9 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SecurityProblemSupport problemSupport;
 
-    @Value("${security.contentsecuritypolicy_url}")
-    private String contentsecuritypolicy_url;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -45,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
                 .and()
                 .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
-                .contentSecurityPolicy("object-src " + contentsecuritypolicy_url + "; report-uri /csp-report-endpoint")
+                .contentSecurityPolicy("default-src 'self'; report-uri /csp-report-endpoint")
                 .and()
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
                 .and()

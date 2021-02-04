@@ -37,7 +37,6 @@ class idporten_bekreft_kontaktinfo::params {
   $server_port                                = 8080
   $java_home                                  = hiera('platform::java_home')
   $featureswitch_bekreft_kontaktinfo          = true
-  $contentsecuritypolicy_url                  = "https://eid-systest-web01.dmz.local"
   $eventlog_jms_queuename                     = hiera('idporten_logwriter::jms_queueName')
   $eventlog_jms_url                           = hiera('platform::jms_url')
   $auditlog_dir                               = "/var/log/idporten-bekreft-kontaktinfo/audit/"
