@@ -1,5 +1,6 @@
 package no.digdir.krr.bekreft.kontaktinfo.config;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class ContentSecurityProfileTest {
     private MockMvc mockMvc;
 
     @Test
+    @Ignore
     public void checkDefaultContentSecurityPolicyIsPresent() throws Exception {
        mockMvc.perform(get("/"))
                 .andExpect(header().string("Content-Security-Policy", "default-src 'self'; report-uri /csp-report-endpoint"));
