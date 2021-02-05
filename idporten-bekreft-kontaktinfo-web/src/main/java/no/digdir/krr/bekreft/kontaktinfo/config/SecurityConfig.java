@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
                 .and()
                 .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
-                .contentSecurityPolicy("default-src 'self'; report-uri /csp-report-endpoint")
+                .contentSecurityPolicy("default-src 'self' ajax.googleapis.com")
                 .and()
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
                 .and()
