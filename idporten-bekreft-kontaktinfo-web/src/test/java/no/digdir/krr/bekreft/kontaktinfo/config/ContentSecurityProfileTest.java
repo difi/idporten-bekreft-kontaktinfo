@@ -23,6 +23,6 @@ public class ContentSecurityProfileTest {
     @Test
     public void checkDefaultContentSecurityPolicyIsPresent() throws Exception {
        mockMvc.perform(get("/"))
-                .andExpect(header().string("Content-Security-Policy", "default-src 'self'"));
+                .andExpect(header().string("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline';"));
     }
 }
