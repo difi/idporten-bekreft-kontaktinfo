@@ -23,6 +23,7 @@ build() {
     rm -rf docker/codeceptjs-with-tests/tests
     cp -r codecept-tests/ docker/codeceptjs-with-tests/tests
     buildImage ${registry} codeceptjs-with-tests ${version} "${pull}" || return 1
+
 }
 
 build "${@}" || exit 1
