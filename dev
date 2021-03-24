@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function _dev() {
+    case $1 in
+        "build")
+            mvn clean install
+            source docker/build-images local DEV-SNAPSHOT
+            docker service update --force idporten_idporten-bekreft-kontaktinfo
+        ;; 
+        *)
+            _help
+        ;;
+    esac
+}
+
+
+function _help() {
+    echo
+    echo "commands:"
+    echo
+    echo "  init    -   connect node to swarm"
+    echo
+    echo "  build   -   build project image and reload docker service"
+    echo
+}
+
+_dev $1

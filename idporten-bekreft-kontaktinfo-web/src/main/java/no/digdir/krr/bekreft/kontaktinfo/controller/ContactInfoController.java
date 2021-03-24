@@ -107,7 +107,10 @@ public class ContactInfoController {
             @RequestParam(value = "locale") String locale,
             HttpServletRequest request) {
 
+        eventService.logUserHasArrived(fnr);
+
         if (!bekreftKontaktinfoEnabled) {
+            eventService.logUserContinueToDestination(fnr);
             return buildErrorResponse(request, "IBK is disabled");
         }
 
