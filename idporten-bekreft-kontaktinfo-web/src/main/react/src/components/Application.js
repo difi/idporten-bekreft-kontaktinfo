@@ -26,6 +26,7 @@ const styles = (theme) => ({
         display: "flex",
         justifyContent: "space-between",
         backgroundColor: "white",
+        height: "28px"
     },
     sub: {
         padding: "0 1rem 0 1rem",
@@ -38,9 +39,11 @@ const styles = (theme) => ({
         fontSize: ".875em",
         textTransform: "uppercase",
         color: "#5e6b77",
-        fontWeight: 600,
+        fontWeight: 500,
         margin:0,
         lineHeight: "2.3em",
+        letterSpacing: ".5px"
+
     },
     providerBox: {
         display: "flex",
@@ -72,7 +75,6 @@ class Application extends Component {
                         <div className={classes.main} >
                             <h2 className={classes.h2} dangerouslySetInnerHTML={{__html: `<div> ${t_title} </div>`}}/>
                             <div className={classes.providerBox}>
-                                <img className={classes.providerImage} src={require("../images/eid-logo.gif")} alt="eid-icon" />
                             </div>
                         </div>
 

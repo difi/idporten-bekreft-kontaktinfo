@@ -39,7 +39,10 @@
   width: 30px;
   height: 30px;
   margin: 15px 15px 0 0;
-  background: url("../../images/svg/eid.svg") no-repeat top right;
+  background: url("../../images/digdir-logo.png") no-repeat top right;
+  background-size: 40px 41px !important;
+  background-position: center !important;
+  border-radius: 2px;
 
   @include mobile {
     width: 26px;
