@@ -9,14 +9,14 @@
     "next": "Boahtte",
     "save": "Vurke",
     "reset": "Reset",
-    "back" : "RUOVTTOLUOTTA"
+    "back" : "Ruovttoluotta"
   },
   "page_title": {
     "confirm": "Du dieđut",
     "edit_email": "Rievdat e-poastaadreasse",
     "edit_mobile": "Rievdat mobilnummar",
     "create": "",
-    "error": "Tjenesten er for tiden ikke tilgjengelig"
+    "error": "Bálvalus ii leat olámuttus dál"
   },
   "error": {
     "mobileError": "Mobiltelefonnummar ii dohkálaš.",
@@ -33,10 +33,10 @@
     "manglendeEpostLabel": "Berret geavahit iežat priváhta e-poastta, vai oktage eará ii oainne du persuvnnalaš ID.",
     "manglendeMobilVarsel": "Jus anát MiniID:a, de sáhttát válljet SMS:a bokte oažžut ovttahávvasaš kodaid. Dálle it dárbbaš PIN-kodareivve.",
     "manglendeMobilLabel" : "Jus dus lea olgoritnummar, muitte čállit riikkakoda (omd. Ruota <strong>+46</strong> dahje <strong>0046</strong>)",
-    "sletteMobilVarsel": "Hvis du fjerner mobilnummeret kan du ikke lenger motta engangskoder fra MinID eller kommunikasjon fra stat og kommune til din mobil.",
+    "sletteMobilVarsel": "Jus don sihkut mobiilnummara, de it oaččo šat háválaskodaid MinID:s dahje dieđuid stáhtas ja gielddas iežat mobiilii",
     "errorpage": "Bekreft kontaktinfo er ikke tilgjengelig for øyeblikket. Vi beklager dette og jobber med å løse problemet. Vennligst prøv igjen senere.",
-    "errorNoSessionHeader": "Lea šaddan boastuvuohta",
-    "errorNoSession": "Eat nákce du doaimmahit bálvalussii Gidde neahttalohkki ja geahččal ođđasis. Almmolaš sisačállima ii sáhte rahpat favorihtta/girjemearkan."
+    "errorNoSessionHeader": "Šattai meattáhus",
+    "errorNoSession": "Mii eat nagot sáddet du bálvalussii. Gidde neahttalogana ja geahččal ođđasit. Fuomáš ahte ID-portena ii sáhte rahpat favorihttaliŋkan/girjemearkan.."
   },
   "field": {
     "email": "E-poasta:",
