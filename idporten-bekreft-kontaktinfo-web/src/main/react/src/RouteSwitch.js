@@ -9,6 +9,7 @@ import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import {inject} from "mobx-react";
 import {Helmet} from "react-helmet";
+import KontaktinfoStore from "./stores/KontaktinfoStore";
 //import Validator from "./components/Validator";
 
 const load = (Component: any) => (props: any) => (
@@ -27,23 +28,27 @@ class RouteSwitch extends React.Component {
     componentDidMount(){
         const {kontaktinfoStore} = this.props;
 
-        let gotoParam = new URLSearchParams(this.props.location.search).getAll("goto").toString();
-        if(!kontaktinfoStore.gotoUrl && gotoParam) {
-            kontaktinfoStore.setGotoUrl(gotoParam);
+        // set gotoParam
+        let gotoUrl = new URLSearchParams(this.props.location.search).getAll("goto").toString();
+        if(!kontaktinfoStore.gotoUrl && gotoUrl) {
+            kontaktinfoStore.setGotoUrl(gotoUrl);
         }
 
-        const data = {
-            code:new URLSearchParams(this.props.location.search).getAll("code").toString(),
-            email:new URLSearchParams(this.props.location.search).getAll("email").toString(),
-            mobile:new URLSearchParams(this.props.location.search).getAll("mobile").toString(),
+        // set code
+        let code = new URLSearchParams(this.props.location.search).getAll("code").toString();
+        if (!kontaktinfoStore.code && code){
+            kontaktinfoStore.setCode(code);
         }
 
-        kontaktinfoStore.setKontaktinfo(data);
-
-        if(!kontaktinfoStore.current.code || !kontaktinfoStore.gotoUrl) {
+        // if something is missing, stop.
+        if(!kontaktinfoStore.code || !kontaktinfoStore.gotoUrl) {
             throw Error("no_session")
         }
 
+        // get kontaktinfo
+        if (kontaktinfoStore.code){
+            kontaktinfoStore.getKontaktinfo(code);
+        }
     }
 
     render() {

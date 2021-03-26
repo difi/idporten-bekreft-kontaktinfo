@@ -9,10 +9,7 @@ import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +32,17 @@ public class KontaktinfoEndpoint {
         return new ResponseEntity<>(responseResource, HttpStatus.OK);
     }
 
+    @GetMapping("/kontaktinfo/{code}")
+    public ResponseEntity<ContactInfoResource> getKontaktinfo(@PathVariable("code") String code) {
+        PersonResource personResource = kontaktinfoCache.getPersonResource(code);
+
+        if (personResource == null) {
+            throw new UnauthorizedException("Could not retrieve resource.");
+        }
+
+        return new ResponseEntity<>(ContactInfoResource.fromPersonResource(personResource), HttpStatus.OK);
+    }
+
     private ContactInfoResource updateAndCacheResponseResource(ContactInfoResource updatedResource, PersonResource personResource) {
         personResource.setEmail(updatedResource.getEmail());
         personResource.setMobile(updatedResource.getMobile());
@@ -42,5 +50,4 @@ public class KontaktinfoEndpoint {
         personResource.setCode(code);
         return ContactInfoResource.fromPersonResource(personResource);
     }
-
 }

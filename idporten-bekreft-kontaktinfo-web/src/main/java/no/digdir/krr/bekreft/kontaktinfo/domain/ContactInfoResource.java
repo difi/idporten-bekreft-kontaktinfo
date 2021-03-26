@@ -3,6 +3,9 @@ package no.digdir.krr.bekreft.kontaktinfo.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Getter
 @Setter
 @Builder

@@ -15,8 +15,13 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    setGotoUrl(gotoUrlParam) {
+    async setGotoUrl(gotoUrlParam) {
         this.gotoUrl = gotoUrlParam;
+    }
+
+    @action.bound
+    async setCode(code) {
+        this.code = code;
     }
 
     @action.bound
@@ -26,7 +31,7 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-     async updateGotoUrl() {
+    async updateGotoUrl() {
         let url = new URLSearchParams();
         url.append("code", this.code || "");
 
@@ -46,8 +51,18 @@ export default class KontaktinfoStore {
     }
 
     @action.bound
-    setKontaktinfo(response) {
-        this.current = new Kontaktinfo(response);
+    async getKontaktinfo(code) {
+        return await axios.get(API_BASE_URL + "/kontaktinfo/" + code)
+            .then((response) => this.setKontaktinfo(response))
+            .catch((error) => this.handleError(error))
+            .finally(() => {
+                this.isLoading = false;
+            });
+    }
+
+    @action.bound
+    async setKontaktinfo(response) {
+        this.current = new Kontaktinfo(response.data);
     }
 
     @action.bound
