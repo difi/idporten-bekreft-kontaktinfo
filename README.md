@@ -33,7 +33,7 @@ Etter at du har gjort endringer i IBK kan du kjøre
 
 For å teste IBK kan du f.eks gå til `https://eid-atest-web01.dmz.local/minprofil`
 
-NB! for at bruker skal få opp IBK applikasjonen krever det at bruker 1. ikke har oppdatert kontaktinfo på 90 dager. 2. Mangler e-post og eller mobil
+NB! for at bruker skal få opp IBK applikasjonen krever det en av følgende 1. ikke har oppdatert kontaktinfo på 90 dager. 2. Mangler e-post og eller mobil
 
 ## Development
 
@@ -41,3 +41,6 @@ IBK består av Spring boot (backend) og en React applikasjon.
 
 For å kjøre React applikasjon
 `cd idporten-bekreft-kontaktinfo-web/src/main/react` og kjør applikasjon med `yarn start`. Applikasjon er tilgjengelig på `localhost:3000`
+
+For at React applikasjonen skal få lov til å kommunisere med Spring applikasjonen (`localhost:8080) må følgende endringer gjøres i `index.js`: ```
+axios.defaults.withCredentials = false;```
