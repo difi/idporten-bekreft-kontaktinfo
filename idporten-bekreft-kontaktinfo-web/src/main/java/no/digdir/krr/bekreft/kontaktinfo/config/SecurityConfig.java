@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maxAgeInSeconds(TimeUnit.DAYS.toSeconds(365))
                 .and()
                 .frameOptions().sameOrigin() // Set Header X-Frame-Option to SAMEORIGIN
-                .contentSecurityPolicy("default-src 'self' 'unsafe-inline';")
+                .contentSecurityPolicy("default-src 'self' 'unsafe-inline'; img-src 'self' data:;")
                 .and()
                 .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)
                 .and()
