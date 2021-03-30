@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {withTranslation} from "react-i18next";

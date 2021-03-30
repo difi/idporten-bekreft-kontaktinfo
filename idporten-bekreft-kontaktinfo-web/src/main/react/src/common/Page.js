@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-
 import {withStyles} from "@material-ui/core";
 import {observer} from "mobx-react";
 
@@ -14,7 +13,7 @@ const styles = (theme) => ({
 class PageWrapper extends Component {
 
     render() {
-        const { classes, children, onSubmitCallback, ...props } = this.props;
+        const { classes, children } = this.props;
 
         return (
             <React.Fragment>

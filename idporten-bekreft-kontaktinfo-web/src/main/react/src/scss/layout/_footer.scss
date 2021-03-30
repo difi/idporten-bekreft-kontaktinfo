@@ -36,8 +36,8 @@
 }
 
 .f-Main_Logo {
-  width: 30px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
   margin: 15px 15px 0 0;
   background: url("../../images/digdir-logo.png") no-repeat top right;
   background-size: 40px 41px !important;
@@ -57,7 +57,7 @@
     line-height: 2.5em;
   }
   p {
-    margin: 0 5px;
+    margin: unset;
   }
   a {
     @include text-link($ca_footer-text, $c_white, $ca_footer_link-hover, $ca_footer-text, $t_size_basis, 0.5em);

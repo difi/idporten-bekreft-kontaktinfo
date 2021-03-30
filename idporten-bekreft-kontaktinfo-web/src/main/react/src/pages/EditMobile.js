@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import {inject, observer} from "mobx-react";
-
 import autobind from "autobind-decorator";
 import DigdirButtons from "../common/DigdirButtons";
 import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
-import kontaktinfoStore from "../stores/KontaktinfoStore";
 import SynchedInput from "../common/SynchedInput";
 import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";

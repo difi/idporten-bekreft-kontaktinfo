@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-
-import {withTranslation,Trans} from "react-i18next";
-import kontaktinfoStore from "../stores/KontaktinfoStore";
+import {withTranslation} from "react-i18next";
 import ContentInfoBox from "../common/ContentInfoBox";
 import ContentHeader from "../common/ContentHeader";
 import DigdirButtons from "../common/DigdirButtons";

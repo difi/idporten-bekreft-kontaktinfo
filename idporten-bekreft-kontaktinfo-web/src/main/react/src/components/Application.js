@@ -6,14 +6,6 @@ import DigdirLoading from "../common/DigdirLoading";
 import ErrorBoundary from "./ErrorBoundary";
 import {withStyles} from "@material-ui/core";
 import {withTranslation} from "react-i18next";
-import {Helmet} from "react-helmet";
-import kontaktinfoStore from "../stores/KontaktinfoStore";
-
-const load = (Component: any) => (props: any) => (
-    <Suspense fallback={<DigdirLoading />}>
-        <Component {...props}/>
-    </Suspense>
-)
 
 const styles = (theme) => ({
     root: {
@@ -58,6 +50,12 @@ const styles = (theme) => ({
         height: "2em",
     },
 });
+
+const load = (Component: any) => (props: any) => (
+    <Suspense fallback={<DigdirLoading />}>
+        <Component {...props}/>
+    </Suspense>
+)
 
 const RouteSwitch = load(lazy(() => import ("../RouteSwitch")));
 

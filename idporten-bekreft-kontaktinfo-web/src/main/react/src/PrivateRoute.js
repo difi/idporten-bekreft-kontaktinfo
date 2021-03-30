@@ -1,8 +1,6 @@
-
 import React, { Component } from 'react';
-
 import { Redirect } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import DefaultLayout from "./DefaultLayout";
 

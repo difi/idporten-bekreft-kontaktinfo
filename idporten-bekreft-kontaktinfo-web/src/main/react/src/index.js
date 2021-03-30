@@ -4,18 +4,12 @@ import './scss/import.scss';
 import App from './App';
 import {Provider} from "mobx-react";
 import * as serviceWorker from './serviceWorker';
-import kontaktinfoStore from "./stores/KontaktinfoStore";
 import {createMuiTheme} from "@material-ui/core";
 import {ThemeProvider} from "@material-ui/styles";
 import {SnackbarProvider} from "notistack";
 import MainStore from "./stores/MainStore";
 import axios from "axios";
-
 import './i18n';
-
-const stores = {
-    kontaktinfoStore
-};
 
 // api url
 export const SERVER_API_URL = (process.env.NODE_ENV === 'development') ? "http://localhost:8080" : ""; //"http://localhost:8080" "https://eid-atest-web01.dmz.local"

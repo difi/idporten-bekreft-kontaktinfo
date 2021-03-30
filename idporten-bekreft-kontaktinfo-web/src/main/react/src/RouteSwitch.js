@@ -3,14 +3,13 @@ import {withRouter} from 'react-router';
 import {Switch} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import DigdirLoading from "./common/DigdirLoading";
-import kontaktinfoStore from "./stores/KontaktinfoStore";
 import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import {inject} from "mobx-react";
 import {Helmet} from "react-helmet";
-import KontaktinfoStore from "./stores/KontaktinfoStore";
-//import Validator from "./components/Validator";
+import { trackPromise } from 'react-promise-tracker';
+import { usePromiseTracker } from "react-promise-tracker";
 
 const load = (Component: any) => (props: any) => (
     <Suspense fallback={<DigdirLoading />}>
@@ -21,6 +20,25 @@ const load = (Component: any) => (props: any) => (
 const Create = load(lazy(() => import ("./pages/Create")));
 const MissingMobile = load(lazy(() => import ("./pages/MissingMobile")));
 const MissingEmail = load(lazy(() => import ("./pages/MissingEmail")));
+
+const LoadApplicationPages = props => {
+    
+    const { promiseInProgress } = usePromiseTracker();
+
+    if(promiseInProgress){
+        return <DigdirLoading />
+    } else {
+        return <Switch>
+            <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
+            <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
+            <PrivateRoute path={"/create"} component={Create}/>
+            <PrivateRoute path={"/editMobile"} component={EditMobile}/>
+            <PrivateRoute path={"/editEmail"} component={EditEmail}/>
+            <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo}/>
+            {/*<DefaultLayout component={NotFound} />*/}
+        </Switch>
+    }
+}
 
 @inject("kontaktinfoStore")
 class RouteSwitch extends React.Component {
@@ -47,7 +65,11 @@ class RouteSwitch extends React.Component {
 
         // get kontaktinfo
         if (kontaktinfoStore.code){
-            kontaktinfoStore.getKontaktinfo(code);
+            trackPromise(
+                kontaktinfoStore.getKontaktinfo(code)
+                    .catch((error) => {
+                        this.setState(() => { throw error; });
+                    }));
         }
     }
 
@@ -59,19 +81,15 @@ class RouteSwitch extends React.Component {
             kontaktinfoStore.setLanguage(language)
         }
 
+
         return (
             <React.Fragment>
-                <Helmet htmlAttributes={{ lang: kontaktinfoStore.language }}>
-                </Helmet>
-                <Switch>
-                    <PrivateRoute path={"/createEmail"} component={MissingEmail}/>
-                    <PrivateRoute path={"/createMobile"} component={MissingMobile}/>
-                    <PrivateRoute path={"/create"} component={Create}/>
-                    <PrivateRoute path={"/editMobile"} component={EditMobile}/>
-                    <PrivateRoute path={"/editEmail"} component={EditEmail}/>
-                    <PrivateRoute path={["/", "/kontaktinfo"]} component={ConfirmKontaktinfo}/>
-                    {/*<DefaultLayout component={NotFound} />*/}
-                </Switch>
+                <React.Fragment>
+                    <Helmet htmlAttributes={{ lang: kontaktinfoStore.language }}/>
+                    
+                    <LoadApplicationPages/>
+                    
+                </React.Fragment>
             </React.Fragment>
         );
     }
