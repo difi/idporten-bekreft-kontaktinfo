@@ -24,7 +24,7 @@ class Footer extends Component {
                             <Trans i18nKey="misc.security-and-privacy"/>
                         </a>
                         <p>
-                            <a tabIndex="105" rel="noreferrer" target="_blank" id="difilink" href="http://www.digdir.no/"
+                            <a tabIndex="106" rel="noreferrer" target="_blank" id="difilink" href="http://www.digdir.no/"
                                className="f-Main_Link"><Trans i18nKey="misc.provided-by"/></a>
                         </p>
                     </div>

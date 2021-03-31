@@ -23,10 +23,21 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/eid-logo.gif"/>
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json"/>
 
+  <!-- start puzzel requirements -->
+	<link rel="stylesheet" href="https://chat.puzzel.com/Content/Client/css/intelecom-light.css" type="text/css" />
+  <link rel="stylesheet" href="%PUBLIC_URL%/styles/chat.css" type="text/css" />
+	<script src="https://chat.puzzel.com/Content/Client/js/jquery-latest.min.js"></script>
+	<script src="https://chat.puzzel.com/Content/Client/js/jquery-intelecomchat.libs.latest.min.js"></script>
+	<script src="https://chat.puzzel.com/Content/Client/js/jquery-intelecomchat.latest.min.js"></script>
+  <!-- end puzzel requirements -->
+
   <title>Bekreft Kontaktinformasjon</title>
 
 </head>
 <body>
 <div id="root"></div>
+<div id="idporten-chat" class="intelecomchat">
+  <script src="%PUBLIC_URL%/js/chat.js"></script>
+</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
 import {API_BASE_URL} from "../index";
 
 class Validator extends Component {

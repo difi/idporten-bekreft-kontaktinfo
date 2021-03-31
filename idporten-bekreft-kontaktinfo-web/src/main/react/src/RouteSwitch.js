@@ -7,7 +7,6 @@ import ConfirmKontaktinfo from "./pages/ConfirmKontaktinfo";
 import EditMobile from "./pages/EditMobile";
 import EditEmail from "./pages/EditEmail";
 import {inject} from "mobx-react";
-import {Helmet} from "react-helmet";
 import { trackPromise } from 'react-promise-tracker';
 import { usePromiseTracker } from "react-promise-tracker";
 
@@ -81,15 +80,9 @@ class RouteSwitch extends React.Component {
             kontaktinfoStore.setLanguage(language)
         }
 
-
         return (
             <React.Fragment>
-                <React.Fragment>
-                    <Helmet htmlAttributes={{ lang: kontaktinfoStore.language }}/>
-                    
-                    <LoadApplicationPages/>
-                    
-                </React.Fragment>
+                <LoadApplicationPages/>
             </React.Fragment>
         );
     }

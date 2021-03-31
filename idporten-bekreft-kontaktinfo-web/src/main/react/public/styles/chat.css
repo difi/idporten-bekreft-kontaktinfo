@@ -1,0 +1,33 @@
+.intelecomStarterRight {
+    display: block !important;
+    bottom: 0;
+}
+
+.intelecomStarterMiddle {
+    top: unset;
+    bottom: 5%;
+    right: 2%;
+}
+
+.intelecomdialog__answer-text a,
+.intelecomdialog__question a {
+    color: #1a71a5 !important;
+}
+
+.intelecomdialog__answer-text a:before,
+.intelecomdialog__question a:before {
+    border-bottom: none !important;
+}
+
+.intelecom__maxchars_reached,
+.intelecom_icon-star,
+.intelecom_icon-star-empty,
+.intelecom_icon-ok,
+.intelecomchatheader,
+.intelecomchat__button {
+    background: #0665bb !important;
+}
+
+.intelecomchatstarter {
+    border: 5px solid #0665bb;
+}
