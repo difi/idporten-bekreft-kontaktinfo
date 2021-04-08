@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {withTranslation,Trans} from "react-i18next";
 
 class Header extends Component {

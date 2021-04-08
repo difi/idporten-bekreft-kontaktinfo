@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import {API_BASE_URL} from "../index";
 
 class Validator extends Component {
@@ -9,48 +9,80 @@ class Validator extends Component {
     EMAIL_REPEAT_ERROR = "error.emailRepeatError"
     ALL_CONTACT_INFO_REMOVED = "error.allContactInfoIsRemoved"
 
-    async validateMobile(current) {
+    validateMobile(current) {
 
-        if(current.mobile.length){
-            try {
-                const response = await fetch(API_BASE_URL + "/validate/mobile/" + current.mobile)
-                let data = await response.json();
-                if (!data.valid) return this.MOBILE_ERROR;
+        return new Promise( (resolve, reject) => {
 
-            } catch(e){
-                // validate data with regex if request failes
-                if (!current.mobile.replace(/\s+/g, '').match("^([0]{2}[0-9]{2})?([+][0-9]{2})?[49][0-9]{7,19}$")){
-                    return this.MOBILE_ERROR;
-                }
+            if(this.preventUserFromDeletingAllContactInfo(current)) {
+                reject(this.ALL_CONTACT_INFO_REMOVED);
             }
-        }
 
-        if (current.mobileConfirmed && current.mobile !== current.mobileConfirmed){
-            return this.MOBILE_REPEAT_ERROR;
-        }
+            if(current.mobile.length){
 
-        return this.preventUserFromDeletingAllContactInfo(current)
+                if (current.mobileConfirmed && current.mobile !== current.mobileConfirmed){
+                    reject(this.MOBILE_REPEAT_ERROR);
+                }
+
+                fetch(API_BASE_URL + "/validate/mobile/" + current.mobile)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(!data.valid){
+                            reject(this.MOBILE_ERROR)
+                        } else (
+                            resolve()
+                        )
+                    })
+            } else {
+                resolve()
+            }
+        })
     }
 
-    async validateEmail(current){
-        if (current.email.length){
-            try{
-                const response = await fetch(API_BASE_URL + "/validate/email/" + current.email)
-                let data = await response.json();
-                if (!data.valid) return this.EMAIL_ERROR;
-            } catch(e){
-                // validate data with regex if request failes
-                if (!(current.email.match("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])$"))) {
-                    return this.EMAIL_ERROR;
-                }
+    validateEmail(current){
+
+        return new Promise( (resolve, reject) => {
+
+            if(this.preventUserFromDeletingAllContactInfo(current)) {
+                reject(this.ALL_CONTACT_INFO_REMOVED);
             }
-        }
 
-        if (current.emailConfirmed && current.email !== current.emailConfirmed){
-            return this.EMAIL_REPEAT_ERROR;
-        }
+            if(current.email.length){
 
-        return this.preventUserFromDeletingAllContactInfo(current)
+                if (current.emailConfirmed && current.email !== current.emailConfirmed){
+                    reject(this.EMAIL_REPEAT_ERROR);
+                }
+
+                fetch(API_BASE_URL + "/validate/email/" + current.email)
+                    .then(response => response.json())
+                    .then(data => {
+                        if(!data.valid){
+                            reject(this.EMAIL_ERROR)
+                        } else (
+                            resolve()
+                        )
+                    })
+            } else {
+                resolve()
+            }
+        })
+    }
+
+    validateEmailAndMobile(current){
+        return new Promise( (resolve, reject) => {
+            this.validateEmail(current)
+                .then(() => {
+                    this.validateMobile(current)
+                        .then(() => {
+                            resolve()
+                        })
+                        .catch(error =>
+                            reject(error)
+                        )
+                })
+                .catch(error =>
+                    reject(error)
+                )
+        })
     }
 
     /* custom for idk */
@@ -63,9 +95,11 @@ class Validator extends Component {
     preventUserFromDeletingAllContactInfo(current){
         if(current.history.email.length > 0 || current.history.mobile.length > 0) {
             if(current.email.length === 0 && current.mobile.length === 0){
-                return this.ALL_CONTACT_INFO_REMOVED;
+                return true;
             }
         }
+
+        return false;
     }
 }
 

@@ -97,9 +97,6 @@ class SynchedInput extends Component {
             />
         );
     }
-
-
-
 }
 
 export default withTranslation()(SynchedInput);

@@ -3,6 +3,21 @@ import {withStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import {withTranslation} from "react-i18next";
 
+class DigdirIconButton extends Component {
+
+    render() {
+        const { classes, textKey, text, grey, t, tReady, ...rest } = this.props;
+
+        const buttonText = text ? text : t(textKey);
+
+        return (
+            <Button className={classes.root} variant="outlined" data-grey={grey} disableElevation {...rest}>
+                {buttonText}
+            </Button>
+        );
+    }
+}
+
 const styles = (theme) => ({
     root: {
         flexGrow: "1",
@@ -36,9 +51,9 @@ const styles = (theme) => ({
         '&:only-child': {
             margin: "0em 0 0 17em",
 
-        [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down('sm')]: {
                 margin: 0,
-        }
+            }
 
         },
         '&[data-grey=true]': {
@@ -64,24 +79,6 @@ const styles = (theme) => ({
         },
     },
 });
-
-
-class DigdirIconButton extends Component {
-
-    render() {
-        const { classes, textKey, text, grey, t, tReady, ...rest } = this.props;
-
-        const buttonText = text ? text : t(textKey);
-
-        return (
-            <Button className={classes.root} variant="outlined" data-grey={grey} disableElevation {...rest}>
-                {buttonText}
-            </Button>
-
-        );
-    }
-
-}
 
 const compose = (...rest) => x => rest.reduceRight((y, f) => f(y), x);
 export default compose(withStyles(styles), withTranslation())(DigdirIconButton);

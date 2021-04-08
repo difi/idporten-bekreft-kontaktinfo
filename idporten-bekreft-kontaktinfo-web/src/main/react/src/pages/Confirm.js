@@ -10,11 +10,11 @@ import {Edit} from '@material-ui/icons';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import ContentHeader from "../common/ContentHeader";
-import PageWrapper from "../common/Page";
+import PageWrapper from "../components/Page";
 
 @inject("kontaktinfoStore")
 @observer
-class ConfirmKontaktinfo extends Component {
+class Confirm extends Component {
 
     @autobind
     handleEditEmail(e) {
@@ -35,10 +35,9 @@ class ConfirmKontaktinfo extends Component {
     @autobind
     handleSubmit(e) {
         e.preventDefault();
+
         this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
-            this.props.kontaktinfoStore.updateGotoUrl().then(() => {
                 document.getElementById('postForm').submit();
-            })
         }).catch((error) => {
             this.setState(() => { throw error; });
         });
@@ -117,5 +116,5 @@ class ConfirmKontaktinfo extends Component {
     }
 }
 
-export default ConfirmKontaktinfo;
+export default Confirm;
 

@@ -42,5 +42,5 @@ IBK består av Spring boot (backend) og en React applikasjon.
 For å kjøre React applikasjon
 `cd idporten-bekreft-kontaktinfo-web/src/main/react` og kjør applikasjon med `yarn start`. Applikasjon er tilgjengelig på `localhost:3000`
 
-For at React applikasjonen skal få lov til å kommunisere med Spring applikasjonen (`localhost:8080) må følgende endringer gjøres i `index.js`: ```
+For at React applikasjonen skal få lov til å kommunisere med Spring applikasjonen (`localhost:8080`) må følgende endringer gjøres i `index.js`: ```
 axios.defaults.withCredentials = false;```

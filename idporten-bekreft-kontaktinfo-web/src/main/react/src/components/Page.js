@@ -2,13 +2,6 @@ import React, {Component} from "react";
 import {withStyles} from "@material-ui/core";
 import {observer} from "mobx-react";
 
-const styles = (theme) => ({
-    root: {
-        backgroundColor: "#fff",
-        padding: "2rem",
-    },
-});
-
 @observer
 class PageWrapper extends Component {
 
@@ -23,7 +16,13 @@ class PageWrapper extends Component {
             </React.Fragment>
         );
     }
-
 }
+
+const styles = () => ({
+    root: {
+        backgroundColor: "#fff",
+        padding: "2rem",
+    },
+});
 
 export default withStyles(styles)(PageWrapper);

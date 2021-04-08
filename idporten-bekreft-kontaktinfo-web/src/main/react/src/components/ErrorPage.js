@@ -7,7 +7,7 @@ import DigdirButton from "../common/DigdirButton";
 import DigdirForm from "../common/DigdirForm";
 import {inject} from "mobx-react";
 import autobind from "autobind-decorator";
-import PageWrapper from "../common/Page";
+import PageWrapper from "./Page";
 
 @inject("kontaktinfoStore")
 class ErrorPage extends Component {

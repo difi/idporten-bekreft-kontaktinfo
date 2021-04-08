@@ -1,21 +1,5 @@
 import React, {Component} from "react";
-
 import {withStyles} from "@material-ui/core";
-
-const styles = (theme) => ({
-    root: {
-        display: "flex",
-        justifyContent: "space-between",
-        paddingTop: "2rem",
-        flexWrap: "wrap",
-        alignItems: "flex-end",
-        '& button:first-child': {
-            order: "2",
-        }
-    },
-
-});
-
 
 class DigdirButtons extends Component {
 
@@ -28,10 +12,21 @@ class DigdirButtons extends Component {
             <div className={classes.root} style={singleButton ? {justifyContent: "center"} : null}>
                 {children}
             </div>
-
         );
     }
-
 }
+
+const styles = () => ({
+    root: {
+        display: "flex",
+        justifyContent: "space-between",
+        paddingTop: "2rem",
+        flexWrap: "wrap",
+        alignItems: "flex-end",
+        '& button:first-child': {
+            order: "2",
+        }
+    },
+});
 
 export default withStyles(styles)(DigdirButtons);

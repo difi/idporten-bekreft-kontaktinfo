@@ -10,7 +10,7 @@ import {observable} from "mobx";
 import ContentHeader from "../common/ContentHeader";
 import ContentInfo from "../common/ContentInfo";
 import Validator from "../components/Validator";
-import PageWrapper from "../common/Page";
+import PageWrapper from "../components/Page";
 
 @inject("kontaktinfoStore")
 @observer
@@ -22,14 +22,14 @@ class MissingEmail extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        Validator.validateEmail(current).then(response => {
-            this.errorMessage = response;
-
-            if(!this.errorMessage){
+        Validator.validateEmail(current)
+            .then(() => {
                 this.props.kontaktinfoStore.current.history.email = current.email;
                 this.props.history.push('/kontaktinfo');
-            }
-        });
+            })
+            .catch(error => {
+                this.errorMessage = error;
+            })
     }
 
     @autobind

@@ -1,6 +1,18 @@
 import React, {Component} from 'react';
 import {withStyles, CircularProgress} from "@material-ui/core";
 
+class DigdirLoading extends Component {
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <div className={classes.root}>
+                <CircularProgress className={classes.loader} color="inherit" />
+            </div>
+        );
+    }
+}
+
 const styles = (theme) => ({
     root: {
         zIndex: theme.zIndex.drawer + 1,
@@ -15,18 +27,5 @@ const styles = (theme) => ({
         top: "40%"
     }
 });
-
-class DigdirLoading extends Component {
-    render() {
-
-        const { classes } = this.props;
-
-        return (
-            <div className={classes.root}>
-                <CircularProgress className={classes.loader} color="inherit" />
-            </div>
-        );
-    }
-}
 
 export default withStyles(styles)(DigdirLoading);

@@ -9,13 +9,12 @@ import ContentHeader from "../common/ContentHeader";
 import ContentInfoBox from "../common/ContentInfoBox";
 import {observable} from "mobx";
 import Validator from "../components/Validator";
-import PageWrapper from "../common/Page";
+import PageWrapper from "../components/Page";
 
 @inject("kontaktinfoStore")
 @observer
 class Create extends Component {
-    @observable errorEmail = null;
-    @observable errorMobile = null;
+    @observable errorMessage = null;
 
     @autobind
     handleSubmit(e) {
@@ -24,34 +23,21 @@ class Create extends Component {
         const {kontaktinfoStore} = this.props;
         const current = kontaktinfoStore.current;
 
-        Validator.validateEmail(current).then(result => {
-            this.errorEmail = result;
-
-            Validator.validateMobile(current).then(result => {
-                this.errorMobile = result;
-
-                if (!this.errorEmail && !this.errorMobile) {
-
-                    if (current.mobile.length !== 0 || current.email.length !== 0) {
-                        this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
-                            this.submit()
-                        }).catch((error) => {
-                            this.setState(() => { throw error; });
-                        });
-                    } else {
-                        this.submit()
-                    }
-
+        Validator.validateEmailAndMobile(current)
+            .then(() => {
+                if(current.isKontaktinfoUpdated){
+                    this.props.kontaktinfoStore.updateKontaktinfo().then(() => {
+                        document.getElementById('confirmContactinfo').submit()
+                    }).catch((error) => {
+                        this.setState(() => { throw error; });
+                    });
+                } else {
+                    document.getElementById('confirmContactinfo').submit()
                 }
             })
-        })
-    }
-    
-    submit(){
-        this.props.kontaktinfoStore.updateGotoUrl().then(() => {
-            // dont submit data to KRR if no data is provided
-            document.getElementById('confirmContactinfo').submit()
-        });
+            .catch(error => {
+                this.errorMessage = error
+            })
     }
 
     render() {
@@ -62,10 +48,7 @@ class Create extends Component {
             <React.Fragment>
                 <ContentHeader page_title="page_title.create"/>
                 <PageWrapper>
-
-
-                    { this.errorEmail && <ContentInfoBox content={this.errorEmail} state="error"  /> }
-                    { this.errorMobile && <ContentInfoBox content={this.errorMobile} state="error"  /> }
+                    { this.errorMessage && <ContentInfoBox content={this.errorMessage} state="error"  /> }
 
                     <ContentInfoBox content="info.manglendeInformasjon"  />
 
