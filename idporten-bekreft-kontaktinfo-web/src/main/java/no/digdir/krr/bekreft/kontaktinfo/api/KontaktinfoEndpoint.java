@@ -1,10 +1,10 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest;
+package no.digdir.krr.bekreft.kontaktinfo.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.digdir.krr.bekreft.kontaktinfo.domain.ContactInfoResource;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.UnauthorizedException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.UnauthorizedException;
 import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,12 @@ public class KontaktinfoEndpoint {
             throw new UnauthorizedException("Could not retrieve resource.");
         }
 
-        clientService.updateKontaktinfo(personResource.getPersonIdentifikator(), updatedResource.getEmail(), updatedResource.getMobile());
+        clientService.updateKontaktinfo(
+                personResource.getPersonIdentifikator(),
+                updatedResource.getEmail(),
+                updatedResource.getMobile()
+        );
+
         ContactInfoResource responseResource = updateAndCacheResponseResource(updatedResource, personResource);
         return new ResponseEntity<>(responseResource, HttpStatus.OK);
     }

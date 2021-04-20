@@ -6,7 +6,7 @@ import no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyProvider;
 import no.digdir.krr.bekreft.kontaktinfo.crypto.KeyStoreProvider;
 import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterHealth;
-import no.digdir.krr.bekreft.kontaktinfo.rest.PAREndpoint;
+import no.digdir.krr.bekreft.kontaktinfo.api.PAREndpoint;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;
 import no.idporten.sdk.oidcserver.OpenIDConnectIntegration;
 import org.junit.Test;

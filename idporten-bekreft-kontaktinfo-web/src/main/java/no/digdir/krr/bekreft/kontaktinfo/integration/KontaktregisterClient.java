@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
 import no.digdir.krr.bekreft.kontaktinfo.config.KrrConfigProvider;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.SQLException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import no.difi.kontaktregister.dto.UserDetailResource;
 import no.difi.kontaktregister.dto.UserResource;
+import no.digdir.krr.bekreft.kontaktinfo.config.StringConstants;
 import no.idporten.domain.user.PersonNumber;
 
 import java.time.LocalDate;
@@ -81,6 +82,8 @@ public class PersonResource {
 
     private String code;
 
+    private String nextAction;
+
     public static PersonResource fromUserDetailResource(UserDetailResource userDetailResource, Integer tipDaysUser) {
         final UserResource userResource = userDetailResource.getUser();
         boolean showDpiInfo = showDpiInfo(userDetailResource, userResource);
@@ -97,13 +100,13 @@ public class PersonResource {
                 .reserved(userResource.isReserved())
                 .showDpiInfo(showDpiInfo)
                 .lastUpdated(userResource.getLastUpdated())
-                .shouldUpdateKontaktinfo(shouldUpdateKontaktinfo(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
+                .shouldUpdateKontaktinfo(isIt90DaysSinceLastUpdate(userDetailResource.getUser().getLastUpdated(), tipDaysUser))
                 .status(ACTIVE)
                 .newUser(false)
                 .build();
     }
 
-    public static boolean shouldUpdateKontaktinfo(Date lastUpdated, Integer tipDaysUser) {
+    public static boolean isIt90DaysSinceLastUpdate(Date lastUpdated, Integer tipDaysUser) {
         if (lastUpdated == null) {
             return true;
         }
@@ -133,6 +136,40 @@ public class PersonResource {
             return true;
         }
         return !personNumber.isYoungerThan18();
+    }
+
+    public boolean shouldUserConfirmContactInfo() {
+
+            if (isNewUser()) {
+                nextAction = StringConstants.CREATE_PAGE;
+                return true;
+            }
+
+            if (getShouldUpdateKontaktinfo()) {
+
+                if (getEmail() == null && getMobile() == null) {
+                    nextAction = StringConstants.CREATE_PAGE;
+                    return true;
+                }
+
+                if (getEmail() == null) {
+                    nextAction = StringConstants.CREATE_EMAIL_PAGE;
+                    return true;
+                }
+
+                if (getMobile() == null) {
+                    nextAction = StringConstants.CREATE_MOBILE_PAGE;
+                    return true;
+                }
+
+                // user should confirm / update contact info
+                nextAction = StringConstants.CONFIRM_PAGE;
+                return true;
+            }
+
+        // user should be redirected back to idporten
+        nextAction = StringConstants.NO_CHANGES;
+        return false;
     }
 
     public boolean isNewUser() {

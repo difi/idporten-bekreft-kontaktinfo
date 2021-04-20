@@ -1,4 +1,4 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest;
+package no.digdir.krr.bekreft.kontaktinfo.api;
 
 import org.json.JSONObject;
 import org.junit.Test;

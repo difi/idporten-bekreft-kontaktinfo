@@ -7,14 +7,11 @@ import no.digdir.krr.bekreft.kontaktinfo.logging.audit.AuditService;
 import no.digdir.krr.bekreft.kontaktinfo.config.KrrConfigProvider;
 import no.digdir.krr.bekreft.kontaktinfo.domain.PersonResource;
 import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterClient;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.ResourceNotFoundException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 

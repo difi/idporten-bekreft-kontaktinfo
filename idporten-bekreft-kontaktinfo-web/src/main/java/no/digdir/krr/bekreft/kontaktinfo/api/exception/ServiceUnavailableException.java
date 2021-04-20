@@ -1,4 +1,4 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest.exception;
+package no.digdir.krr.bekreft.kontaktinfo.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

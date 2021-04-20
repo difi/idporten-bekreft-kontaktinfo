@@ -1,4 +1,4 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest;
+package no.digdir.krr.bekreft.kontaktinfo.api;
 
 import no.digdir.krr.bekreft.kontaktinfo.service.ClientService;
 import no.digdir.krr.bekreft.kontaktinfo.service.KontaktinfoCache;

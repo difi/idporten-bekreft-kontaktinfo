@@ -1,22 +1,14 @@
 package no.digdir.krr.bekreft.kontaktinfo.controller;
 
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
+
 @Controller
 @Slf4j
 @RequestMapping("/api")
@@ -54,5 +46,4 @@ public class AutoSubmitController {
     private String getContentType() {
         return "text/html";
     }
-
 }

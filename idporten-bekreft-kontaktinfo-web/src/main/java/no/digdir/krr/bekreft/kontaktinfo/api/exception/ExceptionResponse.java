@@ -1,4 +1,4 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest.exception;
+package no.digdir.krr.bekreft.kontaktinfo.api.exception;
 
 import lombok.*;
 

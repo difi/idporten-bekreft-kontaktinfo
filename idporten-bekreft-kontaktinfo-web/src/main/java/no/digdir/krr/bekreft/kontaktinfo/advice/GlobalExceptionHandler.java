@@ -1,10 +1,10 @@
 package no.digdir.krr.bekreft.kontaktinfo.advice;
 
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.ResourceNotFoundException;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.ServiceUnavailableException;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.SQLException;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.UnauthorizedException;
-import no.digdir.krr.bekreft.kontaktinfo.rest.exception.ExceptionResponse;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.ResourceNotFoundException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.ServiceUnavailableException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.SQLException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.UnauthorizedException;
+import no.digdir.krr.bekreft.kontaktinfo.api.exception.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

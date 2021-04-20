@@ -1,8 +1,9 @@
-package no.digdir.krr.bekreft.kontaktinfo.rest;
+package no.digdir.krr.bekreft.kontaktinfo.api;
 
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import lombok.extern.slf4j.Slf4j;
+import no.digdir.krr.bekreft.kontaktinfo.config.StringConstants;
 import no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController;
 import no.digdir.krr.bekreft.kontaktinfo.integration.KontaktregisterHealth;
 import no.idporten.sdk.oidcserver.OAuth2Exception;
@@ -31,9 +32,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.concurrent.TimeUnit;
-
-import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.COMPLETE_AUTHORIZE_PAGE;
-import static no.digdir.krr.bekreft.kontaktinfo.controller.ContactInfoController.DIGITALCONTACTREGISTER_PID;
 import static org.springframework.boot.actuate.health.Status.DOWN;
 
 @RestController
@@ -101,8 +99,8 @@ public class PAREndpoint {
             request.getSession(true).setAttribute(SESSION_ATTRIBUTE_AUTHORIZATION_REQUEST, pushedAuthorizationRequest);
 
             return contactInfoController.confirm(
-                    pushedAuthorizationRequest.getParameter(DIGITALCONTACTREGISTER_PID),
-                    COMPLETE_AUTHORIZE_PAGE,
+                    pushedAuthorizationRequest.getParameter(StringConstants.DIGITALCONTACTREGISTER_PID),
+                    StringConstants.COMPLETE_AUTHORIZE_PAGE,
                     pushedAuthorizationRequest.getResolvedUiLocale(),
                     request);
         } catch (OAuth2Exception e) {
